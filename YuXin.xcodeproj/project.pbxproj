@@ -11,13 +11,17 @@
 		F4141DC81D34889A00286585 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DC71D34889A00286585 /* AppDelegate.m */; };
 		F4141DCB1D34889A00286585 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DCA1D34889A00286585 /* ViewController.m */; };
 		F4141DCE1D34889A00286585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4141DCC1D34889A00286585 /* Main.storyboard */; };
-		F4141DD31D34889A00286585 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4141DD11D34889A00286585 /* LaunchScreen.storyboard */; };
 		F4141DDE1D34889A00286585 /* YuXinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DDD1D34889A00286585 /* YuXinTests.m */; };
 		F4141DE91D34889A00286585 /* YuXinUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DE81D34889A00286585 /* YuXinUITests.m */; };
 		F4141DFE1D34D3F300286585 /* YuXinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DF91D34D3F300286585 /* YuXinModel.m */; };
 		F4141DFF1D34D3F300286585 /* YuXinSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DFB1D34D3F300286585 /* YuXinSDK.m */; };
 		F4141E001D34D3F300286585 /* YuXinXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DFD1D34D3F300286585 /* YuXinXmlParser.m */; };
 		F4141E031D34D58200286585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4141E021D34D58200286585 /* Assets.xcassets */; };
+		F43AE9601D3769380060020F /* libiconv.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F43AE95F1D3769380060020F /* libiconv.2.tbd */; };
+		F43AE9621D3769BF0060020F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F43AE9611D3769BF0060020F /* Images.xcassets */; };
+		F43AE9671D3773CA0060020F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F43AE9651D3773CA0060020F /* LaunchScreen.storyboard */; };
+		F43AE96A1D377E1C0060020F /* UserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9691D377E1C0060020F /* UserHelper.m */; };
+		F43AE9A51D3872610060020F /* DPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9A41D3872610060020F /* DPLoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +49,6 @@
 		F4141DC91D34889A00286585 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		F4141DCA1D34889A00286585 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F4141DCD1D34889A00286585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F4141DD21D34889A00286585 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4141DD41D34889A00286585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4141DD91D34889A00286585 /* YuXinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YuXinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4141DDD1D34889A00286585 /* YuXinTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YuXinTests.m; sourceTree = "<group>"; };
@@ -60,6 +63,14 @@
 		F4141DFC1D34D3F300286585 /* YuXinXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinXmlParser.h; sourceTree = "<group>"; };
 		F4141DFD1D34D3F300286585 /* YuXinXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinXmlParser.m; sourceTree = "<group>"; };
 		F4141E021D34D58200286585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F43AE95F1D3769380060020F /* libiconv.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.tbd; path = usr/lib/libiconv.2.tbd; sourceTree = SDKROOT; };
+		F43AE9611D3769BF0060020F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		F43AE9661D3773CA0060020F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F43AE9681D377E1C0060020F /* UserHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHelper.h; sourceTree = "<group>"; };
+		F43AE9691D377E1C0060020F /* UserHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserHelper.m; sourceTree = "<group>"; };
+		F43AE96C1D3780810060020F /* DPNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPNotifications.h; sourceTree = "<group>"; };
+		F43AE9A31D3872610060020F /* DPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPLoginViewController.h; sourceTree = "<group>"; };
+		F43AE9A41D3872610060020F /* DPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPLoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F43AE9601D3769380060020F /* libiconv.2.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +102,7 @@
 		F4141DB71D34889A00286585 = {
 			isa = PBXGroup;
 			children = (
+				F43AE95F1D3769380060020F /* libiconv.2.tbd */,
 				F4141DC21D34889A00286585 /* YuXin */,
 				F4141DF71D34D3F300286585 /* YuXinSDK */,
 				F4141E011D34D58200286585 /* Resources */,
@@ -112,14 +125,16 @@
 		F4141DC21D34889A00286585 /* YuXin */ = {
 			isa = PBXGroup;
 			children = (
+				F43AE96B1D3780560060020F /* Headers */,
 				F4141DF61D3499D600286585 /* Module */,
 				F4141DC61D34889A00286585 /* AppDelegate.h */,
 				F4141DC71D34889A00286585 /* AppDelegate.m */,
 				F4141DC91D34889A00286585 /* ViewController.h */,
 				F4141DCA1D34889A00286585 /* ViewController.m */,
 				F4141DCC1D34889A00286585 /* Main.storyboard */,
-				F4141DD11D34889A00286585 /* LaunchScreen.storyboard */,
+				F43AE9651D3773CA0060020F /* LaunchScreen.storyboard */,
 				F4141DD41D34889A00286585 /* Info.plist */,
+				F43AE9611D3769BF0060020F /* Images.xcassets */,
 				F4141DC31D34889A00286585 /* Supporting Files */,
 			);
 			path = YuXin;
@@ -154,6 +169,8 @@
 		F4141DF61D3499D600286585 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				F47D908F1D369AB700DF831D /* Login */,
+				F47D90901D369AB700DF831D /* User */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -177,6 +194,32 @@
 				F4141E021D34D58200286585 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		F43AE96B1D3780560060020F /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				F43AE96C1D3780810060020F /* DPNotifications.h */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		F47D908F1D369AB700DF831D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F43AE9A31D3872610060020F /* DPLoginViewController.h */,
+				F43AE9A41D3872610060020F /* DPLoginViewController.m */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		F47D90901D369AB700DF831D /* User */ = {
+			isa = PBXGroup;
+			children = (
+				F43AE9681D377E1C0060020F /* UserHelper.h */,
+				F43AE9691D377E1C0060020F /* UserHelper.m */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,7 +325,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4141DD31D34889A00286585 /* LaunchScreen.storyboard in Resources */,
+				F43AE9621D3769BF0060020F /* Images.xcassets in Resources */,
+				F43AE9671D3773CA0060020F /* LaunchScreen.storyboard in Resources */,
 				F4141E031D34D58200286585 /* Assets.xcassets in Resources */,
 				F4141DCE1D34889A00286585 /* Main.storyboard in Resources */,
 			);
@@ -309,11 +353,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F43AE9A51D3872610060020F /* DPLoginViewController.m in Sources */,
 				F4141DFF1D34D3F300286585 /* YuXinSDK.m in Sources */,
 				F4141DCB1D34889A00286585 /* ViewController.m in Sources */,
 				F4141E001D34D3F300286585 /* YuXinXmlParser.m in Sources */,
 				F4141DFE1D34D3F300286585 /* YuXinModel.m in Sources */,
 				F4141DC81D34889A00286585 /* AppDelegate.m in Sources */,
+				F43AE96A1D377E1C0060020F /* UserHelper.m in Sources */,
 				F4141DC51D34889A00286585 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,10 +404,10 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		F4141DD11D34889A00286585 /* LaunchScreen.storyboard */ = {
+		F43AE9651D3773CA0060020F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				F4141DD21D34889A00286585 /* Base */,
+				F43AE9661D3773CA0060020F /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -406,7 +452,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -445,7 +491,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
