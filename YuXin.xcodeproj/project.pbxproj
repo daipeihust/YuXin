@@ -84,6 +84,7 @@
 		F43AE9B61D38BA8C0060020F /* DPArticleTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArticleTitleCell.m; sourceTree = "<group>"; };
 		F43AE9B81D38C5AF0060020F /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		F43AE9B91D38CEC90060020F /* RateForFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateForFit.h; sourceTree = "<group>"; };
+		F43AE9BA1D38DD0C0060020F /* GlobalColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalColors.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +229,7 @@
 				F43AE96C1D3780810060020F /* DPNotifications.h */,
 				F43AE9B81D38C5AF0060020F /* PrefixHeader.pch */,
 				F43AE9B91D38CEC90060020F /* RateForFit.h */,
+				F43AE9BA1D38DD0C0060020F /* GlobalColors.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";

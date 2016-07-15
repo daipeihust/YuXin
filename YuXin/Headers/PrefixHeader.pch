@@ -15,5 +15,6 @@
 #import "Masonry.h"
 #import "YuXinSDK.h"
 #import "RateForFit.h"
+#import "GlobalColors.h"
 
 #endif /* PrefixHeader_pch */

@@ -7,11 +7,15 @@
 //
 
 #import "DPArticleTitleViewController.h"
+#import "DPArticleTitleCell.h"
+
+static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
 
 @interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSMutableArray *titleArray;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -49,6 +53,13 @@
 
 #pragma mark - UITableViewDelegate
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
 
 #pragma mark - UITableViewDataSource
 
@@ -60,7 +71,19 @@
     return nil;
 }
 
+#pragma mark - Getter
 
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] init];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.backgroundColor = DPBackgroundColor;
+        [_tableView registerClass:[DPArticleTitleCell class] forCellReuseIdentifier:[articleTitleCellReuseIdentifier copy]];
+        
+    }
+    return _tableView;
+}
 
 
 @end
