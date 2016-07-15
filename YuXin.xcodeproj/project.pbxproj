@@ -82,6 +82,8 @@
 		F43AE9B31D38BA140060020F /* DPArticleTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArticleTitleViewController.m; sourceTree = "<group>"; };
 		F43AE9B51D38BA8C0060020F /* DPArticleTitleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArticleTitleCell.h; sourceTree = "<group>"; };
 		F43AE9B61D38BA8C0060020F /* DPArticleTitleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArticleTitleCell.m; sourceTree = "<group>"; };
+		F43AE9B81D38C5AF0060020F /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		F43AE9B91D38CEC90060020F /* RateForFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateForFit.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				F43AE96C1D3780810060020F /* DPNotifications.h */,
+				F43AE9B81D38C5AF0060020F /* PrefixHeader.pch */,
+				F43AE9B91D38CEC90060020F /* RateForFit.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -633,6 +637,8 @@
 			baseConfigurationReference = A48EDBFA22772AC1E15AF072 /* Pods-YuXin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = YuXin/Headers/PrefixHeader.pch;
 				INFOPLIST_FILE = YuXin/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -646,6 +652,8 @@
 			baseConfigurationReference = 23AE5F2DA7D8C9AFEDE1C349 /* Pods-YuXin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = YuXin/Headers/PrefixHeader.pch;
 				INFOPLIST_FILE = YuXin/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

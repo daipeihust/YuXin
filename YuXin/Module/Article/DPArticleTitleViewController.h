@@ -10,4 +10,6 @@
 
 @interface DPArticleTitleViewController : UIViewController
 
+- (instancetype)initWithBoardName:(NSString *)boardName;
+
 @end

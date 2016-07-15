@@ -25,6 +25,7 @@
         self.boardName = boardName;
         self.title = boardName;
         self.titleArray = [NSMutableArray array];
+        
     }
     return self;
 }
