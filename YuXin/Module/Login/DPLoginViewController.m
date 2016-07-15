@@ -8,6 +8,10 @@
 
 #import "DPLoginViewController.h"
 
+@interface DPLoginViewController()
+
+@end
+
 @implementation DPLoginViewController
 
 @end
