@@ -4,7 +4,7 @@
 # use_frameworks!
 
 target 'YuXin' do
-
+pod 'MJRefresh', '~> 3.1.0'
 end
 
 target 'YuXinTests' do
