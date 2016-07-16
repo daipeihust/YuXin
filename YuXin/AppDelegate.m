@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "DPArticleTitleViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,7 +17,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    self.window = [[UIWindow alloc] initWithFrame:screenBounds];
+    DPArticleTitleViewController *viewController = [[DPArticleTitleViewController alloc] initWithBoardName:@"Water"];
+    UINavigationController *nVC = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.window.rootViewController = nVC;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

@@ -8,6 +8,7 @@
 
 #import "DPArticleTitleViewController.h"
 #import "DPArticleTitleCell.h"
+#import "MJRefresh.h"
 
 static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
 
@@ -39,6 +40,8 @@ static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self configUI];
+    [self firstRefresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -51,10 +54,57 @@ static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
     
 }
 
+#pragma mark - ConfigViews
+
+- (void)configUI {
+    self.view.backgroundColor = DPBackgroundColor;
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+    
+    [self.view addSubview:self.tableView];
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+}
+
+- (void)firstRefresh {
+    [self.tableView.mj_header beginRefreshing];
+}
+
+#pragma mark - Action Method
+
+- (void)headerRefresh {
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchArticleTitleListWithBoard:self.boardName start:@(0) completion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            weakSelf.titleArray = [NSMutableArray arrayWithArray:responseModels];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+            });
+        }
+    }];
+}
+
+- (void)footerRefresh {
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchArticleTitleListWithBoard:self.boardName start:@(self.titleArray.count) completion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            [weakSelf.titleArray addObjectsFromArray:responseModels];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_footer endRefreshing];
+            });
+        }
+    }];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100;
+    return 200;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -64,11 +114,13 @@ static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return self.titleArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+    DPArticleTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:[articleTitleCellReuseIdentifier copy]];
+    [cell fillDataWithModel:self.titleArray[indexPath.row]];
+    return cell;
 }
 
 #pragma mark - Getter
@@ -80,7 +132,6 @@ static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
         _tableView.dataSource = self;
         _tableView.backgroundColor = DPBackgroundColor;
         [_tableView registerClass:[DPArticleTitleCell class] forCellReuseIdentifier:[articleTitleCellReuseIdentifier copy]];
-        
     }
     return _tableView;
 }

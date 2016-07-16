@@ -10,4 +10,6 @@
 
 @interface DPArticleTitleCell : UITableViewCell
 
+- (void)fillDataWithModel:(YuXinTitle *)model;
+
 @end

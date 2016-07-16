@@ -15,5 +15,6 @@
 #define DPBackgroundColor                       [UIColor whiteColor]
 #define DPFirstLevelTitleColor                  [UIColor blackColor]
 #define DPSecondLevelTitleColor                 [UIColor grayColor]
+#define DPBodyTextColor                         [UIColor blackColor]
 
 #endif /* GlobalColors_h */

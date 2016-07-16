@@ -16,7 +16,6 @@
 @property (nonatomic, strong) UILabel *commentLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *summaryLabel;
-@property (nonatomic, strong) YuXinTitle *model;
 
 @end
 
@@ -27,14 +26,26 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self ConfigUI];
+        [self layoutUI];
     }
     return self;
 }
 
+#pragma mark - Public Method
+
+- (void)fillDataWithModel:(YuXinTitle *)model {
+//    YuXinTitle *model2 = [self refineModel:model];
+    self.titleLabel.text = model.name;
+    self.authorLabel.text = model.author;
+    self.commentLabel.text = model.replyNum;
+    self.timeLabel.text = model.date;
+    self.summaryLabel.text = model.summary;
+    [self relayoutUI];
+}
+
 #pragma mark - ConfigViews
 
-- (void)ConfigUI {
+- (void)layoutUI {
     [self.contentView addSubview:self.userImageView];
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.authorLabel];
@@ -55,10 +66,43 @@
     [self.authorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel);
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
+        make.height.mas_equalTo(18);
+        make.width.mas_equalTo(100);
     }];
+    [self.commentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.contentView);
+        make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
+        make.height.mas_equalTo(18);
+        make.width.mas_equalTo(100);
+    }];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView).with.offset(-10);
+        make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
+        make.height.mas_equalTo(18);
+        make.width.mas_equalTo(100);
+    }];
+    [self.summaryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.authorLabel.mas_bottom).with.offset(10);
+        make.left.equalTo(self.contentView).with.offset(10);
+        make.right.equalTo(self.contentView).with.offset(-10);
+        make.bottom.equalTo(self.contentView);
+    }];
+}
+
+- (void)relayoutUI {
     
 }
 
+#pragma mark - Privite Method
+
+- (YuXinTitle *)refineModel:(YuXinTitle *)model {
+    NSString *tmpDate = model.date;
+    [tmpDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    tmpDate = [tmpDate stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSLog(@">>>>>>>>%@", tmpDate);
+    model.date = tmpDate;
+    return model;
+}
 
 #pragma mark - Getter
 
@@ -68,7 +112,6 @@
         _userImageView.backgroundColor = [UIColor grayColor];
         _userImageView.layer.masksToBounds = YES;
         _userImageView.layer.cornerRadius = 15;
-        
     }
     return _userImageView;
 }
@@ -77,7 +120,8 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = DPFirstLevelTitleColor;
-        _titleLabel.font = [UIFont systemFontOfSize:20];
+        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.textAlignment = NSTextAlignmentLeft;
     }
     return _titleLabel;
 }
@@ -86,7 +130,8 @@
     if (!_authorLabel) {
         _authorLabel = [[UILabel alloc] init];
         _authorLabel.textColor = DPSecondLevelTitleColor;
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _authorLabel.font = [UIFont systemFontOfSize:10];
+        _authorLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _authorLabel;
 }
@@ -94,8 +139,32 @@
 - (UILabel *)commentLabel {
     if (!_commentLabel) {
         _commentLabel = [[UILabel alloc] init];
+        _commentLabel.textColor = DPSecondLevelTitleColor;
+        _commentLabel.font = [UIFont systemFontOfSize:10];
+        _commentLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _commentLabel;
+}
+
+- (UILabel *)timeLabel {
+    if (!_timeLabel) {
+        _timeLabel = [[UILabel alloc] init];
+        _timeLabel.textColor = DPSecondLevelTitleColor;
+        _timeLabel.font = [UIFont systemFontOfSize:10];
+        _timeLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _timeLabel;
+}
+
+- (UILabel *)summaryLabel {
+    if (!_summaryLabel) {
+        _summaryLabel = [[UILabel alloc] init];
+        _summaryLabel.textColor = DPBodyTextColor;
+        _summaryLabel.font = [UIFont systemFontOfSize:20];
+        _summaryLabel.textAlignment = NSTextAlignmentLeft;
+        _summaryLabel.numberOfLines = 0;
+    }
+    return _summaryLabel;
 }
 
 @end
