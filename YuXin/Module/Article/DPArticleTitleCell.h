@@ -10,6 +10,8 @@
 
 @interface DPArticleTitleCell : UITableViewCell
 
+@property (nonatomic, assign)CGFloat cellHeight;
+
 - (void)fillDataWithModel:(YuXinTitle *)model;
 
 @end

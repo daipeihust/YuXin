@@ -16,5 +16,6 @@
 #import "YuXinSDK.h"
 #import "RateForFit.h"
 #import "GlobalColors.h"
+#import "Globals.h"
 
 #endif /* PrefixHeader_pch */

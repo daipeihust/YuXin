@@ -8,26 +8,26 @@
 
 #import "YuXinXmlParser.h"
 
-static const NSString *loginInfoElementNames = @"utmpnum,utmpkey,utmpuserid,invisible,contdays";
-static const NSString *loginInfoElementTitle = @"logininfo";
+static NSString *const loginInfoElementNames = @"utmpnum,utmpkey,utmpuserid,invisible,contdays";
+static NSString *const loginInfoElementTitle = @"logininfo";
 
-static const NSString *favouratesElementNames = @"boardname,boardtitle,filenum";
-static const NSString *favouratesElementTitle = @"board";
+static NSString *const favouratesElementNames = @"boardname,boardtitle,filenum";
+static NSString *const favouratesElementTitle = @"board";
 
-static const NSString *userInfoElementNames = @"userid,nick,numlogins,gender,horoscope,lastlogin,newmail,numposts,netage,strnetage,life,exp,strexp,money,medals,duty";
-static const NSString *userInfoElementTitle = @"userinfo";
+static NSString *const userInfoElementNames = @"userid,nick,numlogins,gender,horoscope,lastlogin,newmail,numposts,netage,strnetage,life,exp,strexp,money,medals,duty";
+static NSString *const userInfoElementTitle = @"userinfo";
 
-static const NSString *friendElementNames = @"userid,remark";
-static const NSString *friendElementTitle = @"friend";
+static NSString *const friendElementNames = @"userid,remark";
+static NSString *const friendElementTitle = @"friend";
 
-static const NSString *titleElementNames = @"author,date,filename,name,num,flag,canRe,reNum,summary";
-static const NSString *titleElementTitle = @"title";
+static NSString *const titleElementNames = @"author,date,filename,name,num,flag,canRe,reNum,summary";
+static NSString *const titleElementTitle = @"title";
 
-static const NSString *subboardElementNames = @"ename,cname,bm,postnum,onlinenum";
-static const NSString *subboardElementTitle = @"board";
+static NSString *const subboardElementNames = @"ename,cname,bm,postnum,onlinenum";
+static NSString *const subboardElementTitle = @"board";
 
-static const NSString *articleElementNames = @"title,filename,owner,content";
-static const NSString *articleElementTitle = @"article";
+static NSString *const articleElementNames = @"title,filename,owner,content";
+static NSString *const articleElementTitle = @"article";
 
 
 @interface YuXinXmlParser() <NSXMLParserDelegate>

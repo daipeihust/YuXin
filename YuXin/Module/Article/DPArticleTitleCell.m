@@ -34,11 +34,12 @@
 #pragma mark - Public Method
 
 - (void)fillDataWithModel:(YuXinTitle *)model {
-//    YuXinTitle *model2 = [self refineModel:model];
+    self.cellHeight = 200;
+    model.cellHeight = self.cellHeight;
     self.titleLabel.text = model.name;
     self.authorLabel.text = model.author;
     self.commentLabel.text = model.replyNum;
-    self.timeLabel.text = model.date;
+    self.timeLabel.text = model.readableDate;
     self.summaryLabel.text = model.summary;
     [self relayoutUI];
 }
@@ -95,14 +96,6 @@
 
 #pragma mark - Privite Method
 
-- (YuXinTitle *)refineModel:(YuXinTitle *)model {
-    NSString *tmpDate = model.date;
-    [tmpDate stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    tmpDate = [tmpDate stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    NSLog(@">>>>>>>>%@", tmpDate);
-    model.date = tmpDate;
-    return model;
-}
 
 #pragma mark - Getter
 

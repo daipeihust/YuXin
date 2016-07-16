@@ -10,6 +10,8 @@
 
 @interface YuXinModel : NSObject
 
+@property (nonatomic, assign) CGFloat cellHeight;
+
 @end
 
 @interface YuXinLoginInfo : YuXinModel
@@ -64,6 +66,7 @@
 
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) NSString *date;
+@property (nonatomic, strong) NSString *readableDate;
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *serialNum;

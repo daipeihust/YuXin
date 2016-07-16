@@ -188,11 +188,11 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             NSData *refinedData = [weakSelf refineTheData:convertedData];
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeArticles parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"friends info"];
+                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"article titles"];
                 handler(error, [models copy]);
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"friends info"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"article titles"];
             handler(error.localizedDescription, nil);
         }
     }];
@@ -416,7 +416,7 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
     NSString *replaceStr2 = @"utf-8";
     NSString *refinedStr = [rawStr stringByReplacingOccurrencesOfString:targetStr1 withString:replaceStr1];
     refinedStr = [refinedStr stringByReplacingOccurrencesOfString:targetStr2 withString:replaceStr2];
-    NSLog(@">>>>>>>>:%@", refinedStr);
+//    NSLog(@">>>>>>>>:%@", refinedStr);
     return [refinedStr dataUsingEncoding:NSUTF8StringEncoding];
 }
 

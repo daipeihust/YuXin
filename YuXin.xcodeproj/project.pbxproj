@@ -25,6 +25,8 @@
 		F43AE9B01D3884AA0060020F /* DPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9AF1D3884AA0060020F /* DPMainViewController.m */; };
 		F43AE9B41D38BA140060020F /* DPArticleTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9B31D38BA140060020F /* DPArticleTitleViewController.m */; };
 		F43AE9B71D38BA8C0060020F /* DPArticleTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9B61D38BA8C0060020F /* DPArticleTitleCell.m */; };
+		F43AE9D01D3A076E0060020F /* DPArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9CF1D3A076E0060020F /* DPArticleDetailViewController.m */; };
+		F43AE9D31D3A07990060020F /* DPArticleDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9D21D3A07990060020F /* DPArticleDetailCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,11 @@
 		F43AE9B81D38C5AF0060020F /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		F43AE9B91D38CEC90060020F /* RateForFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RateForFit.h; sourceTree = "<group>"; };
 		F43AE9BA1D38DD0C0060020F /* GlobalColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalColors.h; sourceTree = "<group>"; };
+		F43AE9CE1D3A076E0060020F /* DPArticleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArticleDetailViewController.h; sourceTree = "<group>"; };
+		F43AE9CF1D3A076E0060020F /* DPArticleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArticleDetailViewController.m; sourceTree = "<group>"; };
+		F43AE9D11D3A07990060020F /* DPArticleDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArticleDetailCell.h; sourceTree = "<group>"; };
+		F43AE9D21D3A07990060020F /* DPArticleDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArticleDetailCell.m; sourceTree = "<group>"; };
+		F43AE9D51D3A190B0060020F /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +237,7 @@
 				F43AE9B81D38C5AF0060020F /* PrefixHeader.pch */,
 				F43AE9B91D38CEC90060020F /* RateForFit.h */,
 				F43AE9BA1D38DD0C0060020F /* GlobalColors.h */,
+				F43AE9D51D3A190B0060020F /* Globals.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -241,6 +249,10 @@
 				F43AE9B31D38BA140060020F /* DPArticleTitleViewController.m */,
 				F43AE9B51D38BA8C0060020F /* DPArticleTitleCell.h */,
 				F43AE9B61D38BA8C0060020F /* DPArticleTitleCell.m */,
+				F43AE9CE1D3A076E0060020F /* DPArticleDetailViewController.h */,
+				F43AE9CF1D3A076E0060020F /* DPArticleDetailViewController.m */,
+				F43AE9D11D3A07990060020F /* DPArticleDetailCell.h */,
+				F43AE9D21D3A07990060020F /* DPArticleDetailCell.m */,
 			);
 			path = Article;
 			sourceTree = "<group>";
@@ -493,8 +505,10 @@
 				F4141DFE1D34D3F300286585 /* YuXinModel.m in Sources */,
 				F43AE9B71D38BA8C0060020F /* DPArticleTitleCell.m in Sources */,
 				F4141DC81D34889A00286585 /* AppDelegate.m in Sources */,
+				F43AE9D01D3A076E0060020F /* DPArticleDetailViewController.m in Sources */,
 				F43AE9AD1D3884490060020F /* DPLaunchViewController.m in Sources */,
 				F43AE96A1D377E1C0060020F /* UserHelper.m in Sources */,
+				F43AE9D31D3A07990060020F /* DPArticleDetailCell.m in Sources */,
 				F4141DC51D34889A00286585 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

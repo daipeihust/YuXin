@@ -10,13 +10,12 @@
 #import "DPArticleTitleCell.h"
 #import "MJRefresh.h"
 
-static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
-
 @interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *cellHeight;
 
 @end
 
@@ -30,7 +29,7 @@ static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
         self.boardName = boardName;
         self.title = boardName;
         self.titleArray = [NSMutableArray array];
-        
+        self.cellHeight = [NSMutableArray array];
     }
     return self;
 }
@@ -104,7 +103,8 @@ static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
+    YuXinTitle *model = self.titleArray[indexPath.row];
+    return model.cellHeight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -118,7 +118,8 @@ static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DPArticleTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:[articleTitleCellReuseIdentifier copy]];
+    
+    DPArticleTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:DPArticleTitleCellReuseIdentifier];
     [cell fillDataWithModel:self.titleArray[indexPath.row]];
     return cell;
 }
@@ -131,7 +132,7 @@ static const NSString *articleTitleCellReuseIdentifier = @"article_cell";
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = DPBackgroundColor;
-        [_tableView registerClass:[DPArticleTitleCell class] forCellReuseIdentifier:[articleTitleCellReuseIdentifier copy]];
+        [_tableView registerClass:[DPArticleTitleCell class] forCellReuseIdentifier:DPArticleTitleCellReuseIdentifier];
     }
     return _tableView;
 }
