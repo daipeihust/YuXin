@@ -8,10 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol DPArticleTitleCellDelegate;
+
 @interface DPArticleTitleCell : UITableViewCell
 
-@property (nonatomic, assign)CGFloat cellHeight;
+@property (nonatomic, assign) CGFloat cellHeight;
+@property (nonatomic, weak) id<DPArticleTitleCellDelegate> delegate;
 
 - (void)fillDataWithModel:(YuXinTitle *)model;
+
+@end
+
+@protocol DPArticleTitleCellDelegate <NSObject>
+
+@optional
+
+- (void)userImageViewDidClick:(NSString *)userID;
 
 @end

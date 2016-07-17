@@ -9,6 +9,7 @@
 #import "DPArticleTitleViewController.h"
 #import "DPArticleTitleCell.h"
 #import "MJRefresh.h"
+#import "DPArticleDetailViewController.h"
 
 @interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource>
 
@@ -59,7 +60,9 @@
     self.view.backgroundColor = DPBackgroundColor;
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    self.tableView.mj_header.automaticallyChangeAlpha = YES;
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+    self.tableView.mj_footer.automaticallyChangeAlpha = YES;
     
     [self.view addSubview:self.tableView];
     
@@ -67,6 +70,8 @@
         make.edges.equalTo(self.view);
     }];
 }
+
+#pragma mark - Privite Method
 
 - (void)firstRefresh {
     [self.tableView.mj_header beginRefreshing];
@@ -108,7 +113,22 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    YuXinTitle *title = self.titleArray[indexPath.row];
+    DPArticleDetailViewController *viewController = [[DPArticleDetailViewController alloc] initWithBoard:self.boardName file:title.fileName];
+    [self.navigationController pushViewController:viewController animated:YES];
     
+}
+
+
+- (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    DPArticleTitleCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setHighlighted:YES];
+}
+
+- (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    DPArticleTitleCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    [cell setHighlighted:NO];
 }
 
 #pragma mark - UITableViewDataSource

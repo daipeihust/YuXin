@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UILabel *commentLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UILabel *summaryLabel;
+@property (nonatomic, strong) YuXinTitle *model;
 
 @end
 
@@ -34,6 +35,7 @@
 #pragma mark - Public Method
 
 - (void)fillDataWithModel:(YuXinTitle *)model {
+    self.model = model;
     self.cellHeight = 200;
     model.cellHeight = self.cellHeight;
     self.titleLabel.text = model.name;
@@ -56,12 +58,12 @@
     
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.contentView).with.offset(10);
-        make.width.height.mas_equalTo(30);
+        make.width.height.mas_equalTo(40);
     }];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.userImageView);
         make.left.equalTo(self.userImageView.mas_right).with.offset(10);
-        make.height.mas_equalTo(25);
+        make.height.mas_equalTo(40);
         make.right.equalTo(self.contentView).with.offset(-10);
     }];
     [self.authorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -104,7 +106,7 @@
         _userImageView = [[UIImageView alloc] init];
         _userImageView.backgroundColor = [UIColor grayColor];
         _userImageView.layer.masksToBounds = YES;
-        _userImageView.layer.cornerRadius = 15;
+        _userImageView.layer.cornerRadius = 20;
     }
     return _userImageView;
 }
@@ -115,6 +117,7 @@
         _titleLabel.textColor = DPFirstLevelTitleColor;
         _titleLabel.font = [UIFont systemFontOfSize:15];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
+        _titleLabel.numberOfLines = 0;
     }
     return _titleLabel;
 }

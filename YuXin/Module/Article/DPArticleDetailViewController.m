@@ -8,6 +8,8 @@
 
 #import "DPArticleDetailViewController.h"
 #import "DPArticleDetailCell.h"
+#import "MJRefresh.h"
+
 
 typedef NS_ENUM(NSUInteger, DPArticleType) {
     DPArticleTypeDetail = 0,
@@ -43,22 +45,17 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self ConfigViews];
-    
+    [self firstRefresh];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-}
 
 #pragma mark - ConfigUI
 
 - (void)ConfigViews {
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+    self.tableView.mj_header.automaticallyChangeAlpha = YES;
+    
     [self.view addSubview:self.tableView];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -70,26 +67,30 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    YuXinArticle *model = self.articleArray[indexPath.row - indexPath.section];
+    YuXinArticle *model = self.articleArray[indexPath.row + indexPath.section];
     
     return model.cellHeight;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 2;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     NSInteger rowNumber;
     switch (section) {
         case DPArticleTypeDetail:
-            rowNumber = 1;
+            rowNumber = (self.articleArray.count)? 1 : 0;
             break;
         case DPArticleTypeComment:
-            rowNumber = self.articleArray.count - 1;
+            rowNumber = (self.articleArray.count)? self.articleArray.count - 1 : 0;
             break;
         default:
             break;
@@ -109,8 +110,29 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         default:
             break;
     }
-    [cell fillDataWithModel:self.articleArray[indexPath.row - indexPath.section]];
-    return nil;
+    [cell fillDataWithModel:self.articleArray[indexPath.row + indexPath.section]];
+    return cell;
+}
+
+#pragma mark - Privite Method
+
+- (void)firstRefresh {
+    [self.tableView.mj_header beginRefreshing];
+}
+
+#pragma mark - Action Method
+
+- (void)headerRefresh {
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchArticlesWithBoard:self.boardName file:self.fileName completion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            weakSelf.articleArray = [NSMutableArray arrayWithArray:responseModels];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+                [weakSelf.tableView.mj_header endRefreshing];
+            });
+        }
+    }];
 }
 
 #pragma mark - Getter

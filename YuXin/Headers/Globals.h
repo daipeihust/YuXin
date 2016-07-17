@@ -11,7 +11,7 @@
 
 #define DPArticleTitleCellReuseIdentifier           @"article_cell"
 #define DPArticleDetailCellReuseIdentifier          @"article_detail"
-#define DPArticleCommentCellReuseIdentifier         @"article_detail"
+#define DPArticleCommentCellReuseIdentifier         @"article_comment"
 
 
 #endif /* Globals_h */

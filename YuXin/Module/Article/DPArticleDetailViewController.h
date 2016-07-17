@@ -10,4 +10,6 @@
 
 @interface DPArticleDetailViewController : UIViewController
 
+- (instancetype)initWithBoard:(NSString *)boardName file:(NSString *)fileName;
+
 @end
