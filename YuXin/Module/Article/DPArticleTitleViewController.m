@@ -11,7 +11,7 @@
 #import "MJRefresh.h"
 #import "DPArticleDetailViewController.h"
 
-@interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource>
+@interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleTitleCellDelegate>
 
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSMutableArray *titleArray;
@@ -61,7 +61,7 @@
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
     self.tableView.mj_header.automaticallyChangeAlpha = YES;
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
     self.tableView.mj_footer.automaticallyChangeAlpha = YES;
     
     [self.view addSubview:self.tableView];
@@ -105,6 +105,12 @@
     }];
 }
 
+#pragma mark - DPArticleTitleCellDelegate
+
+- (void)userImageViewDidClick:(NSString *)userID {
+    NSLog(@"user image clicked: %@", userID);
+}
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -141,6 +147,7 @@
     
     DPArticleTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:DPArticleTitleCellReuseIdentifier];
     [cell fillDataWithModel:self.titleArray[indexPath.row]];
+    cell.delegate = self;
     return cell;
 }
 

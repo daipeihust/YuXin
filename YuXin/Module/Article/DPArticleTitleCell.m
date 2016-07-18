@@ -42,7 +42,7 @@
     self.authorLabel.text = model.author;
     self.commentLabel.text = model.replyNum;
     self.timeLabel.text = model.readableDate;
-    self.summaryLabel.text = model.summary;
+    self.summaryLabel.text = model.displaySummary;
     [self relayoutUI];
 }
 
@@ -96,6 +96,14 @@
     
 }
 
+#pragma mark - Action Method
+
+- (void)userImageViewClicked {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(userImageViewDidClick:)]) {
+        [self.delegate userImageViewDidClick:self.model.author];
+    }
+}
+
 #pragma mark - Privite Method
 
 
@@ -107,6 +115,8 @@
         _userImageView.backgroundColor = [UIColor grayColor];
         _userImageView.layer.masksToBounds = YES;
         _userImageView.layer.cornerRadius = 20;
+        [_userImageView setUserInteractionEnabled:YES];
+        [_userImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userImageViewClicked)]];
     }
     return _userImageView;
 }

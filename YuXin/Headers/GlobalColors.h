@@ -17,4 +17,14 @@
 #define DPSecondLevelTitleColor                 [UIColor grayColor]
 #define DPBodyTextColor                         [UIColor blackColor]
 
+#define DPTextColorBlack                        [UIColor blackColor]
+#define DPTextColorRed                          [UIColor redColor]
+#define DPTextColorGreen                        [UIColor greenColor]
+#define DPTextColorYellow                       [UIColor yellowColor]
+#define DPTextColorDarkBlue                     [UIColor blueColor]
+#define DPTextColorPink                         [UIColor magentaColor]
+#define DPTextColorLightBlue                    [UIColor cyanColor]
+#define DPTextColorWhite                        [UIColor lightGrayColor]
+
+
 #endif /* GlobalColors_h */

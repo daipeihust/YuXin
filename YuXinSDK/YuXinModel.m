@@ -7,21 +7,24 @@
 //
 
 #import "YuXinModel.h"
+#import "NSString+DPExtension.h"
+
+@interface YuXinModel()
+
+@property (nonatomic, strong) NSString *colorRegEx;
+
+@end
 
 @implementation YuXinModel
 
-- (NSString *)compareCurrentTime:(NSString *)str {
+- (NSString *)compareCurrentTime:(NSString *)str withDateFormatter:(NSDateFormatter *)formatter{
     NSLog(@">>>>>>>>>>>%@", str);
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MMM d HH:mm:ss yyyy"];
-    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-    NSDate *timeDate = [dateFormatter dateFromString:str];
+    NSDate *timeDate = [formatter dateFromString:str];
     NSLog(@">>>>>>>>>>>%@", timeDate);
     
     NSTimeInterval  timeInterval = [timeDate timeIntervalSinceNow];
     timeInterval = -timeInterval;
     
-    timeInterval = timeInterval - 8*60*60;
     long temp = 0;
     NSString *result;
     if (timeInterval < 60) {
@@ -37,21 +40,35 @@
         result = [NSString stringWithFormat:@"%ld天前",temp];
     }
     else if((temp = temp/30) <12){
-        result = [NSString stringWithFormat:@"%ld月前",temp];
+        result = [NSString stringWithFormat:@"%ld个月前",temp];
     }
     else{
         temp = temp/12;
         result = [NSString stringWithFormat:@"%ld年前",temp];
     }
-    
     return  result;
+}
+
+- (NSString *)colorRegEx {
+    if (!_colorRegEx) {
+        _colorRegEx = DPRegExColor;
+    }
+    return _colorRegEx;
 }
 
 @end
 
+
+
+
+
 @implementation YuXinLoginInfo
 
 @end
+
+
+
+
 
 @implementation YuXinBoard
 
@@ -65,9 +82,17 @@
 
 @end
 
+
+
+
+
 @implementation YuXinUserInfo
 
 @end
+
+
+
+
 
 @implementation YuXinFriend
 
@@ -78,6 +103,17 @@
     }
     return self;
 }
+
+@end
+
+
+
+
+
+
+@interface YuXinTitle()
+
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @end
 
@@ -93,9 +129,50 @@
 
 - (void)setDate:(NSString *)date {
     _date = date;
-    NSString *newDate = [super compareCurrentTime:date];
+    NSString *newDate = [self compareCurrentTime:date withDateFormatter:self.dateFormatter];
     _readableDate = newDate;
 }
+
+- (void)setSummary:(NSString *)summary {
+    _displaySummary = [self getDisplaySummary:summary];
+    _summary = summary;
+}
+
+- (NSString *)getDisplaySummary:(NSString *)summary {
+    NSRange range = [summary rangeOfString:self.colorRegEx options:NSRegularExpressionSearch];
+    while (range.location < summary.length) {
+        summary = [summary stringByReplacingCharactersInRange:range withString:@""];
+        range = [summary rangeOfString:self.colorRegEx options:NSRegularExpressionSearch];
+    }
+    return summary;
+}
+
+#pragma mark - Getter
+
+- (NSDateFormatter *)dateFormatter {
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:@"MMM d HH:mm:ss yyyy"];
+        [_dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+    }
+    return _dateFormatter;
+}
+
+@end
+
+
+
+
+
+@interface YuXinArticle()
+
+@property (nonatomic, strong) NSString *timeRegEx1;
+@property (nonatomic, strong) NSString *timeRegEx2;
+@property (nonatomic, strong) NSString *nameRegEx;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+@property (nonatomic, strong) NSString *replyRegEx;
+@property (nonatomic, strong) NSString *headerRegEx;
+@property (nonatomic, strong) NSString *footerRegEx;
 
 @end
 
@@ -105,8 +182,180 @@
     self = [super init];
     if (self) {
         self.cellHeight = 150;
+        
     }
     return self;
+}
+
+- (void)setContent:(NSString *)content {
+    _readableDate = [self getReadableDateFrom:content];
+    _userIDAndName = [self getUserIDAndNameFrom:content];
+    _realContent = [self getRealContent:content];
+    _colorfulContent = [self getAttributedStringFrom:_realContent];
+    _content = content;
+}
+
+- (NSString *)getRealContent:(NSString *)content {
+    NSRange range = [content rangeOfString:self.headerRegEx];
+    if (range.location < content.length) {
+        content = [content substringFromIndex:range.location];
+        content = [content substringFromIndex:[content indexOfLine:2]];
+    }
+    range = [content rangeOfString:@"\n--\n"];
+    if (range.location < content.length) {
+        content = [content substringToIndex:range.location];
+    }
+    range = [content rangeOfString:@"\n-\n"];
+    if (range.location < content.length) {
+        content = [content substringToIndex:range.location];
+    }
+    range = [content rangeOfString:self.footerRegEx];
+    if (range.location < content.length) {
+        content = [content substringToIndex:range.location];
+        content = [content substringToIndex:[content indexOfLastLine:1]];
+    }
+    range = [content rangeOfString:self.replyRegEx options:NSRegularExpressionSearch];
+    if (range.location < content.length) {
+        _replyStr = [content substringFromIndex:range.location];
+        content = [content substringToIndex:range.location - 1];
+    }
+    range = [content rangeOfString:@"在.+的大" options:NSRegularExpressionSearch];
+    if (range.location < content.length) {
+        _replyStr = [content substringFromIndex:range.location];
+        content = [content substringToIndex:range.location - 1];
+    }
+    content = [content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return content;
+}
+
+- (NSString *)getReadableDateFrom:(NSString *)content {
+    NSString *result;
+    NSRange range1 = [content rangeOfString:self.timeRegEx1 options:NSRegularExpressionSearch];
+    NSRange range2 = [content rangeOfString:self.timeRegEx2 options:NSRegularExpressionSearch];
+    if (range1.location < content.length) {
+        result = [content substringWithRange:range1];
+        [self.dateFormatter setDateFormat:@"yyyy年MM月dd日HH:mm:ss"];
+    }else if (range2.location < content.length) {
+        result = [content substringWithRange:range2];
+        [self.dateFormatter setDateFormat:@"MMM d HH:mm:ss yyyy"];
+    }
+    result = [self compareCurrentTime:result withDateFormatter:self.dateFormatter];
+    return result;
+}
+
+- (NSString *)getUserIDAndNameFrom:(NSString *)content {
+    NSString *result;
+    NSRange range = [content rangeOfString:self.nameRegEx options:NSRegularExpressionSearch];
+    if (range.location < content.length) {
+        result = [content substringWithRange:range];
+    }
+    return result;
+}
+
+- (NSAttributedString *)getAttributedStringFrom:(NSString *)content {
+    NSMutableAttributedString *result;
+    NSRange range;
+    NSMutableArray<NSString *> *colorInfoArray = [NSMutableArray array];
+    NSMutableArray<NSNumber *> *indexInfoArray = [NSMutableArray array];
+    UIColor *textColor;
+    range = [content rangeOfString:self.colorRegEx options:NSRegularExpressionSearch];
+    while (range.location < content.length) {
+        NSString *tmpStr = [content substringWithRange:range];
+        [indexInfoArray addObject:@(range.location)];
+        [colorInfoArray addObject:tmpStr];
+        content = [content stringByReplacingCharactersInRange:range withString:@""];
+        range = [content rangeOfString:self.colorRegEx options:NSRegularExpressionSearch];
+    }
+    self.displayContent = content;
+    [indexInfoArray addObject:@(content.length)];
+    result = [[NSMutableAttributedString alloc] initWithString:content];
+    for (int i = 0; i < indexInfoArray.count - 1; i++) {
+        if ([colorInfoArray[i] containsString:DPTextColorParameterBlack]) {
+            textColor = DPTextColorBlack;
+        }
+        else if ([colorInfoArray[i] containsString:DPTextColorParameterRed]) {
+            textColor = DPTextColorRed;
+        }
+        else if ([colorInfoArray[i] containsString:DPTextColorParameterGreen]) {
+            textColor = DPTextColorGreen;
+        }
+        else if ([colorInfoArray[i] containsString:DPTextColorParameterYellow]) {
+            textColor = DPTextColorYellow;
+        }
+        else if ([colorInfoArray[i] containsString:DPTextColorParameterDarkBlue]) {
+            textColor = DPTextColorDarkBlue;
+        }
+        else if ([colorInfoArray[i] containsString:DPTextColorParameterPink]) {
+            textColor = DPTextColorPink;
+        }
+        else if ([colorInfoArray[i] containsString:DPTextColorParameterLightBlue]) {
+            textColor = DPTextColorLightBlue;
+        }
+        else if ([colorInfoArray[i] containsString:DPTextColorParameterWhite]) {
+            textColor = DPTextColorWhite;
+        }
+        else {
+            textColor = DPTextColorBlack;
+        }
+        NSInteger index1 = indexInfoArray[i].integerValue;
+        NSInteger index2 = indexInfoArray[i + 1].integerValue;
+        if (index1 < result.length && index1 < index2) {
+            [result setAttributes:@{NSForegroundColorAttributeName : textColor} range:NSMakeRange(index1, index2 - index1)];
+        }
+    }
+    return [result copy];
+}
+
+#pragma mark - Getter
+
+- (NSString *)timeRegEx1 {
+    if (!_timeRegEx1) {
+        _timeRegEx1 = DPRegExTime1;
+    }
+    return _timeRegEx1;
+}
+
+- (NSString *)timeRegEx2 {
+    if (!_timeRegEx2) {
+        _timeRegEx2 = DPRegExTime2;
+    }
+    return _timeRegEx2;
+}
+
+- (NSDateFormatter *)dateFormatter {
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+    }
+    return _dateFormatter;
+}
+
+- (NSString *)nameRegEx {
+    if (!_nameRegEx) {
+        _nameRegEx = DPRegExName;
+    }
+    return _nameRegEx;
+}
+
+- (NSString *)replyRegEx {
+    if (!_replyRegEx) {
+        _replyRegEx = DPRegExReply;
+    }
+    return _replyRegEx;
+}
+
+- (NSString *)headerRegEx {
+    if (!_headerRegEx) {
+        _headerRegEx = DPRegExHeader;
+    }
+    return _headerRegEx;
+}
+
+- (NSString *)footerRegEx {
+    if (!_footerRegEx) {
+        _footerRegEx = DPRegExFooter;
+    }
+    return _footerRegEx;
 }
 
 @end

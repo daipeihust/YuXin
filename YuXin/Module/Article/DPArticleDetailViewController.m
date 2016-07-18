@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     DPArticleTypeComment = 1
 };
 
-@interface DPArticleDetailViewController() <UITableViewDelegate, UITableViewDataSource>
+@interface DPArticleDetailViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleDetailCellDelegate>
 
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSString *fileName;
@@ -53,6 +53,8 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 
 - (void)ConfigViews {
     
+    self.view.backgroundColor = DPBackgroundColor;
+    
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
     self.tableView.mj_header.automaticallyChangeAlpha = YES;
     
@@ -62,6 +64,28 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         make.top.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view).with.offset(-50);
     }];
+}
+
+#pragma mark - DPArticleDetailCellDelegate
+
+- (void)userImageViewDidClick:(NSString *)userID {
+    NSLog(@"user image clicked: %@", userID);
+}
+
+- (void)reprintButtonDidClick:(NSString *)fileName {
+    
+}
+
+- (void)commentButtonDidClick {
+    
+}
+
+- (void)replyButtonDidClick {
+    
+}
+
+- (void)deleteButtonDidClick:(NSString *)fileName {
+    
 }
 
 #pragma mark - UITableViewDelegate
@@ -75,6 +99,10 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
 }
 
 #pragma mark - UITableViewDataSource
@@ -111,6 +139,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
             break;
     }
     [cell fillDataWithModel:self.articleArray[indexPath.row + indexPath.section]];
+    cell.delegate = self;
     return cell;
 }
 

@@ -22,7 +22,7 @@
 
 @optional
 - (void)userImageViewDidClick:(NSString *)userID;
-- (void)reprintButtonDidClick;
+- (void)reprintButtonDidClick:(NSString *)fileName;
 - (void)commentButtonDidClick;
 - (void)replyButtonDidClick;
 - (void)deleteButtonDidClick:(NSString *)fileName;

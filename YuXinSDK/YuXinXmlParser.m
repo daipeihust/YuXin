@@ -230,9 +230,7 @@ static NSString *const articleElementTitle = @"article";
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName {
     
     NSString *trimmedString = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//    if ([elementName isEqualToString:@"date"]) {
-//        trimmedString = [self.currentElementValue copy];
-//    }
+
     self.currentElementValue = nil;
     
     if (self.storingFlag) {

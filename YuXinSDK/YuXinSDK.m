@@ -412,12 +412,12 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
     NSString *rawStr = [[NSString alloc] initWithData:data encoding:gb2312];
     NSString *targetStr1 = @"";
     NSString *replaceStr1 = @"";
-    NSString *targetStr2 = @"gb2312";
-    NSString *replaceStr2 = @"utf-8";
+//    NSString *targetStr2 = @"gb2312";
+//    NSString *replaceStr2 = @"utf-8";
     NSString *refinedStr = [rawStr stringByReplacingOccurrencesOfString:targetStr1 withString:replaceStr1];
-    refinedStr = [refinedStr stringByReplacingOccurrencesOfString:targetStr2 withString:replaceStr2];
+//    refinedStr = [refinedStr stringByReplacingOccurrencesOfString:targetStr2 withString:replaceStr2];
 //    NSLog(@">>>>>>>>:%@", refinedStr);
-    return [refinedStr dataUsingEncoding:NSUTF8StringEncoding];
+    return [refinedStr dataUsingEncoding:gb2312];
 }
 
 - (NSData *)cleanGB2312:(NSData *)data {

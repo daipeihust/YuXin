@@ -67,7 +67,18 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
     if (self.cellType == DPArticleDetailCellTypeArticle) {
         self.articleTitle.text = model.title;
         self.authorName.text = model.author;
-        self.articleContent.text = model.content;
+        if (model.userIDAndName) {
+            self.authorName.text = model.userIDAndName;
+        }
+        self.articleContent.text = model.realContent;
+        if (model.displayContent) {
+            self.articleContent.text = model.displayContent;
+        }
+        if (model.colorfulContent) {
+            self.articleContent.text = nil;
+            self.articleContent.attributedText = model.colorfulContent;
+        }
+        self.timeLabel.text = model.readableDate;
         if ([model.author isEqualToString:[UserHelper sharedInstance].userName]) {
             self.deleteBtn1.hidden = NO;
         }else {
@@ -76,7 +87,18 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
     }
     else if (self.cellType == DPArticleDetailCellTypeComment) {
         self.commentTitle.text = model.author;
-        self.commentContent.text = model.content;
+        if (model.userIDAndName) {
+            self.commentTitle.text = model.userIDAndName;
+        }
+        self.commentContent.text = model.realContent;
+        if (model.displayContent) {
+            self.commentContent.text = model.displayContent;
+        }
+        if (model.colorfulContent) {
+            self.commentContent.text = nil;
+            self.commentContent.attributedText = model.colorfulContent;
+        }
+        self.timeLabel.text = model.readableDate;
         if ([model.author isEqualToString:[UserHelper sharedInstance].userName]) {
             self.deleteBtn2.hidden = NO;
             self.replyBtn.hidden = YES;
@@ -170,8 +192,8 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
             make.height.mas_equalTo(20);
         }];
         [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.commentTitle).with.offset(5);
-            make.left.equalTo(self.userImageView).with.offset(10);
+            make.top.equalTo(self.commentTitle.mas_bottom).with.offset(5);
+            make.left.equalTo(self.userImageView.mas_right).with.offset(10);
             make.height.mas_equalTo(18);
             make.width.mas_equalTo(100);
         }];
@@ -187,7 +209,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
 #pragma mark - Privite Method
 
 - (CGFloat)getCellHeight {
-    return 250;
+    return 600;
 }
 
 #pragma mark - Action Method

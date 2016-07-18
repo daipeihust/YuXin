@@ -72,6 +72,7 @@
 @property (nonatomic, strong) NSString *serialNum;
 @property (nonatomic, strong) NSString *canReply;
 @property (nonatomic, strong) NSString *replyNum;
+@property (nonatomic, strong) NSString *displaySummary;
 @property (nonatomic, strong) NSString *summary;
 
 @end
@@ -83,6 +84,13 @@
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, strong) NSString *num;
+@property (nonatomic, strong) NSString *realContent;
+@property (nonatomic, strong) NSString *header;
+@property (nonatomic, strong) NSString *readableDate;
+@property (nonatomic, strong) NSString *userIDAndName;
+@property (nonatomic, strong) NSString *displayContent;
+@property (nonatomic, strong) NSAttributedString *colorfulContent;
+@property (nonatomic, strong) NSString *replyStr;
 
 @end
 
