@@ -1,13 +1,16 @@
 PODS:
   - Masonry (0.6.4)
   - MJRefresh (3.1.0)
+  - UITableView+FDTemplateLayoutCell (1.4)
 
 DEPENDENCIES:
   - Masonry (~> 0.6.4)
   - MJRefresh (~> 3.1.0)
+  - UITableView+FDTemplateLayoutCell (~> 1.4)
 
 SPEC CHECKSUMS:
   Masonry: 281802d04d787ea2973179ee8bcb50500579ede2
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
+  UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
 
 COCOAPODS: 0.39.0

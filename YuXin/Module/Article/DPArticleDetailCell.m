@@ -107,7 +107,8 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
             self.replyBtn.hidden = NO;
         }
     }
-    model.cellHeight = [self getCellHeight];
+    [self setNeedsUpdateConstraints];
+    [self updateConstraintsIfNeeded];
 }
 
 #pragma mark - ConfigUI
@@ -133,7 +134,6 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         [self.articleTitle mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.userImageView);
             make.left.equalTo(self.userImageView.mas_right).with.offset(10);
-            make.height.equalTo(self.userImageView);
             make.right.equalTo(self.contentView).with.offset(-10);
         }];
         [self.authorName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -201,16 +201,14 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
             make.top.equalTo(self.userImageView.mas_bottom).with.offset(20);
             make.left.equalTo(self.contentView).with.offset(10);
             make.right.equalTo(self.contentView).with.offset(-10);
-            make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-5);
+            make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-10);
         }];
     }
 }
 
 #pragma mark - Privite Method
 
-- (CGFloat)getCellHeight {
-    return 600;
-}
+
 
 #pragma mark - Action Method
 
@@ -260,6 +258,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _articleTitle.numberOfLines = 0;
         _articleTitle.font = [UIFont systemFontOfSize:15];
         _articleTitle.textAlignment = NSTextAlignmentLeft;
+        _articleTitle.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     return _articleTitle;
 }
@@ -308,6 +307,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _articleContent.numberOfLines = 0;
         _articleContent.font = [UIFont systemFontOfSize:20];
         _articleContent.textAlignment = NSTextAlignmentLeft;
+        _articleContent.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     return _articleContent;
 }
@@ -330,6 +330,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _commentContent.numberOfLines = 0;
         _commentContent.font = [UIFont systemFontOfSize:20];
         _commentContent.textAlignment = NSTextAlignmentLeft;
+        _commentContent.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     return _commentContent;
 }

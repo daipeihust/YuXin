@@ -63,6 +63,8 @@
     self.tableView.mj_header.automaticallyChangeAlpha = YES;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
     self.tableView.mj_footer.automaticallyChangeAlpha = YES;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 50;
     
     [self.view addSubview:self.tableView];
     
@@ -113,10 +115,11 @@
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    YuXinTitle *model = self.titleArray[indexPath.row];
-    return model.cellHeight;
-}
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    YuXinTitle *model = self.titleArray[indexPath.row];
+//    return model.cellHeight;
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -125,7 +128,6 @@
     [self.navigationController pushViewController:viewController animated:YES];
     
 }
-
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     DPArticleTitleCell *cell = [tableView cellForRowAtIndexPath:indexPath];

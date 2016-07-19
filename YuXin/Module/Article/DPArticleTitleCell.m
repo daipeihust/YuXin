@@ -36,14 +36,14 @@
 
 - (void)fillDataWithModel:(YuXinTitle *)model {
     self.model = model;
-    self.cellHeight = 200;
-    model.cellHeight = self.cellHeight;
     self.titleLabel.text = model.name;
     self.authorLabel.text = model.author;
     self.commentLabel.text = model.replyNum;
     self.timeLabel.text = model.readableDate;
     self.summaryLabel.text = model.displaySummary;
-    [self relayoutUI];
+    
+//    [self setNeedsUpdateConstraints];
+//    [self updateConstraintsIfNeeded];
 }
 
 #pragma mark - ConfigViews
@@ -63,7 +63,6 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.userImageView);
         make.left.equalTo(self.userImageView.mas_right).with.offset(10);
-        make.height.mas_equalTo(40);
         make.right.equalTo(self.contentView).with.offset(-10);
     }];
     [self.authorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -88,13 +87,10 @@
         make.top.equalTo(self.authorLabel.mas_bottom).with.offset(10);
         make.left.equalTo(self.contentView).with.offset(10);
         make.right.equalTo(self.contentView).with.offset(-10);
-        make.bottom.equalTo(self.contentView);
+        make.bottom.equalTo(self.contentView).with.offset(-10);
     }];
 }
 
-- (void)relayoutUI {
-    
-}
 
 #pragma mark - Action Method
 
@@ -125,9 +121,11 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = DPFirstLevelTitleColor;
-        _titleLabel.font = [UIFont systemFontOfSize:15];
+//        _titleLabel.font = [UIFont systemFontOfSize:15];
+        _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.numberOfLines = 0;
+        _titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     return _titleLabel;
 }
@@ -158,6 +156,7 @@
         _timeLabel.textColor = DPSecondLevelTitleColor;
         _timeLabel.font = [UIFont systemFontOfSize:10];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
+        [_titleLabel sizeToFit];
     }
     return _timeLabel;
 }
@@ -166,9 +165,11 @@
     if (!_summaryLabel) {
         _summaryLabel = [[UILabel alloc] init];
         _summaryLabel.textColor = DPBodyTextColor;
-        _summaryLabel.font = [UIFont systemFontOfSize:20];
+//        _summaryLabel.font = [UIFont systemFontOfSize:20];
+        _summaryLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         _summaryLabel.textAlignment = NSTextAlignmentLeft;
         _summaryLabel.numberOfLines = 0;
+        _summaryLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     }
     return _summaryLabel;
 }

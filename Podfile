@@ -6,6 +6,7 @@
 target 'YuXin' do
 pod 'MJRefresh', '~> 3.1.0'
 pod 'Masonry', '~> 0.6.4'
+pod 'UITableView+FDTemplateLayoutCell', '~> 1.4'
 end
 
 target 'YuXinTests' do

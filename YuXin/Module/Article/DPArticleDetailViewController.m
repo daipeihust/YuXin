@@ -57,6 +57,8 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
     self.tableView.mj_header.automaticallyChangeAlpha = YES;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedRowHeight = 200;
     
     [self.view addSubview:self.tableView];
     
@@ -90,11 +92,11 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 
 #pragma mark - UITableViewDelegate
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    YuXinArticle *model = self.articleArray[indexPath.row + indexPath.section];
-    
-    return model.cellHeight;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    YuXinArticle *model = self.articleArray[indexPath.row + indexPath.section];
+//    
+//    return model.cellHeight;
+//}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
