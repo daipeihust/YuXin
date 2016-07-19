@@ -38,8 +38,6 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
 @property (nonatomic, strong) UILabel *commentContent;
 @property (nonatomic, strong) UIButton *deleteBtn2;
 
-
-
 @end
 
 @implementation DPArticleDetailCell
@@ -55,6 +53,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         else if ([reuseIdentifier isEqualToString:DPArticleCommentCellReuseIdentifier]) {
             self.cellType = DPArticleDetailCellTypeComment;
         }
+        self.contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         [self layoutViews];
     }
     return self;
@@ -107,8 +106,6 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
             self.replyBtn.hidden = NO;
         }
     }
-    [self setNeedsUpdateConstraints];
-    [self updateConstraintsIfNeeded];
 }
 
 #pragma mark - ConfigUI
@@ -116,7 +113,6 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
 - (void)layoutViews {
     [self.contentView addSubview:self.userImageView];
     [self.contentView addSubview:self.timeLabel];
-    
     
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.contentView).with.offset(10);
@@ -132,7 +128,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         [self.contentView addSubview:self.deleteBtn1];
         
         [self.articleTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.userImageView);
+            make.top.equalTo(self.contentView).with.offset(10);
             make.left.equalTo(self.userImageView.mas_right).with.offset(10);
             make.right.equalTo(self.contentView).with.offset(-10);
         }];
@@ -148,26 +144,28 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
             make.height.mas_equalTo(18);
             make.width.mas_equalTo(100);
         }];
+        [self.articleContent mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.authorName.mas_bottom).with.offset(10);
+            make.left.equalTo(self.contentView).with.offset(10);
+            make.right.equalTo(self.contentView).with.offset(-10);
+        }];
         [self.reprintBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.articleContent.mas_bottom).with.offset(10);
             make.right.equalTo(self.contentView).with.offset(-10);
             make.bottom.equalTo(self.contentView).with.offset(-10);
             make.width.height.mas_equalTo(25);
         }];
         [self.commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.articleContent.mas_bottom).with.offset(10);
             make.right.equalTo(self.reprintBtn.mas_left).with.offset(-20);
             make.bottom.equalTo(self.contentView).with.offset(-10);
             make.width.height.mas_equalTo(25);
         }];
         [self.deleteBtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.articleContent.mas_bottom).with.offset(10);
             make.right.equalTo(self.commentBtn.mas_left).with.offset(-20);
             make.bottom.equalTo(self.contentView).with.offset(-10);
             make.width.height.mas_equalTo(25);
-        }];
-        [self.articleContent mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.authorName).with.offset(10);
-            make.left.equalTo(self.contentView).with.offset(10);
-            make.right.equalTo(self.contentView).with.offset(-10);
-            make.bottom.equalTo(self.reprintBtn.mas_top).with.offset(-10);
         }];
     }
     else if (self.cellType == DPArticleDetailCellTypeComment) {

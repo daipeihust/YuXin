@@ -9,6 +9,7 @@
 #import "DPArticleDetailViewController.h"
 #import "DPArticleDetailCell.h"
 #import "MJRefresh.h"
+#import "UITableView+FDTemplateLayoutCell.h"
 
 
 typedef NS_ENUM(NSUInteger, DPArticleType) {
@@ -57,8 +58,6 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
     self.tableView.mj_header.automaticallyChangeAlpha = YES;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
-    self.tableView.estimatedRowHeight = 200;
     
     [self.view addSubview:self.tableView];
     
@@ -92,11 +91,17 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 
 #pragma mark - UITableViewDelegate
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    YuXinArticle *model = self.articleArray[indexPath.row + indexPath.section];
-//    
-//    return model.cellHeight;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == DPArticleTypeDetail) {
+        return [tableView fd_heightForCellWithIdentifier:DPArticleDetailCellReuseIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
+            [cell fillDataWithModel:self.articleArray[indexPath.row + indexPath.section]];
+        }];
+    }else {
+        return [tableView fd_heightForCellWithIdentifier:DPArticleDetailCellReuseIdentifier cacheByIndexPath:indexPath configuration:^(id cell) {
+            [cell fillDataWithModel:self.articleArray[indexPath.row + indexPath.section]];
+        }];
+    }
+}
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
