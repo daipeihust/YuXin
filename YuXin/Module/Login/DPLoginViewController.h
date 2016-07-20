@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@interface DPLoginTextView : UITextView
+
+@end
+
 @interface DPLoginViewController : UIViewController
 
 @end

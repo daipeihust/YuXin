@@ -24,7 +24,10 @@
     self.userName = userName;
     self.password = password;
     [[YuXinSDK sharedInstance] loginWithUsername:userName password:password completion:^(NSString *error, NSArray *responseModels) {
-        
+        handler(error);
+        if (!error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationLoginSuccess object:nil];
+        }
     }];
 }
 

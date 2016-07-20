@@ -17,5 +17,7 @@
 #import "RateForFit.h"
 #import "GlobalColors.h"
 #import "Globals.h"
+#import "DPNotifications.h"
+
 
 #endif /* PrefixHeader_pch */

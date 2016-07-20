@@ -19,7 +19,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Shimmer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>UITableView+FDTemplateLayoutCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>WSProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,6 +37,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>007EA705FB15F661C9E39AC876D49019</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>34F9B1252F5B92020AB872854F302327</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>53480ED0BE09FF49E34B1702D485CAAB</key>
 		<dict>
 			<key>primary</key>
@@ -37,12 +57,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BD3B077F6645C14E84B687DAC75C57D1</key>
+		<key>85D232CD4ED6CE577A0B9A8E5E9E72C5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C77EF6A0F860D4B86584F5C4917252BA</key>
+		<key>CADCF5C6B2004CE7C49ECD9AEDE6B6CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
