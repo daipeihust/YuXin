@@ -30,7 +30,7 @@
 		F43AE9DC1D3B8A410060020F /* NSString+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9DB1D3B8A410060020F /* NSString+DPExtension.m */; };
 		F43AE9E41D3F5B290060020F /* DPBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9E31D3F5B290060020F /* DPBoardViewController.m */; };
 		F43AE9E71D3F61730060020F /* DPBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9E61D3F61730060020F /* DPBoardCell.m */; };
-		F43AE9ED1D3F91B40060020F /* WSProgressHUD+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9EC1D3F91B40060020F /* WSProgressHUD+DPExtension.m */; };
+		F43AE9F01D3FB0E70060020F /* WSProgressHUD+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9EF1D3FB0E70060020F /* WSProgressHUD+DPExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,8 +102,8 @@
 		F43AE9E31D3F5B290060020F /* DPBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBoardViewController.m; sourceTree = "<group>"; };
 		F43AE9E51D3F61730060020F /* DPBoardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBoardCell.h; sourceTree = "<group>"; };
 		F43AE9E61D3F61730060020F /* DPBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBoardCell.m; sourceTree = "<group>"; };
-		F43AE9EB1D3F91B40060020F /* WSProgressHUD+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WSProgressHUD+DPExtension.h"; sourceTree = "<group>"; };
-		F43AE9EC1D3F91B40060020F /* WSProgressHUD+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WSProgressHUD+DPExtension.m"; sourceTree = "<group>"; };
+		F43AE9EE1D3FB0E70060020F /* WSProgressHUD+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WSProgressHUD+DPExtension.h"; sourceTree = "<group>"; };
+		F43AE9EF1D3FB0E70060020F /* WSProgressHUD+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WSProgressHUD+DPExtension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +319,8 @@
 		F43AE9D91D3B89740060020F /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				F43AE9EE1D3FB0E70060020F /* WSProgressHUD+DPExtension.h */,
+				F43AE9EF1D3FB0E70060020F /* WSProgressHUD+DPExtension.m */,
 				F43AE9DA1D3B8A410060020F /* NSString+DPExtension.h */,
 				F43AE9DB1D3B8A410060020F /* NSString+DPExtension.m */,
 			);
@@ -328,8 +330,6 @@
 		F43AE9EA1D3F90DE0060020F /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				F43AE9EB1D3F91B40060020F /* WSProgressHUD+DPExtension.h */,
-				F43AE9EC1D3F91B40060020F /* WSProgressHUD+DPExtension.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -545,7 +545,7 @@
 				F43AE9D01D3A076E0060020F /* DPArticleDetailViewController.m in Sources */,
 				F43AE9AD1D3884490060020F /* DPLaunchViewController.m in Sources */,
 				F43AE96A1D377E1C0060020F /* UserHelper.m in Sources */,
-				F43AE9ED1D3F91B40060020F /* WSProgressHUD+DPExtension.m in Sources */,
+				F43AE9F01D3FB0E70060020F /* WSProgressHUD+DPExtension.m in Sources */,
 				F43AE9E41D3F5B290060020F /* DPBoardViewController.m in Sources */,
 				F43AE9DC1D3B8A410060020F /* NSString+DPExtension.m in Sources */,
 				F43AE9D31D3A07990060020F /* DPArticleDetailCell.m in Sources */,
