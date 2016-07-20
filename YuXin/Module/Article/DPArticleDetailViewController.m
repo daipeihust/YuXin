@@ -10,6 +10,7 @@
 #import "DPArticleDetailCell.h"
 #import "MJRefresh.h"
 #import "UITableView+FDTemplateLayoutCell.h"
+#import "WSProgressHUD+DPExtension.h"
 
 
 typedef NS_ENUM(NSUInteger, DPArticleType) {
@@ -56,9 +57,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     
     self.view.backgroundColor = DPBackgroundColor;
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-    self.tableView.mj_header.automaticallyChangeAlpha = YES;
-    self.tableView.fd_debugLogEnabled = YES;
+    
     [self.view addSubview:self.tableView];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -163,11 +162,17 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     [[YuXinSDK sharedInstance] fetchArticlesWithBoard:self.boardName file:self.fileName completion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
             weakSelf.articleArray = [NSMutableArray arrayWithArray:responseModels];
+            
+        }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
+                [WSProgressHUD showImage:nil status:error];
+                [WSProgressHUD autoDismiss];
             });
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+        });
     }];
 }
 
@@ -181,6 +186,8 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         _tableView.backgroundColor = DPBackgroundColor;
         [_tableView registerClass:[DPArticleDetailCell class] forCellReuseIdentifier:DPArticleDetailCellReuseIdentifier];
         [_tableView registerClass:[DPArticleDetailCell class] forCellReuseIdentifier:DPArticleCommentCellReuseIdentifier];
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+        _tableView.mj_header.automaticallyChangeAlpha = YES;
     }
     return _tableView;
 }

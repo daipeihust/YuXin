@@ -11,13 +11,13 @@
 #import "MJRefresh.h"
 #import "DPArticleDetailViewController.h"
 #import "UITableView+FDTemplateLayoutCell.h"
+#import "WSProgressHUD+DPExtension.h"
 
 @interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleTitleCellDelegate>
 
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *cellHeight;
 
 @end
 
@@ -31,7 +31,6 @@
         self.boardName = boardName;
         self.title = boardName;
         self.titleArray = [NSMutableArray array];
-        self.cellHeight = [NSMutableArray array];
     }
     return self;
 }
@@ -60,12 +59,6 @@
 - (void)configUI {
     self.view.backgroundColor = DPBackgroundColor;
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-    self.tableView.mj_header.automaticallyChangeAlpha = YES;
-    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
-    self.tableView.mj_footer.automaticallyChangeAlpha = YES;
-    self.tableView.fd_debugLogEnabled = YES;
-    
     [self.view addSubview:self.tableView];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -86,11 +79,16 @@
     [[YuXinSDK sharedInstance] fetchArticleTitleListWithBoard:self.boardName start:@(0) completion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
             weakSelf.titleArray = [NSMutableArray arrayWithArray:responseModels];
+        }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-                [weakSelf.tableView.mj_header endRefreshing];
+                [WSProgressHUD showImage:nil status:error];
+                [WSProgressHUD autoDismiss];
             });
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+        });
     }];
 }
 
@@ -164,6 +162,10 @@
         _tableView.dataSource = self;
         _tableView.backgroundColor = DPBackgroundColor;
         [_tableView registerClass:[DPArticleTitleCell class] forCellReuseIdentifier:DPArticleTitleCellReuseIdentifier];
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+        _tableView.mj_header.automaticallyChangeAlpha = YES;
+        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+        _tableView.mj_footer.automaticallyChangeAlpha = YES;
     }
     return _tableView;
 }

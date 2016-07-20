@@ -18,6 +18,7 @@
 #import "GlobalColors.h"
 #import "Globals.h"
 #import "DPNotifications.h"
+#import "WSProgressHUD.h"
 
 
 #endif /* PrefixHeader_pch */

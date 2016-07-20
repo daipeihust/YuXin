@@ -13,6 +13,7 @@
 #define DPArticleTitleCellReuseIdentifier           @"article_cell"
 #define DPArticleDetailCellReuseIdentifier          @"article_detail"
 #define DPArticleCommentCellReuseIdentifier         @"article_comment"
+#define DPBoardCellReuseIdentifier                  @"board"
 
 
 //color parameter

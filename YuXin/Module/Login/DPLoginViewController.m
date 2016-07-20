@@ -41,6 +41,8 @@ typedef NS_ENUM(NSUInteger, LoginTextViewType) {
 @property (nonatomic, strong) UITextField *usernameTextField;
 @property (nonatomic, strong) UITextField *passwordTextField;
 @property (nonatomic, strong) UIButton *loginButton;
+@property (nonatomic, strong) UIImageView *backgroundImageView;
+@property (nonatomic, strong) UIVisualEffectView *effectView;
 
 @end
 
@@ -60,10 +62,18 @@ typedef NS_ENUM(NSUInteger, LoginTextViewType) {
 - (void)initView {
     self.view.backgroundColor = [UIColor whiteColor];
     
+//    [self.view addSubview:self.backgroundImageView];
+//    [self.backgroundImageView addSubview:self.effectView];
     [self.view addSubview:self.usernameTextField];
     [self.view addSubview:self.passwordTextField];
     [self.view addSubview:self.loginButton];
     
+//    [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view);
+//    }];
+//    [self.effectView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.backgroundImageView);
+//    }];
     [self.usernameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).with.offset(200);
         make.width.mas_equalTo(200);
@@ -84,10 +94,28 @@ typedef NS_ENUM(NSUInteger, LoginTextViewType) {
 #pragma mark - Action Method
 
 - (void)loginButtonClicked:(UIButton *)sender {
-    
+    [WSProgressHUD showShimmeringString:@"Loading..." maskType:WSProgressHUDMaskTypeClear];
+    __weak typeof(self) weakSelf = self;
     [[UserHelper sharedInstance] loginWithUserName:self.usernameTextField.text password:self.passwordTextField.text completion:^(NSString *message) {
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (message) {
+                [WSProgressHUD showImage:nil status:message];
+                [weakSelf autoDismiss];
+            }else {
+                
+            }
+        });
     }];
+}
+
+#pragma mark - Privite Method
+
+- (void)autoDismiss
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [WSProgressHUD dismiss];
+    });
+    
 }
 
 #pragma mark - Getter
@@ -117,8 +145,26 @@ typedef NS_ENUM(NSUInteger, LoginTextViewType) {
     if (!_loginButton) {
         _loginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_loginButton setTitle:@"Login" forState:UIControlStateNormal];
+        [_loginButton addTarget:self action:@selector(loginButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _loginButton;
+}
+
+- (UIImageView *)backgroundImageView {
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image_login_background"]];
+        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+    return _backgroundImageView;
+}
+
+- (UIVisualEffectView *)effectView {
+    if (!_effectView) {
+        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        
+        _effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    }
+    return _effectView;
 }
 
 @end

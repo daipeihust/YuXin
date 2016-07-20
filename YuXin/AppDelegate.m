@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "DPArticleTitleViewController.h"
 #import "DPLoginViewController.h"
+#import "DPBoardViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,8 +24,14 @@
 //    UINavigationController *nVC = [[UINavigationController alloc] initWithRootViewController:viewController];
 //    self.window.rootViewController = nVC;
 //    [self.window makeKeyAndVisible];
-    DPLoginViewController *viewController = [[DPLoginViewController alloc] init];
-    self.window.rootViewController = viewController;
+    
+//    DPLoginViewController *viewController = [[DPLoginViewController alloc] init];
+//    self.window.rootViewController = viewController;
+//    [self.window makeKeyAndVisible];
+    
+    DPBoardViewController *viewController = [[DPBoardViewController alloc] initWithBoardType:DPBoardTypeYuXinXingKong];
+    UINavigationController *nVC = [[UINavigationController alloc] initWithRootViewController:viewController];
+    self.window.rootViewController = nVC;
     [self.window makeKeyAndVisible];
     return YES;
 }
