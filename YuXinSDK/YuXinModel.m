@@ -72,13 +72,6 @@
 
 @implementation YuXinBoard
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.cellHeight = 100;
-    }
-    return self;
-}
 
 @end
 
@@ -96,13 +89,6 @@
 
 @implementation YuXinFriend
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.cellHeight = 80;
-    }
-    return self;
-}
 
 @end
 
@@ -119,13 +105,6 @@
 
 @implementation YuXinTitle
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.cellHeight = 150;
-    }
-    return self;
-}
 
 - (void)setDate:(NSString *)date {
     _date = date;
@@ -178,14 +157,6 @@
 
 @implementation YuXinArticle
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.cellHeight = 150;
-        
-    }
-    return self;
-}
 
 - (void)setContent:(NSString *)content {
     _readableDate = [self getReadableDateFrom:content];

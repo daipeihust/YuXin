@@ -58,7 +58,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
     self.tableView.mj_header.automaticallyChangeAlpha = YES;
-    
+    self.tableView.fd_debugLogEnabled = YES;
     [self.view addSubview:self.tableView];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {

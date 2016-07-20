@@ -42,8 +42,6 @@
     self.timeLabel.text = model.readableDate;
     self.summaryLabel.text = model.displaySummary;
     
-//    [self setNeedsUpdateConstraints];
-//    [self updateConstraintsIfNeeded];
 }
 
 #pragma mark - ConfigViews
@@ -68,19 +66,16 @@
     [self.authorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel);
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
-        make.height.mas_equalTo(18);
         make.width.mas_equalTo(100);
     }];
     [self.commentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.contentView);
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
-        make.height.mas_equalTo(18);
         make.width.mas_equalTo(100);
     }];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView).with.offset(-10);
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
-        make.height.mas_equalTo(18);
         make.width.mas_equalTo(100);
     }];
     [self.summaryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,7 +116,6 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textColor = DPFirstLevelTitleColor;
-//        _titleLabel.font = [UIFont systemFontOfSize:15];
         _titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
         _titleLabel.numberOfLines = 0;
@@ -134,7 +128,7 @@
     if (!_authorLabel) {
         _authorLabel = [[UILabel alloc] init];
         _authorLabel.textColor = DPSecondLevelTitleColor;
-        _authorLabel.font = [UIFont systemFontOfSize:10];
+        _authorLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         _authorLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _authorLabel;
@@ -144,7 +138,7 @@
     if (!_commentLabel) {
         _commentLabel = [[UILabel alloc] init];
         _commentLabel.textColor = DPSecondLevelTitleColor;
-        _commentLabel.font = [UIFont systemFontOfSize:10];
+        _commentLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         _commentLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _commentLabel;
@@ -154,7 +148,7 @@
     if (!_timeLabel) {
         _timeLabel = [[UILabel alloc] init];
         _timeLabel.textColor = DPSecondLevelTitleColor;
-        _timeLabel.font = [UIFont systemFontOfSize:10];
+        _timeLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         [_titleLabel sizeToFit];
     }
@@ -165,7 +159,6 @@
     if (!_summaryLabel) {
         _summaryLabel = [[UILabel alloc] init];
         _summaryLabel.textColor = DPBodyTextColor;
-//        _summaryLabel.font = [UIFont systemFontOfSize:20];
         _summaryLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         _summaryLabel.textAlignment = NSTextAlignmentLeft;
         _summaryLabel.numberOfLines = 0;

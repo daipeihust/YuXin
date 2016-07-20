@@ -10,7 +10,6 @@
 
 @interface YuXinModel : NSObject
 
-@property (nonatomic, assign) CGFloat cellHeight;
 
 @end
 

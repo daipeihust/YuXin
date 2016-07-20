@@ -135,14 +135,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         [self.authorName mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.articleTitle);
             make.top.equalTo(self.articleTitle.mas_bottom).with.offset(5);
-            make.height.mas_equalTo(18);
-            make.width.mas_equalTo(150);
-        }];
-        [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contentView).with.offset(-10);
-            make.centerY.equalTo(self.articleTitle);
-            make.height.mas_equalTo(18);
-            make.width.mas_equalTo(100);
+            make.right.equalTo(self.articleTitle);
         }];
         [self.articleContent mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.authorName.mas_bottom).with.offset(10);
@@ -167,6 +160,11 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
             make.bottom.equalTo(self.contentView).with.offset(-10);
             make.width.height.mas_equalTo(25);
         }];
+        [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).with.offset(10);
+            make.top.equalTo(self.articleContent.mas_bottom).with.offset(10);
+            make.width.mas_equalTo(100);
+        }];
     }
     else if (self.cellType == DPArticleDetailCellTypeComment) {
         [self.contentView addSubview:self.commentTitle];
@@ -177,7 +175,6 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         [self.deleteBtn2 mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).with.offset(-10);
             make.top.equalTo(self.contentView).with.offset(10);
-            make.height.mas_equalTo(20);
             make.width.mas_equalTo(50);
         }];
         [self.replyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -192,7 +189,6 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.commentTitle.mas_bottom).with.offset(5);
             make.left.equalTo(self.userImageView.mas_right).with.offset(10);
-            make.height.mas_equalTo(18);
             make.width.mas_equalTo(100);
         }];
         [self.commentContent mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -243,7 +239,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _timeLabel = [[UILabel alloc] init];
         _timeLabel.textColor = DPSecondLevelTitleColor;
         _timeLabel.numberOfLines = 1;
-        _timeLabel.font = [UIFont systemFontOfSize:12];
+        _timeLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         _timeLabel.textAlignment = NSTextAlignmentLeft;
     }
     return _timeLabel;
@@ -254,7 +250,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _articleTitle = [[UILabel alloc] init];
         _articleTitle.textColor = DPFirstLevelTitleColor;
         _articleTitle.numberOfLines = 0;
-        _articleTitle.font = [UIFont systemFontOfSize:15];
+        _articleTitle.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
         _articleTitle.textAlignment = NSTextAlignmentLeft;
         _articleTitle.lineBreakMode = NSLineBreakByTruncatingTail;
     }
@@ -266,7 +262,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _authorName = [[UILabel alloc] init];
         _authorName.textColor = DPSecondLevelTitleColor;
         _authorName.numberOfLines = 1;
-        _authorName.font = [UIFont systemFontOfSize:12];
+        _authorName.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
         _authorName.textAlignment = NSTextAlignmentLeft;
     }
     return _authorName;
@@ -303,7 +299,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _articleContent = [[UILabel alloc] init];
         _articleContent.textColor = DPBodyTextColor;
         _articleContent.numberOfLines = 0;
-        _articleContent.font = [UIFont systemFontOfSize:20];
+        _articleContent.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         _articleContent.textAlignment = NSTextAlignmentLeft;
         _articleContent.lineBreakMode = NSLineBreakByTruncatingTail;
     }
@@ -315,7 +311,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _commentTitle = [[UILabel alloc] init];
         _commentTitle.textColor = DPFirstLevelTitleColor;
         _commentTitle.numberOfLines = 1;
-        _commentTitle.font = [UIFont systemFontOfSize:15];
+        _commentTitle.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
         _commentTitle.textAlignment = NSTextAlignmentLeft;
     }
     return _commentTitle;
@@ -326,7 +322,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _commentContent = [[UILabel alloc] init];
         _commentContent.textColor = DPBodyTextColor;
         _commentContent.numberOfLines = 0;
-        _commentContent.font = [UIFont systemFontOfSize:20];
+        _commentContent.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
         _commentContent.textAlignment = NSTextAlignmentLeft;
         _commentContent.lineBreakMode = NSLineBreakByTruncatingTail;
     }

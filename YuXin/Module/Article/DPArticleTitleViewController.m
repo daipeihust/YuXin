@@ -64,6 +64,7 @@
     self.tableView.mj_header.automaticallyChangeAlpha = YES;
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
     self.tableView.mj_footer.automaticallyChangeAlpha = YES;
+    self.tableView.fd_debugLogEnabled = YES;
     
     [self.view addSubview:self.tableView];
     
