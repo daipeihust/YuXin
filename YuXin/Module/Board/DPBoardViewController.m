@@ -13,6 +13,7 @@
 #import "MJRefresh.h"
 #import "DPArticleTitleViewController.h"
 #import "MJRefreshNormalHeader.h"
+#import "UserHelper.h"
 
 
 @interface DPBoardViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -55,7 +56,7 @@
 #pragma mark - ConfigViews
 
 - (void)initView {
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.tableView];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -76,9 +77,9 @@
 - (void)headerRefresh {
     __weak typeof(self) weakSelf = self;
     if (self.boardType == DPBoardTypeFavourate) {
-        [[YuXinSDK sharedInstance] fetchFavourateBoardWithCompletion:^(NSString *error, NSArray *responseModels) {
+        [[UserHelper sharedInstance] getFavourateBoardWithCompletion:^(NSString *error, NSArray *models) {
             if (!error) {
-                weakSelf.boardArray = [NSMutableArray arrayWithArray:responseModels];
+                weakSelf.boardArray = [NSMutableArray arrayWithArray:models];
             }else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [WSProgressHUD showErrorWithStatus:error];
@@ -115,9 +116,9 @@
     [WSProgressHUD showWithStatus:@"玩命加载中..."];
     __weak typeof(self) weakSelf = self;
     if (self.boardType == DPBoardTypeFavourate) {
-        [[YuXinSDK sharedInstance] fetchFavourateBoardWithCompletion:^(NSString *error, NSArray *responseModels) {
+        [[UserHelper sharedInstance] getFavourateBoardWithCompletion:^(NSString *error, NSArray *models) {
             if (!error) {
-                weakSelf.boardArray = [NSMutableArray arrayWithArray:responseModels];
+                weakSelf.boardArray = [NSMutableArray arrayWithArray:models];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     weakSelf.tableView.hidden = NO;
                     [weakSelf.tableView reloadData];
@@ -151,16 +152,6 @@
     }
 }
 
-//- (nullable NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return @"删除";
-//}
-
-- (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return @[[UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"订阅" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        
-    }]];
-}
-
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -168,6 +159,77 @@
     YuXinBoard *board = self.boardArray[indexPath.row];
     DPArticleTitleViewController *viewController = [[DPArticleTitleViewController alloc] initWithBoardName:board.boardName];
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    YuXinBoard *board = self.boardArray[indexPath.row];
+    UITableViewRowAction *action;
+    if (self.boardType == DPBoardTypeFavourate) {
+        action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消订阅" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            [tableView setEditing:NO animated:YES];
+            [[YuXinSDK sharedInstance] delFavourateBoard:board.boardName completion:^(NSString *error, NSArray *responseModels) {
+                if (error) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [WSProgressHUD showImage:nil status:error];
+                        [WSProgressHUD autoDismiss];
+                    });
+                }else {
+                    [[UserHelper sharedInstance] refreshFavourateBoard];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [WSProgressHUD showImage:nil status:@"取消订阅成功"];
+                        [WSProgressHUD autoDismiss];
+                        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                    });
+                }
+            }];
+        }];
+    }else {
+        if ([[UserHelper sharedInstance].favourateBoard containsObject:board.boardName]) {
+            action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消订阅" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+                [tableView setEditing:NO animated:YES];
+                [[YuXinSDK sharedInstance] delFavourateBoard:board.boardName completion:^(NSString *error, NSArray *responseModels) {
+                    if (error) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [WSProgressHUD showImage:nil status:error];
+                            [WSProgressHUD autoDismiss];
+                        });
+                    }else {
+                        [[UserHelper sharedInstance] refreshFavourateBoard];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [WSProgressHUD showImage:nil status:@"取消订阅成功"];
+                            [WSProgressHUD autoDismiss];
+                            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        });
+                    }
+                }];
+            }];
+        }else {
+            action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"订阅" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+                [tableView setEditing:NO animated:YES];
+                [[YuXinSDK sharedInstance] addFavourateBoard:board.boardName completion:^(NSString *error, NSArray *responseModels) {
+                    if (error) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [WSProgressHUD showImage:nil status:error];
+                            [WSProgressHUD autoDismiss];
+                        });
+                    }else {
+                        [[UserHelper sharedInstance] refreshFavourateBoard];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [WSProgressHUD showImage:nil status:@"订阅成功"];
+                            [WSProgressHUD autoDismiss];
+                            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                        });
+                    }
+                }];
+            }];
+        }
+    }
+    
+    return @[action];
 }
 
 #pragma mark - UITableViewDataSource
@@ -180,10 +242,6 @@
     DPBoardCell *cell = [tableView dequeueReusableCellWithIdentifier:DPBoardCellReuseIdentifier];
     [cell fileDataWithModel:self.boardArray[indexPath.row]];
     return cell;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -217,5 +275,7 @@
     }
     return _retryButton;
 }
+
+
 
 @end

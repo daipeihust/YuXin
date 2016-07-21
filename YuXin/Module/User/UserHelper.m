@@ -16,6 +16,7 @@
     static dispatch_once_t onceTocken;
     dispatch_once(&onceTocken, ^{
         instance = [[UserHelper alloc] init];
+        instance.favourateBoard = [NSArray array];
     });
     return instance;
 }
@@ -32,5 +33,36 @@
         }
     }];
 }
+
+- (void)getFavourateBoardCompletion:(FavouriteHandler)handler {
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchFavourateBoardWithCompletion:^(NSString *error, NSArray *responseModels) {
+        handler(error, responseModels);
+        if (!error) {
+            NSMutableArray *tmpArray = [NSMutableArray array];
+            for (int i = 0; i < responseModels.count; i++) {
+                YuXinBoard *board = responseModels[i];
+                [tmpArray addObject:board.boardName];
+            }
+            weakSelf.favourateBoard = [tmpArray copy];
+        }
+    }];
+}
+
+- (void)refreshFavourateBoard {
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchFavourateBoardWithCompletion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            NSMutableArray *tmpArray = [NSMutableArray array];
+            for (int i = 0; i < responseModels.count; i++) {
+                YuXinBoard *board = responseModels[i];
+                [tmpArray addObject:board.boardName];
+            }
+            weakSelf.favourateBoard = [tmpArray copy];
+        }
+    }];
+}
+
+
 
 @end
