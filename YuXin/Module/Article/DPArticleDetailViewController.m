@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *articleArray;
+@property (nonatomic, strong) UIButton *retryButton;
 
 @end
 
@@ -47,22 +48,27 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self ConfigViews];
-    [self firstRefresh];
+    [self initData];
 }
 
 
 #pragma mark - ConfigUI
 
 - (void)ConfigViews {
-    
     self.view.backgroundColor = DPBackgroundColor;
     
-    
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.retryButton];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
         make.bottom.equalTo(self.view).with.offset(-50);
+    }];
+    [self.view addSubview:self.retryButton];
+    [self.retryButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.view);
+        make.width.mas_equalTo(100);
+        make.height.mas_equalTo(50);
     }];
 }
 
@@ -151,9 +157,6 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 
 #pragma mark - Privite Method
 
-- (void)firstRefresh {
-    [self.tableView.mj_header beginRefreshing];
-}
 
 #pragma mark - Action Method
 
@@ -165,7 +168,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
             
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [WSProgressHUD showImage:nil status:error];
+                [WSProgressHUD showErrorWithStatus:error];
                 [WSProgressHUD autoDismiss];
             });
         }
@@ -176,20 +179,55 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     }];
 }
 
+- (void)initData {
+    self.retryButton.hidden = YES;
+    [WSProgressHUD showWithStatus:@"玩命加载中..."];
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchArticlesWithBoard:self.boardName file:self.fileName completion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            weakSelf.articleArray = [NSMutableArray arrayWithArray:responseModels];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSelf.tableView.hidden = NO;
+                [weakSelf.tableView reloadData];
+                [WSProgressHUD dismiss];
+            });
+        }else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [WSProgressHUD showErrorWithStatus:error];
+                [WSProgressHUD autoDismiss];
+                weakSelf.retryButton.hidden = NO;
+            });
+        }
+    }];
+}
+
 #pragma mark - Getter
 
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] init];
+        _tableView.hidden = YES;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = DPBackgroundColor;
         [_tableView registerClass:[DPArticleDetailCell class] forCellReuseIdentifier:DPArticleDetailCellReuseIdentifier];
         [_tableView registerClass:[DPArticleDetailCell class] forCellReuseIdentifier:DPArticleCommentCellReuseIdentifier];
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-        _tableView.mj_header.automaticallyChangeAlpha = YES;
+        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+        header.automaticallyChangeAlpha = YES;
+        [header setTitle:@"玩命加载中..." forState:MJRefreshStateRefreshing];
+        _tableView.mj_header = header;
     }
     return _tableView;
+}
+
+- (UIButton *)retryButton {
+    if(!_retryButton) {
+        _retryButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _retryButton.hidden = YES;
+        [_retryButton setTitle:@"retry" forState:UIControlStateNormal];
+        [_retryButton addTarget:self action:@selector(initData) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _retryButton;
 }
 
 @end

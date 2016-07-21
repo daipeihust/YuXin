@@ -35,6 +35,8 @@
 #pragma mark - ConfigView
 
 - (void)initView {
+    self.backgroundView.backgroundColor = [UIColor grayColor];
+    self.contentView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:self.boardName];
     [self.contentView addSubview:self.boardDescription];
     

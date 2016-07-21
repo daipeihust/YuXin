@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UIButton *retryButton;
 
 @end
 
@@ -41,7 +42,7 @@
     [super viewDidLoad];
     
     [self configUI];
-    [self firstRefresh];
+    [self initData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,9 +61,15 @@
     self.view.backgroundColor = DPBackgroundColor;
     
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.retryButton];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
+    }];
+    [self.retryButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.view);
+        make.width.mas_equalTo(100);
+        make.height.mas_equalTo(50);
     }];
 }
 
@@ -81,7 +88,7 @@
             weakSelf.titleArray = [NSMutableArray arrayWithArray:responseModels];
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [WSProgressHUD showImage:nil status:error];
+                [WSProgressHUD showErrorWithStatus:error];
                 [WSProgressHUD autoDismiss];
             });
         }
@@ -100,6 +107,37 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
                 [weakSelf.tableView.mj_footer endRefreshing];
+            });
+        }else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [WSProgressHUD showErrorWithStatus:error];
+                [WSProgressHUD autoDismiss];
+            });
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        });
+    }];
+}
+
+- (void)initData {
+    self.retryButton.hidden = YES;
+    [WSProgressHUD showWithStatus:@"玩命加载中..."];
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchArticleTitleListWithBoard:self.boardName start:@(0) completion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            weakSelf.titleArray = [NSMutableArray arrayWithArray:responseModels];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSelf.tableView.hidden = NO;
+                [weakSelf.tableView reloadData];
+                [WSProgressHUD dismiss];
+            });
+        }else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                weakSelf.retryButton.hidden = NO;
+                [WSProgressHUD showErrorWithStatus:error];
+                [WSProgressHUD autoDismiss];
             });
         }
     }];
@@ -160,15 +198,29 @@
         _tableView = [[UITableView alloc] init];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.hidden = YES;
         _tableView.backgroundColor = DPBackgroundColor;
         [_tableView registerClass:[DPArticleTitleCell class] forCellReuseIdentifier:DPArticleTitleCellReuseIdentifier];
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-        _tableView.mj_header.automaticallyChangeAlpha = YES;
-        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
-        _tableView.mj_footer.automaticallyChangeAlpha = YES;
+        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+        header.automaticallyChangeAlpha = YES;
+        [header setTitle:@"玩命加载中..." forState:MJRefreshStateRefreshing];
+        _tableView.mj_header = header;
+        MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
+        footer.automaticallyChangeAlpha = YES;
+        [footer setTitle:@"玩命加载中..." forState:MJRefreshStateRefreshing];
+        _tableView.mj_footer = footer;
     }
     return _tableView;
 }
 
+- (UIButton *)retryButton {
+    if(!_retryButton) {
+        _retryButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        _retryButton.hidden = YES;
+        [_retryButton setTitle:@"retry" forState:UIControlStateNormal];
+        [_retryButton addTarget:self action:@selector(initData) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _retryButton;
+}
 
 @end

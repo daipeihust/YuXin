@@ -410,13 +410,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
 - (NSData *)refineTheData:(NSData *)data {
     NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSString *rawStr = [[NSString alloc] initWithData:data encoding:gb2312];
-    NSString *targetStr1 = @"";
-    NSString *replaceStr1 = @"";
-//    NSString *targetStr2 = @"gb2312";
-//    NSString *replaceStr2 = @"utf-8";
-    NSString *refinedStr = [rawStr stringByReplacingOccurrencesOfString:targetStr1 withString:replaceStr1];
-//    refinedStr = [refinedStr stringByReplacingOccurrencesOfString:targetStr2 withString:replaceStr2];
+    NSString *targetStr = @"\0\1\2\3\10\11\13\27\30\31\32\33\34\35\36\37";
+    NSString *refinedStr = rawStr;
+    NSString *tmpStr;
+    for (int i = 0; i < targetStr.length; i++) {
+        tmpStr = [targetStr substringWithRange:NSMakeRange(i, 1)];
+        refinedStr = [refinedStr stringByReplacingOccurrencesOfString:tmpStr withString:@""];
+    }
 //    NSLog(@">>>>>>>>:%@", refinedStr);
+    
     return [refinedStr dataUsingEncoding:gb2312];
 }
 

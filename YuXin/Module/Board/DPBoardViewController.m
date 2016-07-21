@@ -12,6 +12,8 @@
 #import "WSProgressHUD+DPExtension.h"
 #import "MJRefresh.h"
 #import "DPArticleTitleViewController.h"
+#import "MJRefreshNormalHeader.h"
+
 
 @interface DPBoardViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -53,7 +55,6 @@
 #pragma mark - ConfigViews
 
 - (void)initView {
-    self.view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:self.tableView];
     
@@ -80,7 +81,7 @@
                 weakSelf.boardArray = [NSMutableArray arrayWithArray:responseModels];
             }else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [WSProgressHUD showImage:nil status:error];
+                    [WSProgressHUD showErrorWithStatus:error];
                     [WSProgressHUD autoDismiss];
                 });
             }
@@ -95,7 +96,7 @@
                 weakSelf.boardArray = [NSMutableArray arrayWithArray:responseModels];
             }else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [WSProgressHUD showImage:nil status:error];
+                    [WSProgressHUD showErrorWithStatus:error];
                     [WSProgressHUD autoDismiss];
                 });
             }
@@ -111,7 +112,7 @@
 
 - (void)initData {
     self.retryButton.hidden = YES;
-    [WSProgressHUD showShimmeringString:@"玩命加载中..."];
+    [WSProgressHUD showWithStatus:@"玩命加载中..."];
     __weak typeof(self) weakSelf = self;
     if (self.boardType == DPBoardTypeFavourate) {
         [[YuXinSDK sharedInstance] fetchFavourateBoardWithCompletion:^(NSString *error, NSArray *responseModels) {
@@ -124,7 +125,7 @@
                 });
             }else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [WSProgressHUD showImage:nil status:error];
+                    [WSProgressHUD showErrorWithStatus:error];
                     [WSProgressHUD autoDismiss];
                     weakSelf.retryButton.hidden = NO;
                 });
@@ -141,13 +142,23 @@
                 });
             }else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [WSProgressHUD showImage:nil status:error];
+                    [WSProgressHUD showErrorWithStatus:error];
                     [WSProgressHUD autoDismiss];
                     weakSelf.retryButton.hidden = NO;
                 });
             }
         }];
     }
+}
+
+//- (nullable NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return @"删除";
+//}
+
+- (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @[[UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"订阅" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+    }]];
 }
 
 #pragma mark - UITableViewDelegate
@@ -171,6 +182,14 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
 #pragma mark - Getter
 
 - (UITableView *)tableView {
@@ -181,7 +200,10 @@
         _tableView.dataSource = self;
         _tableView.rowHeight = 60;
         [_tableView registerClass:[DPBoardCell class] forCellReuseIdentifier:DPBoardCellReuseIdentifier];
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+        header.automaticallyChangeAlpha = YES;
+        [header setTitle:@"玩命加载中..." forState:MJRefreshStateRefreshing];
+        _tableView.mj_header = header;
     }
     return _tableView;
 }
