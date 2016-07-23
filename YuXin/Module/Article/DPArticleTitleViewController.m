@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIButton *retryButton;
+@property (nonatomic, strong) WSProgressHUD *hud;
 
 @end
 
@@ -62,6 +63,7 @@
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.retryButton];
+    [self.view addSubview:self.hud];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -123,15 +125,19 @@
 
 - (void)initData {
     self.retryButton.hidden = YES;
-    [WSProgressHUD showWithStatus:@"玩命加载中..."];
+    [self.hud show];
+    [self.view setUserInteractionEnabled:NO];
     __weak typeof(self) weakSelf = self;
     [[YuXinSDK sharedInstance] fetchArticleTitleListWithBoard:self.boardName start:@(0) completion:^(NSString *error, NSArray *responseModels) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.hud dismiss];
+            [weakSelf.view setUserInteractionEnabled:YES];
+        });
         if (!error) {
             weakSelf.titleArray = [NSMutableArray arrayWithArray:responseModels];
             dispatch_async(dispatch_get_main_queue(), ^{
                 weakSelf.tableView.hidden = NO;
                 [weakSelf.tableView reloadData];
-                [WSProgressHUD dismiss];
             });
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -196,10 +202,10 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] init];
+        _tableView.backgroundColor = DPBackgroundColor;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.hidden = YES;
-        _tableView.backgroundColor = DPBackgroundColor;
         [_tableView registerClass:[DPArticleTitleCell class] forCellReuseIdentifier:DPArticleTitleCellReuseIdentifier];
         MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
         header.automaticallyChangeAlpha = YES;
@@ -221,6 +227,14 @@
         [_retryButton addTarget:self action:@selector(initData) forControlEvents:UIControlEventTouchUpInside];
     }
     return _retryButton;
+}
+
+- (WSProgressHUD *)hud {
+    if (!_hud) {
+        _hud = [[WSProgressHUD alloc] initWithView:self.view];
+        [_hud setProgressHUDIndicatorStyle:WSProgressHUDIndicatorMMSpinner];
+    }
+    return _hud;
 }
 
 @end

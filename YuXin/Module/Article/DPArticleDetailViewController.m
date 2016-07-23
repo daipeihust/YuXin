@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *articleArray;
 @property (nonatomic, strong) UIButton *retryButton;
+@property (nonatomic, strong) WSProgressHUD *hud;
 
 @end
 
@@ -59,6 +60,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.retryButton];
+    [self.view addSubview:self.hud];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
@@ -70,6 +72,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         make.width.mas_equalTo(100);
         make.height.mas_equalTo(50);
     }];
+    
 }
 
 #pragma mark - DPArticleDetailCellDelegate
@@ -181,15 +184,19 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 
 - (void)initData {
     self.retryButton.hidden = YES;
-    [WSProgressHUD showWithStatus:@"玩命加载中..."];
+    [self.hud show];
+    [self.view setUserInteractionEnabled:NO];
     __weak typeof(self) weakSelf = self;
     [[YuXinSDK sharedInstance] fetchArticlesWithBoard:self.boardName file:self.fileName completion:^(NSString *error, NSArray *responseModels) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.hud dismiss];
+            [weakSelf.view setUserInteractionEnabled:YES];
+        });
         if (!error) {
             weakSelf.articleArray = [NSMutableArray arrayWithArray:responseModels];
             dispatch_async(dispatch_get_main_queue(), ^{
                 weakSelf.tableView.hidden = NO;
                 [weakSelf.tableView reloadData];
-                [WSProgressHUD dismiss];
             });
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -206,12 +213,15 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] init];
+        _tableView.backgroundColor = DPBackgroundColor;
         _tableView.hidden = YES;
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.backgroundColor = DPBackgroundColor;
         [_tableView registerClass:[DPArticleDetailCell class] forCellReuseIdentifier:DPArticleDetailCellReuseIdentifier];
         [_tableView registerClass:[DPArticleDetailCell class] forCellReuseIdentifier:DPArticleCommentCellReuseIdentifier];
+        UIView *view = [[UIView alloc] init];
+        view.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:view];
         MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
         header.automaticallyChangeAlpha = YES;
         [header setTitle:@"玩命加载中..." forState:MJRefreshStateRefreshing];
@@ -228,6 +238,14 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         [_retryButton addTarget:self action:@selector(initData) forControlEvents:UIControlEventTouchUpInside];
     }
     return _retryButton;
+}
+
+- (WSProgressHUD *)hud {
+    if (!_hud) {
+        _hud = [[WSProgressHUD alloc] initWithView:self.view];
+        [_hud setProgressHUDIndicatorStyle:WSProgressHUDIndicatorMMSpinner];
+    }
+    return _hud;
 }
 
 @end

@@ -14,6 +14,9 @@
 #define DPArticleDetailCellReuseIdentifier          @"article_detail"
 #define DPArticleCommentCellReuseIdentifier         @"article_comment"
 #define DPBoardCellReuseIdentifier                  @"board"
+#define DPSettingUserCellReuseIdentifier            @"setting_user"
+#define DPSettingNormalCellReuseIdentifier          @"setting_normal"
+#define DPSettingSwitchCellReuseIdentifier          @"setting_switch"
 
 
 //color parameter

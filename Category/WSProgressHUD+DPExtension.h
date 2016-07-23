@@ -12,4 +12,6 @@
 
 + (void)autoDismiss;
 
++ (void)safeShowString:(NSString *)string;
+
 @end

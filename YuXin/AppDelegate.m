@@ -31,6 +31,7 @@
     
     DPBoardViewController *viewController = [[DPBoardViewController alloc] initWithBoardType:DPBoardTypeYuXinXingKong];
     UINavigationController *nVC = [[UINavigationController alloc] initWithRootViewController:viewController];
+    nVC.navigationBar.translucent = NO;
     self.window.rootViewController = nVC;
     [self.window makeKeyAndVisible];
     return YES;

@@ -31,6 +31,9 @@
 		F43AE9E41D3F5B290060020F /* DPBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9E31D3F5B290060020F /* DPBoardViewController.m */; };
 		F43AE9E71D3F61730060020F /* DPBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9E61D3F61730060020F /* DPBoardCell.m */; };
 		F43AE9F01D3FB0E70060020F /* WSProgressHUD+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9EF1D3FB0E70060020F /* WSProgressHUD+DPExtension.m */; };
+		F474691A1D4240C60034E1A2 /* DPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47469191D4240C60034E1A2 /* DPSettingViewController.m */; };
+		F474691D1D42438E0034E1A2 /* DPSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F474691C1D42438E0034E1A2 /* DPSettingCell.m */; };
+		F47469201D4309780034E1A2 /* DPSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F474691F1D4309780034E1A2 /* DPSettingItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +107,12 @@
 		F43AE9E61D3F61730060020F /* DPBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBoardCell.m; sourceTree = "<group>"; };
 		F43AE9EE1D3FB0E70060020F /* WSProgressHUD+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WSProgressHUD+DPExtension.h"; sourceTree = "<group>"; };
 		F43AE9EF1D3FB0E70060020F /* WSProgressHUD+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WSProgressHUD+DPExtension.m"; sourceTree = "<group>"; };
+		F47469181D4240C60034E1A2 /* DPSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSettingViewController.h; sourceTree = "<group>"; };
+		F47469191D4240C60034E1A2 /* DPSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSettingViewController.m; sourceTree = "<group>"; };
+		F474691B1D42438E0034E1A2 /* DPSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSettingCell.h; sourceTree = "<group>"; };
+		F474691C1D42438E0034E1A2 /* DPSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSettingCell.m; sourceTree = "<group>"; };
+		F474691E1D4309780034E1A2 /* DPSettingItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSettingItem.h; sourceTree = "<group>"; };
+		F474691F1D4309780034E1A2 /* DPSettingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSettingItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +312,12 @@
 		F43AE9AA1D3884290060020F /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				F47469181D4240C60034E1A2 /* DPSettingViewController.h */,
+				F47469191D4240C60034E1A2 /* DPSettingViewController.m */,
+				F474691B1D42438E0034E1A2 /* DPSettingCell.h */,
+				F474691C1D42438E0034E1A2 /* DPSettingCell.m */,
+				F474691E1D4309780034E1A2 /* DPSettingItem.h */,
+				F474691F1D4309780034E1A2 /* DPSettingItem.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -536,12 +551,15 @@
 				F43AE9A51D3872610060020F /* DPLoginViewController.m in Sources */,
 				F4141DFF1D34D3F300286585 /* YuXinSDK.m in Sources */,
 				F43AE9B01D3884AA0060020F /* DPMainViewController.m in Sources */,
+				F47469201D4309780034E1A2 /* DPSettingItem.m in Sources */,
+				F474691D1D42438E0034E1A2 /* DPSettingCell.m in Sources */,
 				F4141E001D34D3F300286585 /* YuXinXmlParser.m in Sources */,
 				F43AE9E71D3F61730060020F /* DPBoardCell.m in Sources */,
 				F43AE9B41D38BA140060020F /* DPArticleTitleViewController.m in Sources */,
 				F4141DFE1D34D3F300286585 /* YuXinModel.m in Sources */,
 				F43AE9B71D38BA8C0060020F /* DPArticleTitleCell.m in Sources */,
 				F4141DC81D34889A00286585 /* AppDelegate.m in Sources */,
+				F474691A1D4240C60034E1A2 /* DPSettingViewController.m in Sources */,
 				F43AE9D01D3A076E0060020F /* DPArticleDetailViewController.m in Sources */,
 				F43AE9AD1D3884490060020F /* DPLaunchViewController.m in Sources */,
 				F43AE96A1D377E1C0060020F /* UserHelper.m in Sources */,
