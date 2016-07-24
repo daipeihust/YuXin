@@ -1,5 +1,5 @@
 //
-//  DPSettingItem.h
+//  DPProfileItem.h
 //  YuXin
 //
 //  Created by Dai Pei on 16/7/23.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DPSettingItem : NSObject
+@interface DPProfileItem : NSObject
 
 @property (nonatomic, strong) UIImage *userImage;
 @property (nonatomic, strong) NSString *title1;

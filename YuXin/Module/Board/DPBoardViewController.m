@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIButton *retryButton;
 @property (nonatomic, strong) WSProgressHUD *hud;
+@property (nonatomic, strong) NSArray *titleArray;
 
 @end
 
@@ -35,7 +36,7 @@
     if (self) {
         self.boardType = boardType;
         self.boardArray = [NSMutableArray array];
-        self.title = @"Board";
+        self.title = self.titleArray[boardType];
     }
     return self;
 }
@@ -290,6 +291,13 @@
         [_hud setProgressHUDIndicatorStyle:WSProgressHUDIndicatorMMSpinner];
     }
     return _hud;
+}
+
+- (NSArray *)titleArray {
+    if (!_titleArray) {
+        _titleArray = @[@"喻信星空", @"电信风采", @"数字时代", @"学术学科", @"人文艺术", @"纯真时代", @"休闲娱乐", @"时事快递", @"订阅"];
+    }
+    return _titleArray;
 }
 
 @end

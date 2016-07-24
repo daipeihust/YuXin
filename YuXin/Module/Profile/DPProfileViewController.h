@@ -1,5 +1,5 @@
 //
-//  DPSettingViewController.h
+//  DPProfileViewController.h
 //  YuXin
 //
 //  Created by Dai Pei on 16/7/22.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DPSettingViewController : UIViewController
+@interface DPProfileViewController : UIViewController
 
 @end

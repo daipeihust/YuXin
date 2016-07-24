@@ -10,6 +10,9 @@
 #import "DPArticleTitleViewController.h"
 #import "DPLoginViewController.h"
 #import "DPBoardViewController.h"
+#import "DPAllPartViewController.h"
+#import "DPMainViewController.h"
+#import "DPProfileViewController.h"
 
 @interface AppDelegate ()
 
@@ -29,10 +32,17 @@
 //    self.window.rootViewController = viewController;
 //    [self.window makeKeyAndVisible];
     
-    DPBoardViewController *viewController = [[DPBoardViewController alloc] initWithBoardType:DPBoardTypeYuXinXingKong];
-    UINavigationController *nVC = [[UINavigationController alloc] initWithRootViewController:viewController];
-    nVC.navigationBar.translucent = NO;
-    self.window.rootViewController = nVC;
+//    DPBoardViewController *viewController = [[DPBoardViewController alloc] initWithBoardType:DPBoardTypeYuXinXingKong];
+    
+//    DPProfileViewController *viewController2 = [[DPProfileViewController alloc] init];
+    
+//    DPAllPartViewController *viewController = [[DPAllPartViewController alloc] init];
+    
+    DPMainViewController *viewController = [[DPMainViewController alloc] init];
+    
+//    UINavigationController *nVC = [[UINavigationController alloc] initWithRootViewController:viewController2];
+//    nVC.navigationBar.translucent = NO;
+    self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
     return YES;
 }

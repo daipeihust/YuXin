@@ -34,7 +34,7 @@
     }];
 }
 
-- (void)getFavourateBoardCompletion:(FavouriteHandler)handler {
+- (void)getFavourateBoardWithCompletion:(FavouriteHandler)handler {
     __weak typeof(self) weakSelf = self;
     [[YuXinSDK sharedInstance] fetchFavourateBoardWithCompletion:^(NSString *error, NSArray *responseModels) {
         handler(error, responseModels);
@@ -63,6 +63,17 @@
     }];
 }
 
+#pragma mark - Setter
+
+- (void)setAutoLogin:(BOOL)autoLogin {
+    [[NSUserDefaults standardUserDefaults] setBool:autoLogin forKey:DPAutoLoginKey];
+    _autoLogin = autoLogin;
+}
+
+- (void)setShowColorfulText:(BOOL)showColorfulText {
+    [[NSUserDefaults standardUserDefaults] setBool:showColorfulText forKey:DPShowColorfulTextKey];
+    _showColorfulText = showColorfulText;
+}
 
 
 @end

@@ -14,9 +14,10 @@
 #define DPArticleDetailCellReuseIdentifier          @"article_detail"
 #define DPArticleCommentCellReuseIdentifier         @"article_comment"
 #define DPBoardCellReuseIdentifier                  @"board"
-#define DPSettingUserCellReuseIdentifier            @"setting_user"
-#define DPSettingNormalCellReuseIdentifier          @"setting_normal"
-#define DPSettingSwitchCellReuseIdentifier          @"setting_switch"
+#define DPProfileUserCellReuseIdentifier            @"Profile_user"
+#define DPProfileNormalCellReuseIdentifier          @"Profile_normal"
+#define DPProfileSwitchCellReuseIdentifier          @"Profile_switch"
+#define DPAllPartCellReuseIdentifier                @"all_part"
 
 
 //color parameter
@@ -37,6 +38,14 @@
 #define DPRegExReply                                @"【 在 .+"
 #define DPRegExHeader                               @"发信站:"
 #define DPRegExFooter                               @"※ "
+
+//const value
+#define DPProfileTableViewHeaderHeight              15.0
+
+
+//Key
+#define DPAutoLoginKey                              @"auto_login"
+#define DPShowColorfulTextKey                       @"show_colorful_text"
 
 
 #endif /* Globals_h */

@@ -31,9 +31,15 @@
 		F43AE9E41D3F5B290060020F /* DPBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9E31D3F5B290060020F /* DPBoardViewController.m */; };
 		F43AE9E71D3F61730060020F /* DPBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9E61D3F61730060020F /* DPBoardCell.m */; };
 		F43AE9F01D3FB0E70060020F /* WSProgressHUD+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9EF1D3FB0E70060020F /* WSProgressHUD+DPExtension.m */; };
-		F474691A1D4240C60034E1A2 /* DPSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F47469191D4240C60034E1A2 /* DPSettingViewController.m */; };
-		F474691D1D42438E0034E1A2 /* DPSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F474691C1D42438E0034E1A2 /* DPSettingCell.m */; };
-		F47469201D4309780034E1A2 /* DPSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F474691F1D4309780034E1A2 /* DPSettingItem.m */; };
+		F448F78E1D44953500BD1E5C /* DPTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F448F78D1D44953500BD1E5C /* DPTabBarItem.m */; };
+		F4B7C47D1D446AFC00E2E92E /* DPProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B7C4781D446AFC00E2E92E /* DPProfileCell.m */; };
+		F4B7C47E1D446AFC00E2E92E /* DPProfileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B7C47A1D446AFC00E2E92E /* DPProfileItem.m */; };
+		F4B7C47F1D446AFC00E2E92E /* DPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B7C47C1D446AFC00E2E92E /* DPProfileViewController.m */; };
+		F4B7C5091D44822C00E2E92E /* DPTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B7C5081D44822C00E2E92E /* DPTabBar.m */; };
+		F4C62D9F1D439DD200538C03 /* DPAllPartLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62D9E1D439DD200538C03 /* DPAllPartLayout.m */; };
+		F4C62DA21D43A93000538C03 /* DPAllPartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA11D43A93000538C03 /* DPAllPartViewController.m */; };
+		F4C62DA51D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA41D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m */; };
+		F4C62DA81D43C7F000538C03 /* DPAllPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,12 +113,24 @@
 		F43AE9E61D3F61730060020F /* DPBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBoardCell.m; sourceTree = "<group>"; };
 		F43AE9EE1D3FB0E70060020F /* WSProgressHUD+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WSProgressHUD+DPExtension.h"; sourceTree = "<group>"; };
 		F43AE9EF1D3FB0E70060020F /* WSProgressHUD+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WSProgressHUD+DPExtension.m"; sourceTree = "<group>"; };
-		F47469181D4240C60034E1A2 /* DPSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSettingViewController.h; sourceTree = "<group>"; };
-		F47469191D4240C60034E1A2 /* DPSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSettingViewController.m; sourceTree = "<group>"; };
-		F474691B1D42438E0034E1A2 /* DPSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSettingCell.h; sourceTree = "<group>"; };
-		F474691C1D42438E0034E1A2 /* DPSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSettingCell.m; sourceTree = "<group>"; };
-		F474691E1D4309780034E1A2 /* DPSettingItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSettingItem.h; sourceTree = "<group>"; };
-		F474691F1D4309780034E1A2 /* DPSettingItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSettingItem.m; sourceTree = "<group>"; };
+		F448F78C1D44953500BD1E5C /* DPTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTabBarItem.h; sourceTree = "<group>"; };
+		F448F78D1D44953500BD1E5C /* DPTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTabBarItem.m; sourceTree = "<group>"; };
+		F4B7C4771D446AFC00E2E92E /* DPProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPProfileCell.h; sourceTree = "<group>"; };
+		F4B7C4781D446AFC00E2E92E /* DPProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPProfileCell.m; sourceTree = "<group>"; };
+		F4B7C4791D446AFC00E2E92E /* DPProfileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPProfileItem.h; sourceTree = "<group>"; };
+		F4B7C47A1D446AFC00E2E92E /* DPProfileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPProfileItem.m; sourceTree = "<group>"; };
+		F4B7C47B1D446AFC00E2E92E /* DPProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPProfileViewController.h; sourceTree = "<group>"; };
+		F4B7C47C1D446AFC00E2E92E /* DPProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPProfileViewController.m; sourceTree = "<group>"; };
+		F4B7C5071D44822C00E2E92E /* DPTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTabBar.h; sourceTree = "<group>"; };
+		F4B7C5081D44822C00E2E92E /* DPTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTabBar.m; sourceTree = "<group>"; };
+		F4C62D9D1D439DD200538C03 /* DPAllPartLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAllPartLayout.h; sourceTree = "<group>"; };
+		F4C62D9E1D439DD200538C03 /* DPAllPartLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAllPartLayout.m; sourceTree = "<group>"; };
+		F4C62DA01D43A93000538C03 /* DPAllPartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAllPartViewController.h; sourceTree = "<group>"; };
+		F4C62DA11D43A93000538C03 /* DPAllPartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAllPartViewController.m; sourceTree = "<group>"; };
+		F4C62DA31D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VVSpringCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		F4C62DA41D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VVSpringCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		F4C62DA61D43C7F000538C03 /* DPAllPartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAllPartCell.h; sourceTree = "<group>"; };
+		F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAllPartCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,11 +239,12 @@
 		F4141DF61D3499D600286585 /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				F4B7C4761D446AFC00E2E92E /* Profile */,
+				F4C62D9C1D439D8E00538C03 /* AllPart */,
 				F43AE9A61D3884290060020F /* Article */,
 				F43AE9A71D3884290060020F /* Board */,
 				F43AE9A81D3884290060020F /* Launch */,
 				F43AE9A91D3884290060020F /* Main */,
-				F43AE9AA1D3884290060020F /* Setting */,
 				F47D908F1D369AB700DF831D /* Login */,
 				F47D90901D369AB700DF831D /* User */,
 			);
@@ -305,21 +324,12 @@
 			children = (
 				F43AE9AE1D3884AA0060020F /* DPMainViewController.h */,
 				F43AE9AF1D3884AA0060020F /* DPMainViewController.m */,
+				F4B7C5071D44822C00E2E92E /* DPTabBar.h */,
+				F4B7C5081D44822C00E2E92E /* DPTabBar.m */,
+				F448F78C1D44953500BD1E5C /* DPTabBarItem.h */,
+				F448F78D1D44953500BD1E5C /* DPTabBarItem.m */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		F43AE9AA1D3884290060020F /* Setting */ = {
-			isa = PBXGroup;
-			children = (
-				F47469181D4240C60034E1A2 /* DPSettingViewController.h */,
-				F47469191D4240C60034E1A2 /* DPSettingViewController.m */,
-				F474691B1D42438E0034E1A2 /* DPSettingCell.h */,
-				F474691C1D42438E0034E1A2 /* DPSettingCell.m */,
-				F474691E1D4309780034E1A2 /* DPSettingItem.h */,
-				F474691F1D4309780034E1A2 /* DPSettingItem.m */,
-			);
-			path = Setting;
 			sourceTree = "<group>";
 		};
 		F43AE9B11D38864F0060020F /* Frameworks */ = {
@@ -365,6 +375,34 @@
 				F43AE9691D377E1C0060020F /* UserHelper.m */,
 			);
 			path = User;
+			sourceTree = "<group>";
+		};
+		F4B7C4761D446AFC00E2E92E /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				F4B7C4771D446AFC00E2E92E /* DPProfileCell.h */,
+				F4B7C4781D446AFC00E2E92E /* DPProfileCell.m */,
+				F4B7C4791D446AFC00E2E92E /* DPProfileItem.h */,
+				F4B7C47A1D446AFC00E2E92E /* DPProfileItem.m */,
+				F4B7C47B1D446AFC00E2E92E /* DPProfileViewController.h */,
+				F4B7C47C1D446AFC00E2E92E /* DPProfileViewController.m */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		F4C62D9C1D439D8E00538C03 /* AllPart */ = {
+			isa = PBXGroup;
+			children = (
+				F4C62DA31D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.h */,
+				F4C62DA41D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m */,
+				F4C62D9D1D439DD200538C03 /* DPAllPartLayout.h */,
+				F4C62D9E1D439DD200538C03 /* DPAllPartLayout.m */,
+				F4C62DA01D43A93000538C03 /* DPAllPartViewController.h */,
+				F4C62DA11D43A93000538C03 /* DPAllPartViewController.m */,
+				F4C62DA61D43C7F000538C03 /* DPAllPartCell.h */,
+				F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */,
+			);
+			path = AllPart;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -548,25 +586,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4B7C47E1D446AFC00E2E92E /* DPProfileItem.m in Sources */,
 				F43AE9A51D3872610060020F /* DPLoginViewController.m in Sources */,
+				F4B7C5091D44822C00E2E92E /* DPTabBar.m in Sources */,
 				F4141DFF1D34D3F300286585 /* YuXinSDK.m in Sources */,
 				F43AE9B01D3884AA0060020F /* DPMainViewController.m in Sources */,
-				F47469201D4309780034E1A2 /* DPSettingItem.m in Sources */,
-				F474691D1D42438E0034E1A2 /* DPSettingCell.m in Sources */,
+				F4C62D9F1D439DD200538C03 /* DPAllPartLayout.m in Sources */,
 				F4141E001D34D3F300286585 /* YuXinXmlParser.m in Sources */,
 				F43AE9E71D3F61730060020F /* DPBoardCell.m in Sources */,
+				F4B7C47D1D446AFC00E2E92E /* DPProfileCell.m in Sources */,
 				F43AE9B41D38BA140060020F /* DPArticleTitleViewController.m in Sources */,
 				F4141DFE1D34D3F300286585 /* YuXinModel.m in Sources */,
 				F43AE9B71D38BA8C0060020F /* DPArticleTitleCell.m in Sources */,
 				F4141DC81D34889A00286585 /* AppDelegate.m in Sources */,
-				F474691A1D4240C60034E1A2 /* DPSettingViewController.m in Sources */,
 				F43AE9D01D3A076E0060020F /* DPArticleDetailViewController.m in Sources */,
+				F4C62DA81D43C7F000538C03 /* DPAllPartCell.m in Sources */,
 				F43AE9AD1D3884490060020F /* DPLaunchViewController.m in Sources */,
 				F43AE96A1D377E1C0060020F /* UserHelper.m in Sources */,
 				F43AE9F01D3FB0E70060020F /* WSProgressHUD+DPExtension.m in Sources */,
+				F448F78E1D44953500BD1E5C /* DPTabBarItem.m in Sources */,
+				F4C62DA21D43A93000538C03 /* DPAllPartViewController.m in Sources */,
 				F43AE9E41D3F5B290060020F /* DPBoardViewController.m in Sources */,
 				F43AE9DC1D3B8A410060020F /* NSString+DPExtension.m in Sources */,
 				F43AE9D31D3A07990060020F /* DPArticleDetailCell.m in Sources */,
+				F4B7C47F1D446AFC00E2E92E /* DPProfileViewController.m in Sources */,
+				F4C62DA51D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m in Sources */,
 				F4141DC51D34889A00286585 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

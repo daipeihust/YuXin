@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DPMainViewController : UITabBarController
+@interface DPMainViewController : UIViewController
 
 @end

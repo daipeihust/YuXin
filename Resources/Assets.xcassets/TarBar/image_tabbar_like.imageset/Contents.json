@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "tabbar-like-icon.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "image_login_background.png",
+      "filename" : "tabbar-like-icon@2x.png",
       "scale" : "2x"
     },
     {
