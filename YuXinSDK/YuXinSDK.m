@@ -35,6 +35,8 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
 @interface YuXinSDK()
 
 @property (nonatomic, strong) NSString *cookies;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSString *password;
 
 @end
 
@@ -65,6 +67,8 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
     NSURLSessionDataTask *loginTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         if (!error) {
+            weakSelf.username = username;
+            weakSelf.password = password;
             NSData *convertedData = [weakSelf cleanGB2312:data];
             NSData *refinedData = [weakSelf refineTheData:convertedData];
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeLogin parserData:refinedData];

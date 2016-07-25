@@ -10,10 +10,12 @@
 #import "DPProfileCell.h"
 #import "DPProfileItem.h"
 #import "UserHelper.h"
+#import "WSProgressHUD+DPExtension.h"
 
 @interface DPProfileViewController () <UITableViewDelegate, UITableViewDataSource, DPProfileCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) WSProgressHUD *hud;
 
 @end
 
@@ -36,9 +38,24 @@
     [self.view setBackgroundColor:DPBackgroundColor];
     [self.tableView setBackgroundColor:DPBackgroundColor];
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.hud];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
+    }];
+}
+
+#pragma mark - Action Method
+
+- (void)logout {
+    [self.view setUserInteractionEnabled:NO];
+    [self.hud show];
+    [[UserHelper sharedInstance] logoutWithCompletion:^(NSString *message) {
+        [self.view setUserInteractionEnabled:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.hud dismiss];
+            [WSProgressHUD safeShowString:message];
+        });
     }];
 }
 
@@ -67,6 +84,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.section) {
+        case 4:
+            [self logout];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -194,5 +219,12 @@
     return _tableView;
 }
 
+- (WSProgressHUD *)hud {
+    if (!_hud) {
+        _hud = [[WSProgressHUD alloc] initWithView:self.view];
+        [_hud setProgressHUDIndicatorStyle:WSProgressHUDIndicatorMMSpinner];
+    }
+    return _hud;
+}
 
 @end

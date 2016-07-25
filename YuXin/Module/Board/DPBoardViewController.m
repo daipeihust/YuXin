@@ -52,7 +52,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+    if (self.boardType == DPBoardTypeFavourate) {
+        if ([[UserHelper sharedInstance] favourateBoard].count != self.boardArray.count) {
+            [self headerRefresh];
+        }
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -177,6 +181,7 @@
 }
 
 - (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    __weak typeof(self) weakSelf = self;
     YuXinBoard *board = self.boardArray[indexPath.row];
     UITableViewRowAction *action;
     if (self.boardType == DPBoardTypeFavourate) {
@@ -191,7 +196,9 @@
                     [[UserHelper sharedInstance] refreshFavourateBoard];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [WSProgressHUD safeShowString:@"取消订阅成功"];
+                        [weakSelf.boardArray removeObjectAtIndex:indexPath.row];
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                        
                     });
                 }
             }];

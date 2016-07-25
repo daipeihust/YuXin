@@ -13,11 +13,17 @@
 #define UIColorFromRGB(r,g,b)                   UIColorFromRGBA(r,g,b,1.0)
 
 #define DPBackgroundColor                       UIColorFromRGBA(248,248,248,1.0f)
+
+
+#define DPLoginBackgroundColor                  UIColorFromRGB(255,214,0)
+#define DPLoginTextFieldBGColor                 UIColorFromRGB(240,240,240)
+#define DPLoginButtonColor                      UIColorFromRGB(233,39,84)
+
 #define DPFirstLevelTitleColor                  [UIColor blackColor]
 #define DPSecondLevelTitleColor                 [UIColor grayColor]
 #define DPBodyTextColor                         [UIColor blackColor]
 
-#define DPTextColorBlack                        [UIColor blackColor]
+#define DPTextColorBlack                        UIColorFromRGB(36,36,36)
 #define DPTextColorRed                          [UIColor redColor]
 #define DPTextColorGreen                        [UIColor greenColor]
 #define DPTextColorYellow                       [UIColor yellowColor]
@@ -28,6 +34,6 @@
 
 #define DPSeparationLineColor                   UIColorFromRGBA(216,216,216,1.0f)
 
-#define DPTabBarTopLineColor                    UIColorFromRGBA(200,200,200,1.0f)
+#define DPTabBarTopLineColor                    UIColorFromRGBA(175,175,175,1.0f)
 
 #endif /* GlobalColors_h */

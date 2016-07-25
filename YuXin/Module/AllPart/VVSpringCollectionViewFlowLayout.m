@@ -16,7 +16,7 @@
 
 -(id)init {
     if ([super init]) {
-        _springDamping = 0.1;
+        _springDamping = 0.3;
         _springFrequency = 0.8;
         _resistanceFactor = 500;
     }

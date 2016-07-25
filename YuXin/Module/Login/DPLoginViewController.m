@@ -8,41 +8,96 @@
 
 #import "DPLoginViewController.h"
 #import "UserHelper.h"
+#import "WSProgressHUD+DPExtension.h"
 
-typedef NS_ENUM(NSUInteger, LoginTextViewType) {
-    LoginTextViewTypeUsername,
-    LoginTextViewTypePassword
-};
+@interface DPLoginTextField : UIView
 
-@interface DPLoginTextView()
+@property (nonatomic, strong) UITextField *username;
+@property (nonatomic, strong) UITextField *password;
+@property (nonatomic, strong) UIView *separationLine;
 
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UITextField *textField;
 
 @end
 
-@implementation DPLoginTextView
+@implementation DPLoginTextField
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        [self initView];
+    }
+    return self;
+}
+
+- (void)initView {
+    self.backgroundColor = DPLoginTextFieldBGColor;
+    self.layer.masksToBounds = YES;
+    self.layer.cornerRadius = 10;
+    
+    [self addSubview:self.username];
+    [self addSubview:self.password];
+    [self addSubview:self.separationLine];
+    
+    [self.username mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self).with.offset(15);
+        make.right.equalTo(self).with.offset(-15);
+        make.bottom.equalTo(self.mas_centerY);
+    }];
+    [self.password mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self);
+        make.left.equalTo(self).with.offset(15);
+        make.right.equalTo(self).with.offset(-15);
+        make.top.equalTo(self.mas_centerY);
+    }];
+    [self.separationLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.centerY.equalTo(self);
+        make.height.mas_equalTo(0.5);
+    }];
+}
 
 #pragma mark - Getter
 
-- (UILabel *)titleLabel {
-    if (_titleLabel) {
-        _titleLabel = [[UILabel alloc] init];
-        _titleLabel.numberOfLines = 1;
+- (UITextField *)username {
+    if (!_username) {
+        _username = [[UITextField alloc] init];
+        _username.placeholder = @"Username";
+        _username.backgroundColor = [UIColor clearColor];
+        _username.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
-    return _titleLabel;
+    return _username;
+}
+
+- (UITextField *)password {
+    if (!_password) {
+        _password = [[UITextField alloc] init];
+        _password.placeholder = @"Password";
+        _password.backgroundColor = [UIColor clearColor];
+        _password.secureTextEntry = YES;
+        _password.clearsOnBeginEditing = YES;
+    }
+    return _password;
+}
+
+- (UIView *)separationLine
+{
+    if (!_separationLine) {
+        _separationLine = [[UIView alloc] init];
+        _separationLine.backgroundColor = DPSeparationLineColor;
+    }
+    return _separationLine;
 }
 
 @end
 
 @interface DPLoginViewController()
 
-@property (nonatomic, strong) UITextField *usernameTextField;
-@property (nonatomic, strong) UITextField *passwordTextField;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UIScrollView *backgroundView;
+@property (nonatomic, strong) WSProgressHUD *hud;
+@property (nonatomic, strong) DPLoginTextField *textField;
 @property (nonatomic, strong) UIButton *loginButton;
-@property (nonatomic, strong) UIImageView *backgroundImageView;
-@property (nonatomic, strong) UIVisualEffectView *effectView;
 
 @end
 
@@ -62,109 +117,105 @@ typedef NS_ENUM(NSUInteger, LoginTextViewType) {
 - (void)initView {
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    [self.view addSubview:self.backgroundImageView];
-//    [self.backgroundImageView addSubview:self.effectView];
-    [self.view addSubview:self.usernameTextField];
-    [self.view addSubview:self.passwordTextField];
-    [self.view addSubview:self.loginButton];
+    [self.view addSubview:self.backgroundView];
+    [self.view addSubview:self.hud];
+    [self.backgroundView addSubview:self.textField];
+    [self.backgroundView addSubview:self.titleLabel];
+    [self.backgroundView addSubview:self.loginButton];
     
-//    [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.view);
-//    }];
-//    [self.effectView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.equalTo(self.backgroundImageView);
-//    }];
-    [self.usernameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).with.offset(200);
-        make.width.mas_equalTo(200);
-        make.centerX.equalTo(self.view);
+    [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
     }];
-    [self.passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.usernameTextField.mas_bottom).with.offset(10);
-        make.width.mas_equalTo(200);
-        make.centerX.equalTo(self.view);
+    [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.backgroundView);
+        make.width.mas_equalTo(320 * widthRateForFit);
+        make.height.mas_equalTo(100 * widthRateForFit);
     }];
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.backgroundView);
+        make.width.mas_equalTo(200);
+        make.bottom.equalTo(self.textField.mas_top).with.offset(-50);
+        make.height.mas_equalTo(60);
+    }];
+    
     [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.passwordTextField.mas_bottom).with.offset(20);
-        make.width.mas_equalTo(100);
-        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.textField.mas_bottom).with.offset(10);
+        make.height.mas_equalTo(50 * widthRateForFit);
+        make.width.mas_equalTo(320 * widthRateForFit);
+        make.centerX.equalTo(self.backgroundView);
     }];
 }
 
 #pragma mark - Action Method
 
 - (void)loginButtonClicked:(UIButton *)sender {
-    [WSProgressHUD showShimmeringString:@"Loading..." maskType:WSProgressHUDMaskTypeClear];
-    __weak typeof(self) weakSelf = self;
-    [[UserHelper sharedInstance] loginWithUserName:self.usernameTextField.text password:self.passwordTextField.text completion:^(NSString *message) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (message) {
-                [WSProgressHUD showImage:nil status:message];
-                [weakSelf autoDismiss];
-            }else {
-                
-            }
-        });
-    }];
+    [self.hud show];
+    [self.view setUserInteractionEnabled:NO];
+    
+//    [[UserHelper sharedInstance] loginWithUserName:self.usernameTextField.text password:self.passwordTextField.text completion:^(NSString *message) {
+//        [self.view setUserInteractionEnabled:NO];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.hud dismiss];
+//            [WSProgressHUD safeShowString:message];
+//        });
+//    }];
 }
 
 #pragma mark - Privite Method
 
-- (void)autoDismiss
-{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [WSProgressHUD dismiss];
-    });
-    
-}
+
 
 #pragma mark - Getter
 
-- (UITextField *)usernameTextField {
-    if (!_usernameTextField) {
-        _usernameTextField = [[UITextField alloc] init];
-        _usernameTextField.placeholder = @"username";
-        _usernameTextField.layer.borderWidth = 1;
-        _usernameTextField.layer.borderColor = [UIColor blackColor].CGColor;
+- (WSProgressHUD *)hud {
+    if (!_hud) {
+        _hud = [[WSProgressHUD alloc] initWithView:self.view];
+        [_hud setProgressHUDIndicatorStyle:WSProgressHUDIndicatorMMSpinner];
     }
-    return _usernameTextField;
+    return _hud;
 }
 
-- (UITextField *)passwordTextField {
-    if (!_passwordTextField) {
-        _passwordTextField = [[UITextField alloc] init];
-        _passwordTextField.placeholder = @"password";
-        _passwordTextField.secureTextEntry = YES;
-        _passwordTextField.layer.borderWidth = 1;
-        _passwordTextField.layer.borderColor = [UIColor blackColor].CGColor;
+- (UIScrollView *)backgroundView {
+    if (!_backgroundView) {
+        _backgroundView = [[UIScrollView alloc] init];
+        _backgroundView.alwaysBounceVertical = YES;
+        _backgroundView.contentSize = self.view.frame.size;
+        _backgroundView.backgroundColor = DPLoginBackgroundColor;
+        _backgroundView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
     }
-    return _passwordTextField;
+    return _backgroundView;
+}
+
+- (DPLoginTextField *)textField {
+    if (!_textField) {
+        _textField = [[DPLoginTextField alloc] init];
+    }
+    return _textField;
+}
+
+- (UILabel *)titleLabel {
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.text = @"喻信星空";
+        _titleLabel.textColor = [UIColor whiteColor];
+        _titleLabel.font = [UIFont boldSystemFontOfSize:35];
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _titleLabel;
 }
 
 - (UIButton *)loginButton {
     if (!_loginButton) {
         _loginButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [_loginButton setTitle:@"Login" forState:UIControlStateNormal];
-        [_loginButton addTarget:self action:@selector(loginButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        _loginButton.backgroundColor = DPLoginButtonColor;
+        [_loginButton setTitle:@"Log in" forState:UIControlStateNormal];
+        [_loginButton setTintColor:[UIColor whiteColor]];
+        _loginButton.layer.masksToBounds = YES;
+        _loginButton.layer.cornerRadius = 7;
     }
     return _loginButton;
 }
 
-- (UIImageView *)backgroundImageView {
-    if (!_backgroundImageView) {
-        _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"image_login_background"]];
-        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-    }
-    return _backgroundImageView;
-}
-
-- (UIVisualEffectView *)effectView {
-    if (!_effectView) {
-        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
-        
-        _effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-    }
-    return _effectView;
-}
 
 @end

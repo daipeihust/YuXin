@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^LoginHandler)(NSString *message);
+typedef void(^MessageHandler)(NSString *message);
 typedef void(^FavouriteHandler)(NSString *error, NSArray *models);
 
 @interface UserHelper : NSObject
@@ -22,9 +22,9 @@ typedef void(^FavouriteHandler)(NSString *error, NSArray *models);
 @property (nonatomic, assign) BOOL showColorfulText;
 
 + (instancetype)sharedInstance;
-- (void)loginWithUserName:(NSString *)userName password:(NSString *)password completion:(LoginHandler)handler;
+- (void)loginWithUserName:(NSString *)userName password:(NSString *)password completion:(MessageHandler)handler;
 - (void)getFavourateBoardWithCompletion:(FavouriteHandler)handler;
 - (void)refreshFavourateBoard;
-
+- (void)logoutWithCompletion:(MessageHandler)handler;
 
 @end

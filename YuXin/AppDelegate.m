@@ -22,28 +22,14 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [self setUpNotification];
+    
     self.window = [[UIWindow alloc] initWithFrame:screenBounds];
-//    DPArticleTitleViewController *viewController = [[DPArticleTitleViewController alloc] initWithBoardName:@"Water"];
-//    UINavigationController *nVC = [[UINavigationController alloc] initWithRootViewController:viewController];
-//    self.window.rootViewController = nVC;
-//    [self.window makeKeyAndVisible];
-    
-//    DPLoginViewController *viewController = [[DPLoginViewController alloc] init];
-//    self.window.rootViewController = viewController;
-//    [self.window makeKeyAndVisible];
-    
-//    DPBoardViewController *viewController = [[DPBoardViewController alloc] initWithBoardType:DPBoardTypeYuXinXingKong];
-    
-//    DPProfileViewController *viewController2 = [[DPProfileViewController alloc] init];
-    
-//    DPAllPartViewController *viewController = [[DPAllPartViewController alloc] init];
-    
-    DPMainViewController *viewController = [[DPMainViewController alloc] init];
-    
-//    UINavigationController *nVC = [[UINavigationController alloc] initWithRootViewController:viewController2];
-//    nVC.navigationBar.translucent = NO;
-    self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
+
+    [self showLoginViewController];
+    
     return YES;
 }
 
@@ -67,6 +53,36 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - Privite Method
+
+- (void)showLoginViewController {
+    self.window.rootViewController = [[DPLoginViewController alloc] init];
+}
+
+- (void)loginCompletion {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.window.rootViewController = [[DPMainViewController alloc] init];
+    });
+}
+
+- (void)logoutCompletion {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showLoginViewController];
+    });
+}
+
+- (void)setUpNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loginCompletion)
+                                                 name:DPNotificationLoginSuccess
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(logoutCompletion)
+                                                 name:DPNotificationLogoutSuccess
+                                               object:nil];
 }
 
 @end

@@ -21,13 +21,26 @@
     return instance;
 }
 
-- (void)loginWithUserName:(NSString *)userName password:(NSString *)password completion:(LoginHandler)handler {
+#pragma mark - Public Method
+
+- (void)loginWithUserName:(NSString *)userName password:(NSString *)password completion:(MessageHandler)handler {
     self.userName = userName;
     self.password = password;
     [[YuXinSDK sharedInstance] loginWithUsername:userName password:password completion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
             handler(@"Login Success");
             [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationLoginSuccess object:nil];
+        }else {
+            handler(error);
+        }
+    }];
+}
+
+- (void)logoutWithCompletion:(MessageHandler)handler {
+    [[YuXinSDK sharedInstance] logoutWithCompletion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            handler(@"Logout Success");
+            [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationLogoutSuccess object:nil];
         }else {
             handler(error);
         }
