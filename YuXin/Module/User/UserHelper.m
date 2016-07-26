@@ -10,6 +10,8 @@
 #import "YuXinSDK.h"
 
 @implementation UserHelper
+@synthesize autoLogin = _autoLogin;
+@synthesize showColorfulText = _showColorfulText;
 
 + (instancetype)sharedInstance {
     static UserHelper *instance = nil;
@@ -22,6 +24,26 @@
 }
 
 #pragma mark - Public Method
+
+- (void)start {
+    NSNumber *openCount = [[NSUserDefaults standardUserDefaults] objectForKey:DPOpenCountKey];
+    if (!openCount) {
+        [[NSUserDefaults standardUserDefaults] setObject:@(1) forKey:DPOpenCountKey];
+        self.firstOpen = YES;
+    }else {
+        [[NSUserDefaults standardUserDefaults] setObject:@(openCount.integerValue + 1) forKey:DPOpenCountKey];
+        self.firstOpen = NO;
+    }
+    if (self.firstOpen) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationShowLoginVC object:nil];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:DPAutoLoginKey];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:DPShowColorfulTextKey];
+    }else {
+        
+    }
+    
+    
+}
 
 - (void)loginWithUserName:(NSString *)userName password:(NSString *)password completion:(MessageHandler)handler {
     self.userName = userName;
@@ -78,6 +100,7 @@
 
 #pragma mark - Setter
 
+
 - (void)setAutoLogin:(BOOL)autoLogin {
     [[NSUserDefaults standardUserDefaults] setBool:autoLogin forKey:DPAutoLoginKey];
     _autoLogin = autoLogin;
@@ -88,5 +111,14 @@
     _showColorfulText = showColorfulText;
 }
 
+#pragma mark - Getter
+
+-(BOOL)showColorfulText{
+    return [[NSUserDefaults standardUserDefaults] boolForKey:DPShowColorfulTextKey];
+}
+
+- (BOOL)autoLogin {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:DPAutoLoginKey];
+}
 
 @end

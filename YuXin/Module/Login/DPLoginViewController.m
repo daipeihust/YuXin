@@ -75,7 +75,7 @@
         _password.placeholder = @"Password";
         _password.backgroundColor = [UIColor clearColor];
         _password.secureTextEntry = YES;
-        _password.clearsOnBeginEditing = YES;
+        _password.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
     return _password;
 }
@@ -91,13 +91,15 @@
 
 @end
 
-@interface DPLoginViewController()
+@interface DPLoginViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UIScrollView *backgroundView;
 @property (nonatomic, strong) WSProgressHUD *hud;
 @property (nonatomic, strong) DPLoginTextField *textField;
 @property (nonatomic, strong) UIButton *loginButton;
+@property (nonatomic, strong) NSString *usernameStr;
+@property (nonatomic, assign) BOOL usernameChanged;
 
 @end
 
@@ -109,7 +111,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self registerForKeyboardNotifications];
     [self initView];
+    
 }
 
 #pragma mark - ConfigView
@@ -152,13 +156,77 @@
     [self.hud show];
     [self.view setUserInteractionEnabled:NO];
     
-//    [[UserHelper sharedInstance] loginWithUserName:self.usernameTextField.text password:self.passwordTextField.text completion:^(NSString *message) {
-//        [self.view setUserInteractionEnabled:NO];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.hud dismiss];
-//            [WSProgressHUD safeShowString:message];
-//        });
-//    }];
+    [[UserHelper sharedInstance] loginWithUserName:self.textField.username.text password:self.textField.password.text completion:^(NSString *message) {
+        [self.view setUserInteractionEnabled:NO];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.hud dismiss];
+            [WSProgressHUD safeShowString:message];
+        });
+    }];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if ([self.usernameStr isEqualToString:@""]) {
+        return NO;
+    }
+    return YES;
+}
+
+#pragma mark - Notifications
+
+- (void)registerForKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textFieldDidChange:)
+                                                 name:UITextFieldTextDidChangeNotification
+                                               object:nil];
+    
+}
+
+- (void)keyboardWasShown:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.f, 0.f, kbSize.height, 0.f);
+    self.backgroundView.contentInset = contentInsets;
+    self.backgroundView.scrollIndicatorInsets = contentInsets;
+    
+    CGRect rect = self.loginButton.frame;
+    rect.size.height += rect.size.height;
+    [self.backgroundView scrollRectToVisible:rect animated:YES];
+    
+}
+
+- (void)keyboardWillBeHidden {
+    self.backgroundView.contentInset = UIEdgeInsetsZero;
+    self.backgroundView.scrollIndicatorInsets = UIEdgeInsetsZero;
+}
+
+- (void)textFieldDidChange:(NSNotification *)notification {
+    NSString *usernameStr = self.textField.username.text;
+    if ([usernameStr isEqualToString:self.usernameStr]) {
+        self.usernameChanged = NO;
+    }else {
+        self.usernameChanged = YES;
+        self.usernameStr = usernameStr;
+    }
+    if (self.usernameChanged) {
+        self.textField.password.text = @"";
+    }
+    if (![usernameStr isEqualToString:@""] && ![self.textField.password.text isEqualToString:@""]) {
+        self.loginButton.userInteractionEnabled = YES;
+    }else {
+        self.loginButton.userInteractionEnabled = NO;
+    }
 }
 
 #pragma mark - Privite Method
@@ -189,6 +257,7 @@
 - (DPLoginTextField *)textField {
     if (!_textField) {
         _textField = [[DPLoginTextField alloc] init];
+        _textField.password.delegate = self;
     }
     return _textField;
 }
@@ -211,10 +280,18 @@
         _loginButton.backgroundColor = DPLoginButtonColor;
         [_loginButton setTitle:@"Log in" forState:UIControlStateNormal];
         [_loginButton setTintColor:[UIColor whiteColor]];
+        [_loginButton addTarget:self action:@selector(loginButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         _loginButton.layer.masksToBounds = YES;
         _loginButton.layer.cornerRadius = 7;
     }
     return _loginButton;
+}
+
+- (NSString *)usernameStr {
+    if (!_usernameStr) {
+        _usernameStr = @"";
+    }
+    return _usernameStr;
 }
 
 

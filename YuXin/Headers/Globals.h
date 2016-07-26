@@ -46,6 +46,9 @@
 //Key
 #define DPAutoLoginKey                              @"auto_login"
 #define DPShowColorfulTextKey                       @"show_colorful_text"
+#define DPOpenCountKey                              @"open_count"
+#define DPUsernameKey                               @"username"
+#define DPPasswordKey                               @"password"
 
 
 #endif /* Globals_h */

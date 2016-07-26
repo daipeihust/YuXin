@@ -188,19 +188,6 @@
     return 0;
 }
 
-#pragma mark - override
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    NSLog(@"offset:%f", scrollView.contentOffset.y);
-//    CGFloat sectionHeaderHeight = DPProfileTableViewHeaderHeight;
-//    CGFloat navigationOffSet = -64;
-//    if (scrollView.contentOffset.y<=sectionHeaderHeight + navigationOffSet && scrollView.contentOffset.y>=navigationOffSet) {
-//        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-//    }
-//    else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
-//        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-//    }
-//}
-
 #pragma mark - Getter
 
 - (UITableView *)tableView {

@@ -20,8 +20,10 @@ typedef void(^FavouriteHandler)(NSString *error, NSArray *models);
 @property (nonatomic, strong) NSArray <YuXinFriend *> *friendList;
 @property (nonatomic, assign) BOOL autoLogin;
 @property (nonatomic, assign) BOOL showColorfulText;
+@property (nonatomic, assign) BOOL firstOpen;
 
 + (instancetype)sharedInstance;
+- (void)start;
 - (void)loginWithUserName:(NSString *)userName password:(NSString *)password completion:(MessageHandler)handler;
 - (void)getFavourateBoardWithCompletion:(FavouriteHandler)handler;
 - (void)refreshFavourateBoard;
