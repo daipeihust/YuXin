@@ -18,6 +18,7 @@ typedef void(^FavouriteHandler)(NSString *error, NSArray *models);
 @property (nonatomic, strong) NSArray *favourateBoard;
 @property (nonatomic, strong) YuXinUserInfo *userInfo;
 @property (nonatomic, strong) NSArray <YuXinFriend *> *friendList;
+@property (nonatomic, strong) NSNumber *openCount;
 @property (nonatomic, assign) BOOL autoLogin;
 @property (nonatomic, assign) BOOL showColorfulText;
 @property (nonatomic, assign) BOOL firstOpen;

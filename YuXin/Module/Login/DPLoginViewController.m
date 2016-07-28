@@ -116,6 +116,11 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self showViewWithAnimation];
+}
+
 #pragma mark - ConfigView
 
 - (void)initView {
@@ -160,6 +165,7 @@
         [self.view setUserInteractionEnabled:NO];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.hud dismiss];
+            [self.view setUserInteractionEnabled:YES];
             [WSProgressHUD safeShowString:message];
         });
     }];
@@ -231,7 +237,15 @@
 
 #pragma mark - Privite Method
 
-
+- (void)showViewWithAnimation {
+    [UIView animateWithDuration:0.7 animations:^{
+        self.textField.alpha = 1;
+        self.loginButton.alpha = 1;
+    } completion:^(BOOL finished) {
+        self.textField.alpha = 1;
+        self.loginButton.alpha = 1;
+    }];
+}
 
 #pragma mark - Getter
 
@@ -258,6 +272,7 @@
     if (!_textField) {
         _textField = [[DPLoginTextField alloc] init];
         _textField.password.delegate = self;
+        _textField.alpha = 0;
     }
     return _textField;
 }
@@ -283,6 +298,7 @@
         [_loginButton addTarget:self action:@selector(loginButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         _loginButton.layer.masksToBounds = YES;
         _loginButton.layer.cornerRadius = 7;
+        _loginButton.alpha = 0;
     }
     return _loginButton;
 }

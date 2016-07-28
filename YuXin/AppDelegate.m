@@ -13,6 +13,8 @@
 #import "DPAllPartViewController.h"
 #import "DPMainViewController.h"
 #import "DPProfileViewController.h"
+#import "UserHelper.h"
+#import "DPLaunchViewController.h"
 
 @interface AppDelegate ()
 
@@ -25,10 +27,14 @@
     
     [self setUpNotification];
     
+    DPLaunchViewController *launchVC = [[DPLaunchViewController alloc] init];
     self.window = [[UIWindow alloc] initWithFrame:screenBounds];
+    self.window.rootViewController = launchVC;
     [self.window makeKeyAndVisible];
+    
+    [[UserHelper sharedInstance] start];
 
-    [self showLoginViewController];
+//    [self showLoginViewController];
     
     return YES;
 }
@@ -57,20 +63,24 @@
 
 #pragma mark - Privite Method
 
+
+
 - (void)showLoginViewController {
-    self.window.rootViewController = [[DPLoginViewController alloc] init];
+    __weak typeof(self) weakSelf = self;
+    DPLaunchViewController *launchVC = (DPLaunchViewController *)self.window.rootViewController;
+    [launchVC playAnimationToLoginVCWithCompletion:^{
+        DPLoginViewController *loginVC = [[DPLoginViewController alloc] init];
+        weakSelf.window.rootViewController = loginVC;
+    }];
+    
 }
 
 - (void)loginCompletion {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.window.rootViewController = [[DPMainViewController alloc] init];
-    });
+    self.window.rootViewController = [[DPMainViewController alloc] init];
 }
 
 - (void)logoutCompletion {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self showLoginViewController];
-    });
+    [self showLoginViewController];
 }
 
 - (void)setUpNotification {
@@ -82,6 +92,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(logoutCompletion)
                                                  name:DPNotificationLogoutSuccess
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(loginCompletion)
+                                                 name:DPNotificationShowMainVC
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showLoginViewController)
+                                                 name:DPNotificationShowLoginVC
                                                object:nil];
 }
 
