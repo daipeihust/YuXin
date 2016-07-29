@@ -10,4 +10,6 @@
 
 @interface DPMainViewController : UIViewController
 
+- (instancetype)initWithAnimationView:(UIView *)view;
+
 @end

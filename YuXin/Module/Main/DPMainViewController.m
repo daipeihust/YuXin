@@ -19,15 +19,16 @@
 @property (nonatomic, strong) DPTabBar *tabBar;
 @property (nonatomic, assign) NSUInteger selectedIndex;
 @property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UIView *animationView;
 
 @end
 
 @implementation DPMainViewController
 
-- (instancetype)init {
+- (instancetype)initWithAnimationView:(UIView *)view {
     self = [super init];
     if (self) {
-        
+        self.animationView = view;
     }
     return self;
 }
@@ -36,7 +37,14 @@
     
     [self initTabBar];
     [self initViewController];
+    [self initAnimationView];
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self playInitAnimation];
+}
+
+#pragma mark - ConfigView
 
 - (void)initViewController {
     
@@ -79,6 +87,13 @@
     }];
 }
 
+- (void)initAnimationView {
+    [self.view addSubview:self.animationView];
+    [self.animationView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+}
+
 #pragma mark - DPTabBarDelegate
 
 - (void)itemDidSelectAtIndex:(NSUInteger)index {
@@ -100,6 +115,15 @@
         }];
         [fromVC.view removeFromSuperview];
         self.selectedIndex = index;
+    }];
+}
+
+- (void)playInitAnimation {
+    [UIView animateWithDuration:1.0f delay:0.5f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        self.animationView.alpha = 0.0f;
+        self.animationView.layer.transform = CATransform3DScale(CATransform3DIdentity, 2.0f, 2.0f, 1.0f);
+    } completion:^(BOOL finished) {
+        [self.animationView removeFromSuperview];
     }];
 }
 

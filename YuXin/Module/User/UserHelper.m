@@ -161,4 +161,18 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:DPOpenCountKey];
 }
 
+- (NSString *)userName {
+    if (!_userName) {
+        _userName = [[NSUserDefaults standardUserDefaults] objectForKey:DPUsernameKey];
+    }
+    return _userName;
+}
+
+- (NSString *)password {
+    if (!_password) {
+        _password = [[NSUserDefaults standardUserDefaults] objectForKey:DPPasswordKey];
+    }
+    return _password;
+}
+
 @end

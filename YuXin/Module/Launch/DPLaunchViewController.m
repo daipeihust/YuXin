@@ -31,12 +31,8 @@
     }];
 }
 
-- (void)playAnimationToMainVCWithCompletion:(AnimationHandler)handler {
-    
-}
-
 - (void)playAnimationToLoginVCWithCompletion:(AnimationHandler)handler {
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:1.f delay:0.5f options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.launchView.transform = CGAffineTransformMakeTranslation(0, -50 * (1 + widthRateForFit) - 30);
     } completion:^(BOOL finished) {
         handler();

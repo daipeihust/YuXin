@@ -15,7 +15,7 @@
 
 @property (nonatomic, weak) id<DPProfileCellDelegate> delegate;
 
-- (void)fillDataWith:(DPProfileItem *)item;
+- (void)fillDataWith:(DPProfileItem *)item indexPath:(NSIndexPath *)indexPath;
 
 @end
 

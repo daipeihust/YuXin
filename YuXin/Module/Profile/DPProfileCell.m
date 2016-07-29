@@ -132,7 +132,7 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
 
 #pragma mark - Public Method
 
-- (void)fillDataWith:(DPProfileItem *)item {
+- (void)fillDataWith:(DPProfileItem *)item indexPath:(NSIndexPath *)indexPath{
     switch (self.type) {
         case DPProfileCellTypeUser:
             self.userImageView.image = item.userImage;
@@ -155,6 +155,7 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
         default:
             break;
     }
+    self.indexPath = indexPath;
 }
 
 #pragma mark - Action Method

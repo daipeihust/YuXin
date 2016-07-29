@@ -131,6 +131,8 @@
     [self.backgroundView addSubview:self.textField];
     [self.backgroundView addSubview:self.titleLabel];
     [self.backgroundView addSubview:self.loginButton];
+    [self.textField.username setText:[UserHelper sharedInstance].userName];
+    [self.textField.password setText:[UserHelper sharedInstance].password];
     
     [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);

@@ -75,12 +75,20 @@
     
 }
 
+- (void)showMainViewController {
+    DPLaunchViewController *launchVC = (DPLaunchViewController *)self.window.rootViewController;
+    DPMainViewController *mainVC = [[DPMainViewController alloc] initWithAnimationView:launchVC.view];
+    self.window.rootViewController = mainVC;
+}
+
 - (void)loginCompletion {
-    self.window.rootViewController = [[DPMainViewController alloc] init];
+    DPLoginViewController *loginVC = (DPLoginViewController *)self.window.rootViewController;
+    DPMainViewController *mainVC = [[DPMainViewController alloc] initWithAnimationView:loginVC.view];
+    self.window.rootViewController = mainVC;
 }
 
 - (void)logoutCompletion {
-    [self showLoginViewController];
+    self.window.rootViewController = [[DPLoginViewController alloc] init];
 }
 
 - (void)setUpNotification {
@@ -95,7 +103,7 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(loginCompletion)
+                                             selector:@selector(showMainViewController)
                                                  name:DPNotificationShowMainVC
                                                object:nil];
     

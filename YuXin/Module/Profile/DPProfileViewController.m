@@ -62,11 +62,11 @@
 #pragma mark - DPProfileCellDelegate
 
 - (void)switchChangeTo:(BOOL)state atIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        [[UserHelper sharedInstance] setAutoLogin:state];
+    if (indexPath.item == 0) {
+        [UserHelper sharedInstance].autoLogin = state;
     }
     else {
-        [[UserHelper sharedInstance] setShowColorfulText:state];
+        [UserHelper sharedInstance].showColorfulText = state;
     }
 }
 
@@ -142,7 +142,7 @@
                 item.title2 = [UserHelper sharedInstance].autoLogin? @"On" : @"Off";
             }else {
                 item.title1 = @"显示彩色文字";
-                item.title2 = [UserHelper sharedInstance].autoLogin? @"On" : @"Off";
+                item.title2 = [UserHelper sharedInstance].showColorfulText? @"On" : @"Off";
             }
             break;
         case 3:
@@ -160,7 +160,7 @@
         default:
             break;
     }
-    [cell fillDataWith:item];
+    [cell fillDataWith:item indexPath:indexPath];
     cell.delegate = self;
     return cell;
 }

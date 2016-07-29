@@ -13,6 +13,5 @@ typedef void(^AnimationHandler)();
 @interface DPLaunchViewController : UIViewController
 
 - (void)playAnimationToLoginVCWithCompletion:(AnimationHandler)handler;
-- (void)playAnimationToMainVCWithCompletion:(AnimationHandler)handler;
 
 @end
