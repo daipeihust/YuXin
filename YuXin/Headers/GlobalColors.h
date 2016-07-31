@@ -36,4 +36,6 @@
 
 #define DPTabBarTopLineColor                    UIColorFromRGBA(175,175,175,1.0f)
 
+#define DPArticleDeleteButtonColor              UIColorFromRGB(90,90,90)
+
 #endif /* GlobalColors_h */

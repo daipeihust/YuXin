@@ -26,6 +26,27 @@
     [self initView];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(profileVCDidAppear)]) {
+        [self.delegate profileVCDidAppear];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(profileVCDidDisappear)]) {
+        [self.delegate profileVCDidDisappear];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(profileVCWillDisappear)]) {
+        [self.delegate profileVCWillDisappear];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

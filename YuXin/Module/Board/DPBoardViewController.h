@@ -20,8 +20,20 @@ typedef NS_ENUM(NSInteger, DPBoardType) {
     DPBoardTypeFavourate
 };
 
+@protocol DPBoardViewControllerDelegate;
+
 @interface DPBoardViewController : UIViewController
 
+@property (nonatomic, weak) id<DPBoardViewControllerDelegate> delegate;
+
 - (instancetype)initWithBoardType:(DPBoardType)boardType;
+
+@end
+
+@protocol DPBoardViewControllerDelegate <NSObject>
+
+- (void)boardVCDidAppear;
+- (void)boardVCWillDisappear;
+- (void)boardVCDidDisappear;
 
 @end

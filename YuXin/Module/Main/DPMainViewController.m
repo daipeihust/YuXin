@@ -13,13 +13,14 @@
 #import "DPTabBar.h"
 #import "DPTabBarItem.h"
 
-@interface DPMainViewController()<DPTabBarDelegate>
+@interface DPMainViewController()<DPTabBarDelegate, DPProfileViewControllerDelegate, DPBoardViewControllerDelegate,DPAllPartViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray<UIViewController *> *viewControllers;
 @property (nonatomic, strong) DPTabBar *tabBar;
 @property (nonatomic, assign) NSUInteger selectedIndex;
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIView *animationView;
+@property (nonatomic, assign) BOOL shouldChangeTabbarState;
 
 @end
 
@@ -29,6 +30,7 @@
     self = [super init];
     if (self) {
         self.animationView = view;
+        self.shouldChangeTabbarState = YES;
     }
     return self;
 }
@@ -42,6 +44,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [self playInitAnimation];
+    
 }
 
 #pragma mark - ConfigView
@@ -49,12 +52,15 @@
 - (void)initViewController {
     
     DPAllPartViewController *vc1 = [[DPAllPartViewController alloc] init];
+    vc1.delegate = self;
     UINavigationController *nvc1 = [[UINavigationController alloc] initWithRootViewController:vc1];
     
     DPBoardViewController *vc2 = [[DPBoardViewController alloc] initWithBoardType:DPBoardTypeFavourate];
+    vc2.delegate = self;
     UINavigationController *nvc2 = [[UINavigationController alloc] initWithRootViewController:vc2];
     
     DPProfileViewController *vc3 = [[DPProfileViewController alloc] init];
+    vc3.delegate = self;
     UINavigationController *nvc3 = [[UINavigationController alloc] initWithRootViewController:vc3];
     [self addChildViewController:nvc1];
     [self addChildViewController:nvc2];
@@ -72,6 +78,7 @@
 }
 
 - (void)initTabBar {
+    self.view.backgroundColor = DPBackgroundColor;
     [self.view addSubview:self.contentView];
     [self.view addSubview:self.tabBar];
     
@@ -94,9 +101,52 @@
     }];
 }
 
+#pragma mark - DPProfileViewControllerDelegate
+
+- (void)profileVCDidAppear {
+    [self showTarbar];
+}
+
+- (void)profileVCWillDisappear {
+    [self hideTarbar];
+}
+
+- (void)profileVCDidDisappear {
+    
+}
+
+#pragma mark - DPBoardViewControllerDelegate
+
+- (void)boardVCDidAppear {
+    [self showTarbar];
+}
+
+- (void)boardVCWillDisappear {
+    [self hideTarbar];
+}
+
+- (void)boardVCDidDisappear {
+    
+}
+
+#pragma mark - DPAllPartViewControllerDelegate
+
+- (void)allPartVCDidAppear {
+    [self showTarbar];
+}
+
+- (void)allPartVCWillDisappear {
+    [self hideTarbar];
+}
+
+- (void)allPartVCDidDisappear {
+    
+}
+
 #pragma mark - DPTabBarDelegate
 
 - (void)itemDidSelectAtIndex:(NSUInteger)index {
+    self.shouldChangeTabbarState = NO;
     [self didSelectIndex:index];
 }
 
@@ -115,6 +165,7 @@
         }];
         [fromVC.view removeFromSuperview];
         self.selectedIndex = index;
+        self.shouldChangeTabbarState = YES;
     }];
 }
 
@@ -125,6 +176,41 @@
     } completion:^(BOOL finished) {
         [self.animationView removeFromSuperview];
     }];
+}
+
+- (void)showTarbar {
+    if (self.shouldChangeTabbarState) {
+        [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.right.equalTo(self.view);
+            make.bottom.equalTo(self.view).with.offset(-44);
+        }];
+        [self.tabBar mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.view);
+            make.left.equalTo(self.view);
+            make.width.mas_equalTo(self.tabBar.bounds.size.width);
+            make.height.mas_equalTo(self.tabBar.bounds.size.height);
+        }];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
+}
+
+- (void)hideTarbar {
+    if (self.shouldChangeTabbarState) {
+        [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
+        [self.tabBar mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view.mas_bottom);
+            make.left.equalTo(self.view);
+            make.width.mas_equalTo(self.tabBar.bounds.size.width);
+            make.height.mas_equalTo(self.tabBar.bounds.size.height);
+        }];
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
 }
 
 #pragma mark - Getter

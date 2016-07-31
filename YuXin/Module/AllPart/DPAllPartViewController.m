@@ -24,21 +24,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     [self initView];
     self.title = @"全部版面";
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(allPartVCDidAppear)]) {
+        [self.delegate allPartVCDidAppear];
+    }
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    NSLog(@"offset:%f", scrollView.contentOffset.y);
-//    
-//}
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(allPartVCWillDisappear)]) {
+        [self.delegate allPartVCWillDisappear];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(allPartVCDidDisappear)]) {
+        [self.delegate allPartVCDidDisappear];
+    }
+}
 
 #pragma mark - ConfigView
 

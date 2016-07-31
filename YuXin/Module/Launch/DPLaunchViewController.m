@@ -22,7 +22,9 @@
 }
 
 - (void)initView {
+    
     UIViewController *viewController = [[UIStoryboard storyboardWithName:@"LaunchScreen" bundle:nil] instantiateViewControllerWithIdentifier:@"LaunchScreen"];
+    
     self.launchView = viewController.view.subviews[0];
     self.view.backgroundColor = DPLoginBackgroundColor;
     [self.view addSubview:self.launchView];

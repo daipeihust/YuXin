@@ -30,7 +30,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
 @property (nonatomic, strong) UILabel *authorName;
 @property (nonatomic, strong) UIImageView *commentBtn;
 @property (nonatomic, strong) UIImageView *reprintBtn;
-@property (nonatomic, strong) UIImageView *deleteBtn1;
+@property (nonatomic, strong) UIButton *deleteBtn1;
 
 //comment part
 @property (nonatomic, strong) UILabel *commentTitle;
@@ -73,7 +73,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         if (model.displayContent) {
             self.articleContent.text = model.displayContent;
         }
-        if (model.colorfulContent) {
+        if (model.colorfulContent && [[UserHelper sharedInstance] showColorfulText]) {
             self.articleContent.text = nil;
             self.articleContent.attributedText = model.colorfulContent;
         }
@@ -93,7 +93,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         if (model.displayContent) {
             self.commentContent.text = model.displayContent;
         }
-        if (model.colorfulContent) {
+        if (model.colorfulContent && [[UserHelper sharedInstance] showColorfulText]) {
             self.commentContent.text = nil;
             self.commentContent.attributedText = model.colorfulContent;
         }
@@ -162,7 +162,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         }];
         [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView).with.offset(10);
-            make.top.equalTo(self.articleContent.mas_bottom).with.offset(10);
+            make.centerY.equalTo(self.reprintBtn);
             make.width.mas_equalTo(100);
         }];
     }
@@ -271,8 +271,9 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
 - (UIImageView *)reprintBtn {
     if (!_reprintBtn) {
         _reprintBtn = [[UIImageView alloc] init];
-        _reprintBtn.backgroundColor = [UIColor yellowColor];
-        
+        _reprintBtn.backgroundColor = [UIColor clearColor];
+        _reprintBtn.image = [UIImage imageNamed:@"image_article_reprint"];
+        _reprintBtn.userInteractionEnabled = YES;
     }
     return _reprintBtn;
 }
@@ -280,16 +281,19 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
 - (UIImageView *)commentBtn {
     if (!_commentBtn) {
         _commentBtn = [[UIImageView alloc] init];
-        _commentBtn.backgroundColor = [UIColor blueColor];
-        
+        _commentBtn.backgroundColor = [UIColor clearColor];
+        _commentBtn.image = [UIImage imageNamed:@"image_article_comment"];
+        _commentBtn.userInteractionEnabled = YES;
     }
     return _commentBtn;
 }
 
-- (UIImageView *)deleteBtn1 {
+- (UIButton *)deleteBtn1 {
     if (!_deleteBtn1) {
-        _deleteBtn1 = [[UIImageView alloc] init];
-        _deleteBtn1.backgroundColor = [UIColor redColor];
+        _deleteBtn1 = [[UIButton alloc] init];
+        [_deleteBtn1 setImage:[[UIImage imageNamed:@"image_article_delete"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [_deleteBtn1 setTintColor:DPArticleDeleteButtonColor];
+        _deleteBtn1.userInteractionEnabled = YES;
     }
     return _deleteBtn1;
 }
@@ -333,7 +337,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
     if (!_deleteBtn2) {
         _deleteBtn2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_deleteBtn2 setTitle:@"删除" forState:UIControlStateNormal];
-        _deleteBtn2.titleLabel.font = [UIFont systemFontOfSize:12];
+        _deleteBtn2.titleLabel.font = [UIFont systemFontOfSize:15];
     }
     return _deleteBtn2;
 }
@@ -342,7 +346,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
     if (!_replyBtn) {
         _replyBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_replyBtn setTitle:@"回复" forState:UIControlStateNormal];
-        _replyBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        _replyBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     }
     return _replyBtn;
 }

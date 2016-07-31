@@ -59,6 +59,27 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(boardVCWillDisappear)]) {
+        [self.delegate boardVCWillDisappear];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(boardVCDidDisappear)]) {
+        [self.delegate boardVCDidDisappear];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(boardVCDidAppear)]) {
+        [self.delegate boardVCDidAppear];
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

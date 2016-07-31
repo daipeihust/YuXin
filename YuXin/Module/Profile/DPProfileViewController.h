@@ -8,6 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol DPProfileViewControllerDelegate;
+
 @interface DPProfileViewController : UIViewController
+
+@property (nonatomic, weak) id<DPProfileViewControllerDelegate> delegate;
+
+@end
+
+@protocol DPProfileViewControllerDelegate <NSObject>
+
+- (void)profileVCDidAppear;
+- (void)profileVCWillDisappear;
+- (void)profileVCDidDisappear;
 
 @end
