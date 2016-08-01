@@ -22,6 +22,7 @@ typedef void(^FavouriteHandler)(NSString *error, NSArray *models);
 @property (nonatomic, assign) BOOL autoLogin;
 @property (nonatomic, assign) BOOL showColorfulText;
 @property (nonatomic, assign) BOOL firstOpen;
+@property (nonatomic, assign) BOOL loginState;
 
 + (instancetype)sharedInstance;
 - (void)start;

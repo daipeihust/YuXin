@@ -99,7 +99,9 @@
 @property (nonatomic, strong) DPLoginTextField *textField;
 @property (nonatomic, strong) UIButton *loginButton;
 @property (nonatomic, strong) NSString *usernameStr;
+@property (nonatomic, strong) NSString *passwordStr;
 @property (nonatomic, assign) BOOL usernameChanged;
+@property (nonatomic, assign) BOOL passwordChanged;
 
 @end
 
@@ -131,8 +133,10 @@
     [self.backgroundView addSubview:self.textField];
     [self.backgroundView addSubview:self.titleLabel];
     [self.backgroundView addSubview:self.loginButton];
-    [self.textField.username setText:[UserHelper sharedInstance].userName];
-    [self.textField.password setText:[UserHelper sharedInstance].password];
+    self.usernameStr = [UserHelper sharedInstance].userName;
+    self.passwordStr = [UserHelper sharedInstance].password;
+    [self.textField.username setText:self.usernameStr];
+    [self.textField.password setText:self.passwordStr];
     
     [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -230,7 +234,17 @@
     if (self.usernameChanged) {
         self.textField.password.text = @"";
     }
-    if (![usernameStr isEqualToString:@""] && ![self.textField.password.text isEqualToString:@""]) {
+    NSString *passwordStr = self.textField.password.text;
+    if ([passwordStr isEqualToString:self.passwordStr]) {
+        self.passwordChanged = NO;
+    }else {
+        self.passwordChanged = YES;
+        self.passwordStr = passwordStr;
+    }
+    if (self.passwordChanged) {
+        [UserHelper sharedInstance].password = nil;
+    }
+    if (![usernameStr isEqualToString:@""] || ![self.textField.password.text isEqualToString:@""]) {
         self.loginButton.userInteractionEnabled = YES;
     }else {
         self.loginButton.userInteractionEnabled = NO;
@@ -312,5 +326,11 @@
     return _usernameStr;
 }
 
+- (NSString *)passwordStr {
+    if (!_passwordStr) {
+        _passwordStr = @"";
+    }
+    return _passwordStr;
+}
 
 @end

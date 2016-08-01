@@ -49,6 +49,7 @@
 #define DPOpenCountKey                              @"open_count"
 #define DPUsernameKey                               @"username"
 #define DPPasswordKey                               @"password"
+#define DPLoginStateKey                             @"login_state"
 
 
 #endif /* Globals_h */

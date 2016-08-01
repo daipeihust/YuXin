@@ -13,6 +13,8 @@
 @synthesize autoLogin = _autoLogin;
 @synthesize showColorfulText = _showColorfulText;
 @synthesize openCount = _openCount;
+@synthesize loginState = _loginState;
+@synthesize password = _password;
 
 + (instancetype)sharedInstance {
     static UserHelper *instance = nil;
@@ -37,10 +39,11 @@
     }
     if (self.firstOpen) {
         [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationShowLoginVC object:nil];
+        self.loginState = YES;
         self.autoLogin = YES;
         self.showColorfulText = YES;
     }else {
-        if (self.autoLogin) {
+        if (self.autoLogin && self.loginState) {
             [self tryAutoLogin];
         }else {
             [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationShowLoginVC object:nil];
@@ -53,6 +56,7 @@
     self.password = password;
     [[YuXinSDK sharedInstance] loginWithUsername:userName password:password completion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
+            self.loginState = YES;
             handler(@"Login Success");
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationLoginSuccess object:nil];
@@ -68,6 +72,7 @@
 - (void)logoutWithCompletion:(MessageHandler)handler {
     [[YuXinSDK sharedInstance] logoutWithCompletion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
+            self.loginState = NO;
             handler(@"Logout Success");
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationLogoutSuccess object:nil];
@@ -115,6 +120,7 @@
     if (self.userName && self.password) {
         [[YuXinSDK sharedInstance] loginWithUsername:self.userName password:self.password completion:^(NSString *error, NSArray *responseModels) {
             if (!error) {
+                self.loginState = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationShowMainVC object:nil];
                 });
@@ -147,6 +153,16 @@
     _openCount = openCount;
 }
 
+- (void)setLoginState:(BOOL)loginState {
+    [[NSUserDefaults standardUserDefaults] setBool:loginState forKey:DPLoginStateKey];
+    _loginState = loginState;
+}
+
+- (void)setPassword:(NSString *)password {
+    [[NSUserDefaults standardUserDefaults] setObject:password forKey:DPPasswordKey];
+    _password = password;
+}
+
 #pragma mark - Getter
 
 -(BOOL)showColorfulText{
@@ -155,6 +171,10 @@
 
 - (BOOL)autoLogin {
     return [[NSUserDefaults standardUserDefaults] boolForKey:DPAutoLoginKey];
+}
+
+- (BOOL)loginState {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:DPLoginStateKey];
 }
 
 - (NSNumber *)openCount {
