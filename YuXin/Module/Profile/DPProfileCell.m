@@ -30,6 +30,8 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
 
 @implementation DPProfileCell
 
+#pragma mark - Override
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -42,9 +44,17 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
         else if ([reuseIdentifier isEqualToString:DPProfileSwitchCellReuseIdentifier]) {
             self.type = DPProfileCellTypeSwitch;
         }
-        [self initView];
     }
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    NSLog(@"profile width%f height %f", self.contentView.frame.size.width, self.contentView.frame.size.height);
+    if (self.contentView.frame.size.width == 0) {
+        return ;
+    }
+    [self initView];
 }
 
 #pragma mark - ConfigView

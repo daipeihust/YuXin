@@ -54,15 +54,17 @@
 - (void)loginWithUserName:(NSString *)userName password:(NSString *)password completion:(MessageHandler)handler {
     self.userName = userName;
     self.password = password;
+    __weak typeof(self) weakSelf = self;
     [[YuXinSDK sharedInstance] loginWithUsername:userName password:password completion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
-            self.loginState = YES;
+            weakSelf.loginState = YES;
             handler(@"Login Success");
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationLoginSuccess object:nil];
             });
             [[NSUserDefaults standardUserDefaults] setObject:userName forKey:DPUsernameKey];
             [[NSUserDefaults standardUserDefaults] setObject:password forKey:DPPasswordKey];
+            [weakSelf initFriendList];
         }else {
             handler(error);
         }
@@ -117,13 +119,15 @@
 - (void)tryAutoLogin {
     self.userName = [[NSUserDefaults standardUserDefaults] objectForKey:DPUsernameKey];
     self.password = [[NSUserDefaults standardUserDefaults] objectForKey:DPPasswordKey];
+    __weak typeof(self) weakSelf = self;
     if (self.userName && self.password) {
         [[YuXinSDK sharedInstance] loginWithUsername:self.userName password:self.password completion:^(NSString *error, NSArray *responseModels) {
             if (!error) {
-                self.loginState = YES;
+                weakSelf.loginState = YES;
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationShowMainVC object:nil];
                 });
+                [weakSelf initFriendList];
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -134,6 +138,15 @@
     }else {
         [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationShowLoginVC object:nil];
     }
+}
+
+- (void)initFriendList {
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchFriendListWithCompletion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            weakSelf.friendList = [NSArray arrayWithArray:responseModels];
+        }
+    }];
 }
 
 #pragma mark - Setter

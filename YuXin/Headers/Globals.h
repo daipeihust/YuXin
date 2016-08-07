@@ -18,6 +18,7 @@
 #define DPProfileNormalCellReuseIdentifier          @"Profile_normal"
 #define DPProfileSwitchCellReuseIdentifier          @"Profile_switch"
 #define DPAllPartCellReuseIdentifier                @"all_part"
+#define DPFriendListReuseIdentifier                 @"friend_list"
 
 
 //color parameter

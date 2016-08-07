@@ -19,10 +19,9 @@
 
 @implementation DPAllPartCell
 
-
-#pragma mark - ConfigView
-
-
+- (void)layoutSubviews {
+    NSLog(@"allpart width%f height %f", self.contentView.frame.size.width, self.contentView.frame.size.height);
+}
 
 #pragma mark - Public Method
 

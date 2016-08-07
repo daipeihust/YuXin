@@ -62,11 +62,11 @@
     DPProfileViewController *vc3 = [[DPProfileViewController alloc] init];
     vc3.delegate = self;
     UINavigationController *nvc3 = [[UINavigationController alloc] initWithRootViewController:vc3];
+    
     [self addChildViewController:nvc1];
     [self addChildViewController:nvc2];
     [self addChildViewController:nvc3];
     self.viewControllers = @[nvc1, nvc2, nvc3];
-    
     
     [nvc1 didMoveToParentViewController:self];
     [self.contentView addSubview:nvc1.view];
@@ -74,7 +74,6 @@
         make.edges.equalTo(self.contentView);
     }];
     self.selectedIndex = 0;
-
 }
 
 - (void)initTabBar {
@@ -159,14 +158,14 @@
     UIViewController *fromVC = self.viewControllers[self.selectedIndex];
     UIViewController *toVC = self.viewControllers[index];
     [self transitionFromViewController:fromVC toViewController:toVC duration:0 options:UIViewAnimationOptionTransitionNone animations:^{} completion:^(BOOL finished) {
-        [self.contentView addSubview:toVC.view];
-        [toVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.contentView);
-        }];
-        [fromVC.view removeFromSuperview];
         self.selectedIndex = index;
         self.shouldChangeTabbarState = YES;
     }];
+    [self.contentView addSubview:toVC.view];
+    [toVC.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
+    }];
+    [fromVC.view removeFromSuperview];
 }
 
 - (void)playInitAnimation {

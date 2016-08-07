@@ -11,6 +11,7 @@
 #import "DPProfileItem.h"
 #import "UserHelper.h"
 #import "WSProgressHUD+DPExtension.h"
+#import "DPFriendListViewController.h"
 
 @interface DPProfileViewController () <UITableViewDelegate, UITableViewDataSource, DPProfileCellDelegate>
 
@@ -106,6 +107,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
+        case 1: {
+            DPFriendListViewController *vc = [[DPFriendListViewController alloc] initWithFriends:[[UserHelper sharedInstance] friendList]];
+            [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
         case 4:
             [self logout];
             break;

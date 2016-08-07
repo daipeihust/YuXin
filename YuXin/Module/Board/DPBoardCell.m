@@ -32,6 +32,11 @@
     // Configure the view for the selected state
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    NSLog(@"board width:%f height:%f boardName:%@", self.frame.size.width, self.frame.size.height, self.boardName.text);
+}
+
 #pragma mark - ConfigView
 
 - (void)initView {
@@ -41,15 +46,15 @@
     [self.contentView addSubview:self.boardDescription];
     
     [self.boardName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).with.offset(5);
-        make.left.equalTo(self.contentView).with.offset(10);
-        make.right.equalTo(self.contentView).with.offset(-10);
+        make.top.equalTo(self).with.offset(5);
+        make.left.equalTo(self).with.offset(10);
+        make.right.equalTo(self).with.offset(-10);
     }];
     [self.boardDescription mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.boardName.mas_bottom).with.offset(10);
-        make.left.equalTo(self.contentView).with.offset(10);
-        make.right.equalTo(self.contentView).with.offset(-10);
-        make.bottom.equalTo(self.contentView).with.offset(-5);
+        make.left.equalTo(self).with.offset(10);
+        make.right.equalTo(self).with.offset(-10);
+        make.bottom.equalTo(self).with.offset(-5);
     }];
 }
 
