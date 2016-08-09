@@ -116,7 +116,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
     
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.contentView).with.offset(10);
-        make.height.width.mas_equalTo(40);
+        make.height.width.mas_equalTo(50);
     }];
     
     if (self.cellType == DPArticleDetailCellTypeArticle) {
@@ -229,7 +229,12 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _userImageView = [[UIImageView alloc] init];
         _userImageView.backgroundColor = [UIColor grayColor];
         _userImageView.layer.masksToBounds = YES;
-        _userImageView.layer.cornerRadius = 20;
+        _userImageView.layer.cornerRadius = 25;
+        _userImageView.userInteractionEnabled = YES;
+        _userImageView.image = [UIImage imageNamed:@"image_user_avatar"];
+        _userImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _userImageView.layer.borderWidth = 1.f;
+        _userImageView.layer.borderColor = DPImageBorderColor.CGColor;
     }
     return _userImageView;
 }

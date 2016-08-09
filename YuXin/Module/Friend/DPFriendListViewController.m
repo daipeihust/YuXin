@@ -32,6 +32,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = DPBackgroundColor;
+    self.tableView.backgroundColor = DPBackgroundColor;
     [self.view addSubview:self.tableView];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
@@ -46,7 +48,7 @@
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 100.f;
+    return 80.f;
 }
 
 #pragma mark - UITableViewDataSource
@@ -73,7 +75,9 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [_tableView registerClass:[DPFriendListCell class] forCellReuseIdentifier:DPFriendListReuseIdentifier];
-        
+        UIView *view = [[UIView alloc] init];
+        view.backgroundColor = [UIColor clearColor];
+        [_tableView setTableFooterView:view];
     }
     return _tableView;
 }

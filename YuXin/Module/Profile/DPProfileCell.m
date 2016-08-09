@@ -50,29 +50,25 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    NSLog(@"profile width%f height %f", self.contentView.frame.size.width, self.contentView.frame.size.height);
-    if (self.contentView.frame.size.width == 0) {
-        return ;
-    }
     [self initView];
 }
 
 #pragma mark - ConfigView
 
 - (void)initView {
+    self.backgroundColor = DPTableCellBGColor;
+    
     [self.contentView addSubview:self.separationLine];
     [self.contentView addSubview:self.separationLine2];
     
-    [self.separationLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.contentView);
-        make.height.mas_equalTo(0.5);
-    }];
-    [self.separationLine2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.right.equalTo(self.contentView);
-        make.height.mas_equalTo(0.5);
-    }];
-    
-    
+//    [self.separationLine mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.bottom.equalTo(self.contentView);
+//        make.height.mas_equalTo(0.5);
+//    }];
+//    [self.separationLine2 mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.top.right.equalTo(self.contentView);
+//        make.height.mas_equalTo(0.5);
+//    }];
     
     switch (self.type) {
         case DPProfileCellTypeUser:{
@@ -145,7 +141,6 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
 - (void)fillDataWith:(DPProfileItem *)item indexPath:(NSIndexPath *)indexPath{
     switch (self.type) {
         case DPProfileCellTypeUser:
-            self.userImageView.image = item.userImage;
             self.title1.text = item.title1;
             self.title2.text = item.title2;
             break;
@@ -184,6 +179,10 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
         _userImageView.backgroundColor = [UIColor grayColor];
         _userImageView.layer.masksToBounds = YES;
         _userImageView.layer.cornerRadius = 30;
+        _userImageView.image = [UIImage imageNamed:@"image_user_avatar"];
+        _userImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _userImageView.layer.borderWidth = 1.f;
+        _userImageView.layer.borderColor = DPImageBorderColor.CGColor;
     }
     return _userImageView;
 }
@@ -192,7 +191,7 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
     if (!_title1) {
         _title1 = [[UILabel alloc] init];
         _title1.numberOfLines = 1;
-        _title1.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+        _title1.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     }
     return _title1;
 }
@@ -201,7 +200,7 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
     if (!_title2) {
         _title2 = [[UILabel alloc] init];
         _title2.numberOfLines = 1;
-        _title2.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+        _title2.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     }
     return _title2;
 }

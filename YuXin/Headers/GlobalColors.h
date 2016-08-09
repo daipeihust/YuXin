@@ -13,7 +13,9 @@
 #define UIColorFromRGB(r,g,b)                   UIColorFromRGBA(r,g,b,1.0)
 
 #define DPBackgroundColor                       UIColorFromRGBA(248,248,248,1.0f)
+#define DPTableCellBGColor                      UIColorFromRGBA(255,255,255,1.0f)
 
+#define DPImageBorderColor                      UIColorFromRGBA(239,238,244,0.5f)
 
 #define DPLoginBackgroundColor                  UIColorFromRGB(255,214,0)
 #define DPLoginTextFieldBGColor                 UIColorFromRGB(240,240,240)

@@ -25,6 +25,7 @@
     self = [super init];
     if (self) {
         [self initView];
+        
     }
     return self;
 }
@@ -114,6 +115,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self registerForKeyboardNotifications];
+    [self addGesture];
     [self initView];
     
 }
@@ -164,6 +166,8 @@
 #pragma mark - Action Method
 
 - (void)loginButtonClicked:(UIButton *)sender {
+    [self.textField.username resignFirstResponder];
+    [self.textField.password resignFirstResponder];
     [self.hud show];
     [self.view setUserInteractionEnabled:NO];
     
@@ -175,6 +179,11 @@
             [WSProgressHUD safeShowString:message];
         });
     }];
+}
+
+- (void)backgroundDidTap:(UIGestureRecognizer *)recognizer {
+    [self.textField.password resignFirstResponder];
+    [self.textField.username resignFirstResponder];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -261,6 +270,11 @@
         self.textField.alpha = 1;
         self.loginButton.alpha = 1;
     }];
+}
+
+- (void)addGesture {
+    UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundDidTap:)];
+    [self.view addGestureRecognizer:gesture];
 }
 
 #pragma mark - Getter

@@ -41,8 +41,8 @@
 #define DPRegExFooter                               @"※ "
 
 //const value
-#define DPProfileTableViewHeaderHeight              15.0
-
+#define DPProfileTableViewHeaderHeight              7.5
+#define DPProfileTableViewFooterHeight              7.5
 
 //Key
 #define DPAutoLoginKey                              @"auto_login"

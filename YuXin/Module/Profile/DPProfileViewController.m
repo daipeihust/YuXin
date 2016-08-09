@@ -130,14 +130,40 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return DPProfileTableViewHeaderHeight * 2;
+    }
     return DPProfileTableViewHeaderHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return DPProfileTableViewFooterHeight;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *sectionHeaderView = [[UIView alloc] init];
     sectionHeaderView.backgroundColor = [UIColor clearColor];
-    
+    UIView *seprationLine1 = [[UIView alloc] init];
+    seprationLine1.backgroundColor = DPSeparationLineColor;
+    [sectionHeaderView addSubview:seprationLine1];
+    [seprationLine1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.equalTo(sectionHeaderView);
+        make.height.mas_equalTo(0.1);
+    }];
     return sectionHeaderView;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *sectionFooterView = [[UIView alloc] init];
+    sectionFooterView.backgroundColor = [UIColor clearColor];
+    UIView *seprationLine2 = [[UIView alloc] init];
+    seprationLine2.backgroundColor = DPSeparationLineColor;
+    [sectionFooterView addSubview:seprationLine2];
+    [seprationLine2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(sectionFooterView);
+        make.height.mas_equalTo(0.1);
+    }];
+    return sectionFooterView;
 }
 
 #pragma mark - UITableViewDataSource
@@ -145,8 +171,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 5;
 }
-
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DPProfileCell *cell;
@@ -219,10 +243,9 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] init];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[DPProfileCell class] forCellReuseIdentifier:DPProfileUserCellReuseIdentifier];
         [_tableView registerClass:[DPProfileCell class] forCellReuseIdentifier:DPProfileNormalCellReuseIdentifier];
         [_tableView registerClass:[DPProfileCell class] forCellReuseIdentifier:DPProfileSwitchCellReuseIdentifier];

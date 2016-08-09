@@ -65,6 +65,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:userName forKey:DPUsernameKey];
             [[NSUserDefaults standardUserDefaults] setObject:password forKey:DPPasswordKey];
             [weakSelf initFriendList];
+            [weakSelf initUserInfo];
         }else {
             handler(error);
         }
@@ -128,6 +129,7 @@
                     [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationShowMainVC object:nil];
                 });
                 [weakSelf initFriendList];
+                [weakSelf initUserInfo];
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -145,6 +147,15 @@
     [[YuXinSDK sharedInstance] fetchFriendListWithCompletion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
             weakSelf.friendList = [NSArray arrayWithArray:responseModels];
+        }
+    }];
+}
+
+- (void)initUserInfo {
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] queryUserInfoWithUserID:self.userName completion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            weakSelf.userInfo = [responseModels firstObject];
         }
     }];
 }

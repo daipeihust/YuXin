@@ -21,10 +21,14 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self initView];
-    }
     return self;
+}
+
+#pragma mark - Override
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self initView];
 }
 
 #pragma mark - Public Method
@@ -51,10 +55,10 @@
         make.width.height.mas_equalTo(50);
     }];
     [self.usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView);
+        make.top.equalTo(self.contentView).with.offset(10);
         make.left.equalTo(self.userImage.mas_right).with.offset(10);
         make.right.equalTo(self.contentView);
-        make.height.mas_equalTo(50);
+        make.height.mas_equalTo(30);
     }];
     [self.nicknameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.usernameLabel.mas_bottom);
@@ -72,6 +76,9 @@
         _userImage.layer.masksToBounds = YES;
         _userImage.layer.cornerRadius = 25;
         _userImage.backgroundColor = [UIColor grayColor];
+        _userImage.image = [UIImage imageNamed:@"image_user_avatar"];
+        _userImage.layer.borderWidth = 1.0f;
+        _userImage.layer.borderColor = DPImageBorderColor.CGColor;
     }
     return _userImage;
 }
@@ -80,6 +87,7 @@
     if (!_usernameLabel) {
         _usernameLabel = [[UILabel alloc] init];
         _usernameLabel.numberOfLines = 1;
+        _usernameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     }
     return _usernameLabel;
 }
@@ -88,6 +96,7 @@
     if (!_nicknameLabel) {
         _nicknameLabel = [[UILabel alloc] init];
         _nicknameLabel.numberOfLines = 1;
+        _nicknameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
     }
     return _nicknameLabel;
 }

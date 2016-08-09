@@ -47,6 +47,8 @@
 #pragma mark - ConfigViews
 
 - (void)layoutUI {
+    self.backgroundColor = DPTableCellBGColor;
+    
     [self.contentView addSubview:self.userImageView];
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.authorLabel];
@@ -56,7 +58,7 @@
     
     [self.userImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(self.contentView).with.offset(10);
-        make.width.height.mas_equalTo(40);
+        make.width.height.mas_equalTo(50);
     }];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).with.offset(10);
@@ -105,9 +107,13 @@
         _userImageView = [[UIImageView alloc] init];
         _userImageView.backgroundColor = [UIColor grayColor];
         _userImageView.layer.masksToBounds = YES;
-        _userImageView.layer.cornerRadius = 20;
+        _userImageView.layer.cornerRadius = 25;
+        _userImageView.image = [UIImage imageNamed:@"image_user_avatar"];
+        _userImageView.contentMode = UIViewContentModeScaleAspectFill;
         [_userImageView setUserInteractionEnabled:YES];
         [_userImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userImageViewClicked)]];
+        _userImageView.layer.borderWidth = 1.f;
+        _userImageView.layer.borderColor = DPImageBorderColor.CGColor;
     }
     return _userImageView;
 }

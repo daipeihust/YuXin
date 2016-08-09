@@ -20,9 +20,6 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        [self initView];
-    }
     return self;
 }
 
@@ -34,7 +31,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    NSLog(@"board width:%f height:%f boardName:%@", self.frame.size.width, self.frame.size.height, self.boardName.text);
+    [self initView];
 }
 
 #pragma mark - ConfigView
