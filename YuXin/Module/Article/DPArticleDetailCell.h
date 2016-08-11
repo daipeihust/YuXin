@@ -13,6 +13,7 @@
 @interface DPArticleDetailCell : UITableViewCell
 
 @property (nonatomic, weak) id<DPArticleDetailCellDelegate> delegate;
+@property (nonatomic, assign) NSUInteger index;
 
 - (void)fillDataWithModel:(YuXinArticle *)model;
 
@@ -24,7 +25,7 @@
 - (void)userImageViewDidClick:(NSString *)userID;
 - (void)reprintButtonDidClick:(NSString *)fileName;
 - (void)commentButtonDidClick;
-- (void)replyButtonDidClick;
+- (void)replyButtonDidClick:(NSUInteger)index;
 - (void)deleteButtonDidClick:(NSString *)fileName;
 
 @end

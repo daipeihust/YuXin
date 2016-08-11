@@ -23,7 +23,6 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
 @property (nonatomic, strong) UIImageView *userImageView;
 @property (nonatomic, strong) UILabel *timeLabel;
 
-
 //article part
 @property (nonatomic, strong) UILabel *articleTitle;
 @property (nonatomic, strong) UILabel *articleContent;
@@ -219,7 +218,15 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
 }
 
 - (void)commentButtonClicked {
-    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(commentButtonDidClick)]) {
+        [self.delegate commentButtonDidClick];
+    }
+}
+
+- (void)replyButtonClicked {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(replyButtonDidClick:)]) {
+        [self.delegate replyButtonDidClick:self.index];
+    }
 }
 
 #pragma mark - Getter
@@ -289,6 +296,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _commentBtn.backgroundColor = [UIColor clearColor];
         _commentBtn.image = [UIImage imageNamed:@"image_article_comment"];
         _commentBtn.userInteractionEnabled = YES;
+        [_commentBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentButtonClicked)]];
     }
     return _commentBtn;
 }
@@ -299,6 +307,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         [_deleteBtn1 setImage:[[UIImage imageNamed:@"image_article_delete"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         [_deleteBtn1 setTintColor:DPArticleDeleteButtonColor];
         _deleteBtn1.userInteractionEnabled = YES;
+        [_deleteBtn1 addTarget:self action:@selector(deleteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     }
     return _deleteBtn1;
 }
@@ -343,6 +352,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _deleteBtn2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_deleteBtn2 setTitle:@"删除" forState:UIControlStateNormal];
         _deleteBtn2.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_deleteBtn2 addTarget:self action:@selector(deleteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     }
     return _deleteBtn2;
 }
@@ -352,6 +362,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _replyBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [_replyBtn setTitle:@"回复" forState:UIControlStateNormal];
         _replyBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_replyBtn addTarget:self action:@selector(replyButtonClicked) forControlEvents:UIControlEventTouchUpInside];
     }
     return _replyBtn;
 }

@@ -166,6 +166,10 @@
 #pragma mark - Action Method
 
 - (void)loginButtonClicked:(UIButton *)sender {
+    if ([self.textField.password.text isEqualToString:@""] || [self.textField.username.text isEqualToString:@""]) {
+        [WSProgressHUD safeShowString:@"请输入用户名和密码！"];
+        return ;
+    }
     [self.textField.username resignFirstResponder];
     [self.textField.password resignFirstResponder];
     [self.hud show];
@@ -215,7 +219,7 @@
 
 - (void)keyboardWasShown:(NSNotification *)notification {
     NSDictionary *info = [notification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     
     UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.f, 0.f, kbSize.height, 0.f);
     self.backgroundView.contentInset = contentInsets;
@@ -252,11 +256,6 @@
     }
     if (self.passwordChanged) {
         [UserHelper sharedInstance].password = nil;
-    }
-    if (![usernameStr isEqualToString:@""] || ![self.textField.password.text isEqualToString:@""]) {
-        self.loginButton.userInteractionEnabled = YES;
-    }else {
-        self.loginButton.userInteractionEnabled = NO;
     }
 }
 

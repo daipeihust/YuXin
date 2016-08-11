@@ -12,13 +12,84 @@
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "WSProgressHUD+DPExtension.h"
 
+@protocol DPCommentTextPlaceDelegate;
+
+@interface DPCommentTextPlace : UIView
+
+@property (nonatomic, strong) UITextField *commentTextField;
+@property (nonatomic, strong) UIButton *sendButton;
+@property (nonatomic, weak) id<DPCommentTextPlaceDelegate> delegate;
+@property (nonatomic, assign) NSUInteger replyArticleIndex;
+
+@end
+
+@protocol DPCommentTextPlaceDelegate <NSObject>
+
+- (void)sendButtonDidClicked:(UIButton *)sender;
+
+@end
+
+@implementation DPCommentTextPlace
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.replyArticleIndex = 0;
+    }
+    return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self addSubview:self.commentTextField];
+    [self addSubview:self.sendButton];
+    
+    [self.commentTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(2, 5, 2, 60));
+    }];
+    [self.sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).with.offset(-5);
+        make.top.equalTo(self).with.offset(2);
+        make.bottom.equalTo(self).with.offset(-2);
+        make.left.equalTo(self.commentTextField.mas_right).with.offset(5);
+    }];
+}
+
+- (void)buttonClicked:(UIButton *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(sendButtonDidClicked:)]) {
+        [self.delegate sendButtonDidClicked:sender];
+    }
+}
+
+#pragma mark - Getter
+
+- (UITextField *)commentTextField {
+    if (!_commentTextField) {
+        _commentTextField = [[UITextField alloc] init];
+        _commentTextField.placeholder = @"说点什么吧...";
+    }
+    return _commentTextField;
+}
+
+- (UIButton *)sendButton {
+    if (!_sendButton) {
+        _sendButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
+        [_sendButton setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];
+        _sendButton.enabled = NO;
+        [_sendButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _sendButton;
+}
+
+@end
 
 typedef NS_ENUM(NSUInteger, DPArticleType) {
     DPArticleTypeDetail = 0,
     DPArticleTypeComment = 1
 };
 
-@interface DPArticleDetailViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleDetailCellDelegate>
+@interface DPArticleDetailViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleDetailCellDelegate, DPCommentTextPlaceDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSString *fileName;
@@ -26,6 +97,8 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 @property (nonatomic, strong) NSMutableArray *articleArray;
 @property (nonatomic, strong) UIButton *retryButton;
 @property (nonatomic, strong) WSProgressHUD *hud;
+@property (nonatomic, strong) DPCommentTextPlace *commentTextPlace;
+@property (nonatomic, strong) UIView *contentView;
 
 @end
 
@@ -50,29 +123,79 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     [super viewDidLoad];
     [self ConfigViews];
     [self initData];
+    [self registerForKeyboardNotifications];
+    [self registerTextFieldNotifications];
 }
-
 
 #pragma mark - ConfigUI
 
 - (void)ConfigViews {
     self.view.backgroundColor = DPBackgroundColor;
-    
-    [self.view addSubview:self.tableView];
+    [self.view addSubview:self.contentView];
     [self.view addSubview:self.retryButton];
     [self.view addSubview:self.hud];
+    [self.contentView addSubview:self.tableView];
+    [self.contentView addSubview:self.retryButton];
+    [self.contentView addSubview:self.commentTextPlace];
     
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).with.offset(-50);
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
     }];
-    [self.view addSubview:self.retryButton];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.contentView);
+        make.bottom.equalTo(self.contentView).with.offset(-44);
+    }];
     [self.retryButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
         make.width.mas_equalTo(100);
         make.height.mas_equalTo(50);
     }];
-    
+    [self.commentTextPlace mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.equalTo(self.contentView);
+        make.height.mas_equalTo(44);
+    }];
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    YuXinArticle *replyArticle = self.articleArray[self.commentTextPlace.replyArticleIndex];
+    NSString *author = replyArticle.author;
+    textField.placeholder = [NSString stringWithFormat:@"回复:%@", author];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    self.commentTextPlace.commentTextField.text = @"";
+    self.commentTextPlace.replyArticleIndex = 0;
+    self.commentTextPlace.commentTextField.placeholder = @"说点什么吧...";
+}
+
+#pragma mark - DPCommentTextPlaceDelegate
+
+- (void)sendButtonDidClicked:(UIButton *)sender {
+    sender.enabled = NO;
+    YuXinArticle *mainArticle = self.articleArray[0];
+    YuXinArticle *currentArticle = self.articleArray[self.commentTextPlace.replyArticleIndex];
+    NSString *footer = [self createFooterWithArticleIndex:self.commentTextPlace.replyArticleIndex];
+    NSMutableString *content = [NSMutableString stringWithString:self.commentTextPlace.commentTextField.text];
+    [content appendString:footer];
+    [self.hud show];
+    [self.view setUserInteractionEnabled:NO];
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] commentArticle:mainArticle.title content:content board:self.boardName canReply:YES file:currentArticle.fileName completion:^(NSString *error, NSArray *responseModels) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.hud dismiss];
+            [weakSelf.view setUserInteractionEnabled:YES];
+            if (!error) {
+                [WSProgressHUD safeShowString:@"评论成功"];
+                weakSelf.commentTextPlace.commentTextField.text = @"";
+                [weakSelf headerRefresh];
+            }else {
+                [WSProgressHUD safeShowString:error];
+            }
+        });
+    }];
+    [weakSelf.commentTextPlace.commentTextField resignFirstResponder];
 }
 
 #pragma mark - DPArticleDetailCellDelegate
@@ -86,11 +209,17 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 }
 
 - (void)commentButtonDidClick {
-    
+    self.commentTextPlace.replyArticleIndex = 0;
+    YuXinArticle *article = self.articleArray[0];
+    self.commentTextPlace.commentTextField.placeholder = [NSString stringWithFormat:@"回复:%@", article.author];
+    [self.commentTextPlace.commentTextField becomeFirstResponder];
 }
 
-- (void)replyButtonDidClick {
-    
+- (void)replyButtonDidClick:(NSUInteger)index {
+    self.commentTextPlace.replyArticleIndex = index + 1;
+    YuXinArticle *article = self.articleArray[index + 1];
+    self.commentTextPlace.commentTextField.placeholder = [NSString stringWithFormat:@"回复:%@", article.author];
+    [self.commentTextPlace.commentTextField becomeFirstResponder];
 }
 
 - (void)deleteButtonDidClick:(NSString *)fileName {
@@ -155,31 +284,39 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     }
     [cell fillDataWithModel:self.articleArray[indexPath.row + indexPath.section]];
     cell.delegate = self;
+    cell.index = indexPath.row;
     return cell;
 }
 
 #pragma mark - Privite Method
 
+- (void)registerTextFieldNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textFieldDidChange:)
+                                                 name:UITextFieldTextDidChangeNotification
+                                               object:nil];
+}
 
-#pragma mark - Action Method
+- (void)registerForKeyboardNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
 
-- (void)headerRefresh {
-    __weak typeof(self) weakSelf = self;
-    [[YuXinSDK sharedInstance] fetchArticlesWithBoard:self.boardName file:self.fileName completion:^(NSString *error, NSArray *responseModels) {
-        if (!error) {
-            weakSelf.articleArray = [NSMutableArray arrayWithArray:responseModels];
-            
-        }else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [WSProgressHUD showErrorWithStatus:error];
-                [WSProgressHUD autoDismiss];
-            });
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tableView reloadData];
-            [weakSelf.tableView.mj_header endRefreshing];
-        });
-    }];
+- (NSString *)createFooterWithArticleIndex:(NSUInteger)index {
+    NSString *result;
+    YuXinArticle *article = self.articleArray[index];
+    NSString *userIDAndName = article.userIDAndName;
+    NSString *content = article.displayContent;
+    NSMutableString *tmp = [NSMutableString stringWithFormat:@"\n【 在 %@ 的大作中提到: 】\n:", userIDAndName];
+    [tmp appendString:content];
+    result = [tmp copy];
+    return result;
 }
 
 - (void)initData {
@@ -208,6 +345,63 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     }];
 }
 
+#pragma mark - Action Method
+
+- (void)headerRefresh {
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchArticlesWithBoard:self.boardName file:self.fileName completion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            weakSelf.articleArray = [NSMutableArray arrayWithArray:responseModels];
+            
+        }else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [WSProgressHUD showErrorWithStatus:error];
+                [WSProgressHUD autoDismiss];
+            });
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.tableView reloadData];
+            [weakSelf.tableView.mj_header endRefreshing];
+        });
+    }];
+}
+
+- (void)keyboardWasShown:(NSNotification *)notification {
+    NSDictionary *info = [notification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.bottom.with.offset(-kbSize.height);
+    }];
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)keyboardWillBeHidden {
+    [self.contentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+        
+    }];
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)textFieldDidChange:(NSNotification *)notification {
+    if (![self.commentTextPlace.commentTextField.text isEqualToString:@""]) {
+        self.commentTextPlace.sendButton.enabled = YES;
+    }else {
+        self.commentTextPlace.sendButton.enabled = NO;
+    }
+}
+
+- (void)backgroundDidTap:(UITapGestureRecognizer *)recognizer {
+    if ([self.commentTextPlace.commentTextField isFirstResponder]) {
+        [self.commentTextPlace.commentTextField resignFirstResponder];
+    }
+}
+
 #pragma mark - Getter
 
 - (UITableView *)tableView {
@@ -217,6 +411,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         _tableView.hidden = YES;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         [_tableView registerClass:[DPArticleDetailCell class] forCellReuseIdentifier:DPArticleDetailCellReuseIdentifier];
         [_tableView registerClass:[DPArticleDetailCell class] forCellReuseIdentifier:DPArticleCommentCellReuseIdentifier];
         UIView *view = [[UIView alloc] init];
@@ -246,6 +441,23 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         [_hud setProgressHUDIndicatorStyle:WSProgressHUDIndicatorMMSpinner];
     }
     return _hud;
+}
+
+- (DPCommentTextPlace *)commentTextPlace {
+    if (!_commentTextPlace) {
+        _commentTextPlace = [[DPCommentTextPlace alloc] init];
+        _commentTextPlace.delegate = self;
+        _commentTextPlace.commentTextField.delegate = self;
+    }
+    return _commentTextPlace;
+}
+
+- (UIView *)contentView {
+    if (!_contentView) {
+        _contentView = [[UIView alloc] init];
+        [_contentView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundDidTap:)]];
+    }
+    return _contentView;
 }
 
 @end

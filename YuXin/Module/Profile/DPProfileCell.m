@@ -23,8 +23,6 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
 @property (nonatomic, strong) UILabel *title2;
 @property (nonatomic, strong) UISwitch *mSwitch;
 @property (nonatomic, strong) NSIndexPath *indexPath;
-@property (nonatomic, strong) UIView *separationLine;
-@property (nonatomic, strong) UIView *separationLine2;
 
 @end
 
@@ -57,18 +55,6 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
 
 - (void)initView {
     self.backgroundColor = DPTableCellBGColor;
-    
-    [self.contentView addSubview:self.separationLine];
-    [self.contentView addSubview:self.separationLine2];
-    
-//    [self.separationLine mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.right.bottom.equalTo(self.contentView);
-//        make.height.mas_equalTo(0.5);
-//    }];
-//    [self.separationLine2 mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.top.right.equalTo(self.contentView);
-//        make.height.mas_equalTo(0.5);
-//    }];
     
     switch (self.type) {
         case DPProfileCellTypeUser:{
@@ -212,24 +198,5 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
     }
     return _mSwitch;
 }
-
-- (UIView *)separationLine
-{
-    if (!_separationLine) {
-        _separationLine = [[UIView alloc] init];
-        _separationLine.backgroundColor = DPSeparationLineColor;
-    }
-    return _separationLine;
-}
-
-- (UIView *)separationLine2
-{
-    if (!_separationLine2) {
-        _separationLine2 = [[UIView alloc] init];
-        _separationLine2.backgroundColor = DPSeparationLineColor;
-    }
-    return _separationLine2;
-}
-
 
 @end

@@ -52,15 +52,12 @@
         DPTabBarItem *item = self.tabBarItmes[i];
         item.frame = CGRectMake(i * self.itemWidth, 0, self.itemWidth, 44);
         item.tag = i;
-        [item addTarget:self action:@selector(itemDidSelected:) forControlEvents:UIControlEventTouchUpInside];
+        [item addTarget:self action:@selector(itemDidSelected:) forControlEvents:UIControlEventTouchDown];
         [self addSubview:item];
     }
 }
 
 - (void)itemDidSelected:(DPTabBarItem *)sender {
-    if (sender.tag == self.selectedIndex) {
-        return;
-    }
     [self setSelectedIndex:sender.tag];
     if (self.delegate && [self.delegate respondsToSelector:@selector(itemDidSelectAtIndex:)]) {
         [self.delegate itemDidSelectAtIndex:sender.tag];
@@ -72,13 +69,14 @@
 - (void)setSelectedIndex:(NSUInteger)selectedIndex {
     DPTabBarItem *item = self.tabBarItmes[_selectedIndex];
     [item setSelected:NO];
+    item.userInteractionEnabled = YES;
     item = self.tabBarItmes[selectedIndex];
     [item setSelected:YES];
+    item.userInteractionEnabled = NO;
     _selectedIndex = selectedIndex;
 }
 
-- (UIView *)separationLine
-{
+- (UIView *)separationLine {
     if (!_separationLine) {
         _separationLine = [[UIView alloc] init];
         _separationLine.backgroundColor = DPTabBarTopLineColor;
