@@ -38,7 +38,7 @@
     self.model = model;
     self.titleLabel.text = model.name;
     self.authorLabel.text = model.author;
-    self.commentLabel.text = model.replyNum;
+    self.commentLabel.text = [NSString stringWithFormat:@"%@条评论", model.replyNum];
     self.timeLabel.text = model.readableDate;
     self.summaryLabel.text = model.displaySummary;
     
@@ -68,22 +68,22 @@
     [self.authorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel);
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
-        make.width.mas_equalTo(100);
-    }];
-    [self.commentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.contentView);
-        make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
-        make.width.mas_equalTo(100);
+        make.width.mas_equalTo(120);
     }];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView).with.offset(-10);
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10);
-        make.width.mas_equalTo(100);
+        make.width.mas_equalTo(70);
     }];
     [self.summaryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.authorLabel.mas_bottom).with.offset(10);
         make.left.equalTo(self.contentView).with.offset(10);
         make.right.equalTo(self.contentView).with.offset(-10);
+    }];
+    [self.commentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).with.offset(10);
+        make.top.equalTo(self.summaryLabel.mas_bottom).with.offset(10);
+        make.width.mas_equalTo(90);
         make.bottom.equalTo(self.contentView).with.offset(-10);
     }];
 }
@@ -135,7 +135,7 @@
         _authorLabel = [[UILabel alloc] init];
         _authorLabel.textColor = DPSecondLevelTitleColor;
         _authorLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        _authorLabel.textAlignment = NSTextAlignmentCenter;
+        _authorLabel.textAlignment = NSTextAlignmentLeft;
     }
     return _authorLabel;
 }
@@ -145,7 +145,7 @@
         _commentLabel = [[UILabel alloc] init];
         _commentLabel.textColor = DPSecondLevelTitleColor;
         _commentLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline];
-        _commentLabel.textAlignment = NSTextAlignmentCenter;
+        _commentLabel.textAlignment = NSTextAlignmentLeft;
     }
     return _commentLabel;
 }

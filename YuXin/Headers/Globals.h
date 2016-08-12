@@ -32,7 +32,7 @@
 #define DPTextColorParameterWhite                   @"37"
 
 //regular express
-#define DPRegExColor                                @".{1}[0-9]{0,2}[;[0-9]{1,2}]*m"
+#define DPRegExColor                                @"\\[{1}[0-9]{0,2}[;[0-9]{1,2}]*m"
 #define DPRegExTime1                                @"[0-9]{4}年[0-9]{2}月[0-9]{2}日[0-9]{2}:[0-9]{2}:[0-9]{2}"
 #define DPRegExTime2                                @"\\w{3}\\s{1,2}\\d{1,2} \\d{2}:\\d{2}:\\d{2} \\d{4}"
 #define DPRegExName                                 @" .+[(.+)]{1}"

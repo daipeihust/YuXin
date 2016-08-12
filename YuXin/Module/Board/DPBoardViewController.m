@@ -219,7 +219,6 @@
                         [WSProgressHUD safeShowString:@"取消订阅成功"];
                         [weakSelf.boardArray removeObjectAtIndex:indexPath.row];
                         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-                        
                     });
                 }
             }];

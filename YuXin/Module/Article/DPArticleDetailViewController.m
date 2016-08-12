@@ -99,6 +99,10 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 @property (nonatomic, strong) WSProgressHUD *hud;
 @property (nonatomic, strong) DPCommentTextPlace *commentTextPlace;
 @property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) NSString *fileToBeDelete;
+@property (nonatomic, strong) NSString *fileToBeReprint;
+@property (nonatomic, strong) UIAlertView *deleteAlert;
+@property (nonatomic, strong) UIAlertView *reprintAlert;
 
 @end
 
@@ -205,7 +209,8 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 }
 
 - (void)reprintButtonDidClick:(NSString *)fileName {
-    
+    self.fileToBeReprint = fileName;
+    [self.reprintAlert show];
 }
 
 - (void)commentButtonDidClick {
@@ -223,7 +228,44 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 }
 
 - (void)deleteButtonDidClick:(NSString *)fileName {
-    
+    self.fileToBeDelete = fileName;
+    [self.deleteAlert show];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (alertView == self.deleteAlert) {
+        if (buttonIndex == 1) {
+            __weak typeof(self) weakSelf = self;
+            [[YuXinSDK sharedInstance] deleteArticleWithBoard:self.boardName file:self.fileToBeDelete completion:^(NSString *error, NSArray *responseModels) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (!error) {
+                        [WSProgressHUD safeShowString:@"删除成功"];
+                        [weakSelf headerRefresh];
+                    }else {
+                        [WSProgressHUD safeShowString:error];
+                    }
+                });
+            }];
+        }
+    }
+    else if (alertView == self.reprintAlert) {
+        if (buttonIndex == 1) {
+            UITextField *tmpTF = [alertView textFieldAtIndex:0];
+            __weak typeof(self) weakSelf = self;
+            [[YuXinSDK sharedInstance] reprintArticleWithFile:self.fileToBeReprint from:self.boardName to:tmpTF.text completion:^(NSString *error, NSArray *responseModels) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (!error) {
+                        [WSProgressHUD safeShowString:@"转载成功"];
+                        [weakSelf headerRefresh];
+                    }else {
+                        [WSProgressHUD safeShowString:error];
+                    }
+                });
+            }];
+        }
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -458,6 +500,21 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         [_contentView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundDidTap:)]];
     }
     return _contentView;
+}
+
+- (UIAlertView *)deleteAlert {
+    if (!_deleteAlert) {
+        _deleteAlert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"是否删除？" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+    }
+    return _deleteAlert;
+}
+
+- (UIAlertView *)reprintAlert {
+    if (!_reprintAlert) {
+        _reprintAlert = [[UIAlertView alloc] initWithTitle:@"转载" message:@"转载到：" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [_reprintAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+    }
+    return _reprintAlert;
 }
 
 @end

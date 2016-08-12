@@ -211,6 +211,12 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
     }
 }
 
+- (void)reprintButtonClicked {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(reprintButtonDidClick:)]) {
+        [self.delegate reprintButtonDidClick:self.model.fileName];
+    }
+}
+
 - (void)deleteButtonClicked {
     if (self.delegate && [self.delegate respondsToSelector:@selector(deleteButtonDidClick:)]) {
         [self.delegate deleteButtonDidClick:self.model.fileName];
@@ -286,6 +292,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _reprintBtn.backgroundColor = [UIColor clearColor];
         _reprintBtn.image = [UIImage imageNamed:@"image_article_reprint"];
         _reprintBtn.userInteractionEnabled = YES;
+        [_reprintBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reprintButtonClicked)]];
     }
     return _reprintBtn;
 }
