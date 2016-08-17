@@ -86,9 +86,6 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
     }
     else if (self.cellType == DPArticleDetailCellTypeComment) {
         self.commentTitle.text = model.author;
-//        if (model.userIDAndName) {
-//            self.commentTitle.text = model.userIDAndName;
-//        }
         self.commentContent.text = model.realContent;
         if (model.displayContent) {
             self.commentContent.text = model.displayContent;
