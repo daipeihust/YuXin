@@ -13,10 +13,6 @@
 		F4141DCE1D34889A00286585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4141DCC1D34889A00286585 /* Main.storyboard */; };
 		F4141DDE1D34889A00286585 /* YuXinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DDD1D34889A00286585 /* YuXinTests.m */; };
 		F4141DE91D34889A00286585 /* YuXinUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DE81D34889A00286585 /* YuXinUITests.m */; };
-		F4141DFE1D34D3F300286585 /* YuXinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DF91D34D3F300286585 /* YuXinModel.m */; };
-		F4141DFF1D34D3F300286585 /* YuXinSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DFB1D34D3F300286585 /* YuXinSDK.m */; };
-		F4141E001D34D3F300286585 /* YuXinXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DFD1D34D3F300286585 /* YuXinXmlParser.m */; };
-		F4141E031D34D58200286585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4141E021D34D58200286585 /* Assets.xcassets */; };
 		F43AE9601D3769380060020F /* libiconv.2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F43AE95F1D3769380060020F /* libiconv.2.tbd */; };
 		F43AE9671D3773CA0060020F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F43AE9651D3773CA0060020F /* LaunchScreen.storyboard */; };
 		F43AE96A1D377E1C0060020F /* UserHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9691D377E1C0060020F /* UserHelper.m */; };
@@ -27,10 +23,8 @@
 		F43AE9B71D38BA8C0060020F /* DPArticleTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9B61D38BA8C0060020F /* DPArticleTitleCell.m */; };
 		F43AE9D01D3A076E0060020F /* DPArticleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9CF1D3A076E0060020F /* DPArticleDetailViewController.m */; };
 		F43AE9D31D3A07990060020F /* DPArticleDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9D21D3A07990060020F /* DPArticleDetailCell.m */; };
-		F43AE9DC1D3B8A410060020F /* NSString+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9DB1D3B8A410060020F /* NSString+DPExtension.m */; };
 		F43AE9E41D3F5B290060020F /* DPBoardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9E31D3F5B290060020F /* DPBoardViewController.m */; };
 		F43AE9E71D3F61730060020F /* DPBoardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9E61D3F61730060020F /* DPBoardCell.m */; };
-		F43AE9F01D3FB0E70060020F /* WSProgressHUD+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F43AE9EF1D3FB0E70060020F /* WSProgressHUD+DPExtension.m */; };
 		F447F1861D56CE040079E39E /* DPFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F447F1851D56CE040079E39E /* DPFriendListViewController.m */; };
 		F447F1891D56CE3F0079E39E /* DPFriendListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F447F1881D56CE3F0079E39E /* DPFriendListCell.m */; };
 		F448F78E1D44953500BD1E5C /* DPTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F448F78D1D44953500BD1E5C /* DPTabBarItem.m */; };
@@ -43,6 +37,12 @@
 		F4C62DA21D43A93000538C03 /* DPAllPartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA11D43A93000538C03 /* DPAllPartViewController.m */; };
 		F4C62DA51D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA41D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m */; };
 		F4C62DA81D43C7F000538C03 /* DPAllPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */; };
+		F4EA42351D64376D00D3C6D1 /* YuXinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42301D64376D00D3C6D1 /* YuXinModel.m */; };
+		F4EA42361D64376D00D3C6D1 /* YuXinSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42321D64376D00D3C6D1 /* YuXinSDK.m */; };
+		F4EA42371D64376D00D3C6D1 /* YuXinXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42341D64376D00D3C6D1 /* YuXinXmlParser.m */; };
+		F4EA423F1D6437F400D3C6D1 /* NSString+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA423A1D6437F400D3C6D1 /* NSString+DPExtension.m */; };
+		F4EA42401D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA423C1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m */; };
+		F4EA42411D6437F400D3C6D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EA423E1D6437F400D3C6D1 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,13 +78,6 @@
 		F4141DE41D34889A00286585 /* YuXinUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YuXinUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4141DE81D34889A00286585 /* YuXinUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YuXinUITests.m; sourceTree = "<group>"; };
 		F4141DEA1D34889A00286585 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4141DF81D34D3F300286585 /* YuXinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinModel.h; sourceTree = "<group>"; };
-		F4141DF91D34D3F300286585 /* YuXinModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinModel.m; sourceTree = "<group>"; };
-		F4141DFA1D34D3F300286585 /* YuXinSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinSDK.h; sourceTree = "<group>"; };
-		F4141DFB1D34D3F300286585 /* YuXinSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinSDK.m; sourceTree = "<group>"; };
-		F4141DFC1D34D3F300286585 /* YuXinXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinXmlParser.h; sourceTree = "<group>"; };
-		F4141DFD1D34D3F300286585 /* YuXinXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinXmlParser.m; sourceTree = "<group>"; };
-		F4141E021D34D58200286585 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F43AE95F1D3769380060020F /* libiconv.2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.tbd; path = usr/lib/libiconv.2.tbd; sourceTree = SDKROOT; };
 		F43AE9661D3773CA0060020F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F43AE9681D377E1C0060020F /* UserHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserHelper.h; sourceTree = "<group>"; };
@@ -108,14 +101,10 @@
 		F43AE9D11D3A07990060020F /* DPArticleDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPArticleDetailCell.h; sourceTree = "<group>"; };
 		F43AE9D21D3A07990060020F /* DPArticleDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPArticleDetailCell.m; sourceTree = "<group>"; };
 		F43AE9D51D3A190B0060020F /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
-		F43AE9DA1D3B8A410060020F /* NSString+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DPExtension.h"; sourceTree = "<group>"; };
-		F43AE9DB1D3B8A410060020F /* NSString+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DPExtension.m"; sourceTree = "<group>"; };
 		F43AE9E21D3F5B290060020F /* DPBoardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBoardViewController.h; sourceTree = "<group>"; };
 		F43AE9E31D3F5B290060020F /* DPBoardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBoardViewController.m; sourceTree = "<group>"; };
 		F43AE9E51D3F61730060020F /* DPBoardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPBoardCell.h; sourceTree = "<group>"; };
 		F43AE9E61D3F61730060020F /* DPBoardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPBoardCell.m; sourceTree = "<group>"; };
-		F43AE9EE1D3FB0E70060020F /* WSProgressHUD+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WSProgressHUD+DPExtension.h"; sourceTree = "<group>"; };
-		F43AE9EF1D3FB0E70060020F /* WSProgressHUD+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WSProgressHUD+DPExtension.m"; sourceTree = "<group>"; };
 		F447F1841D56CE040079E39E /* DPFriendListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPFriendListViewController.h; sourceTree = "<group>"; };
 		F447F1851D56CE040079E39E /* DPFriendListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPFriendListViewController.m; sourceTree = "<group>"; };
 		F447F1871D56CE3F0079E39E /* DPFriendListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPFriendListCell.h; sourceTree = "<group>"; };
@@ -140,6 +129,17 @@
 		F4C62DA41D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VVSpringCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		F4C62DA61D43C7F000538C03 /* DPAllPartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAllPartCell.h; sourceTree = "<group>"; };
 		F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAllPartCell.m; sourceTree = "<group>"; };
+		F4EA422F1D64376D00D3C6D1 /* YuXinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinModel.h; sourceTree = "<group>"; };
+		F4EA42301D64376D00D3C6D1 /* YuXinModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinModel.m; sourceTree = "<group>"; };
+		F4EA42311D64376D00D3C6D1 /* YuXinSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinSDK.h; sourceTree = "<group>"; };
+		F4EA42321D64376D00D3C6D1 /* YuXinSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinSDK.m; sourceTree = "<group>"; };
+		F4EA42331D64376D00D3C6D1 /* YuXinXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinXmlParser.h; sourceTree = "<group>"; };
+		F4EA42341D64376D00D3C6D1 /* YuXinXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinXmlParser.m; sourceTree = "<group>"; };
+		F4EA42391D6437F400D3C6D1 /* NSString+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DPExtension.h"; sourceTree = "<group>"; };
+		F4EA423A1D6437F400D3C6D1 /* NSString+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DPExtension.m"; sourceTree = "<group>"; };
+		F4EA423B1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WSProgressHUD+DPExtension.h"; sourceTree = "<group>"; };
+		F4EA423C1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WSProgressHUD+DPExtension.m"; sourceTree = "<group>"; };
+		F4EA423E1D6437F400D3C6D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,9 +182,6 @@
 			isa = PBXGroup;
 			children = (
 				F4141DC21D34889A00286585 /* YuXin */,
-				F4141DF71D34D3F300286585 /* YuXinSDK */,
-				F4141E011D34D58200286585 /* Resources */,
-				F43AE9D91D3B89740060020F /* Category */,
 				F43AE9B11D38864F0060020F /* Frameworks */,
 				F4141DDC1D34889A00286585 /* YuXinTests */,
 				F4141DE71D34889A00286585 /* YuXinUITests */,
@@ -206,7 +203,9 @@
 		F4141DC21D34889A00286585 /* YuXin */ = {
 			isa = PBXGroup;
 			children = (
-				F43AE9EA1D3F90DE0060020F /* Utils */,
+				F4EA42381D6437F400D3C6D1 /* Category */,
+				F4EA423D1D6437F400D3C6D1 /* Resources */,
+				F4EA422E1D64376D00D3C6D1 /* YuXinSDK */,
 				F43AE96B1D3780560060020F /* Headers */,
 				F4141DF61D3499D600286585 /* Module */,
 				F4141DC61D34889A00286585 /* AppDelegate.h */,
@@ -259,27 +258,6 @@
 				F47D90901D369AB700DF831D /* User */,
 			);
 			path = Module;
-			sourceTree = "<group>";
-		};
-		F4141DF71D34D3F300286585 /* YuXinSDK */ = {
-			isa = PBXGroup;
-			children = (
-				F4141DF81D34D3F300286585 /* YuXinModel.h */,
-				F4141DF91D34D3F300286585 /* YuXinModel.m */,
-				F4141DFA1D34D3F300286585 /* YuXinSDK.h */,
-				F4141DFB1D34D3F300286585 /* YuXinSDK.m */,
-				F4141DFC1D34D3F300286585 /* YuXinXmlParser.h */,
-				F4141DFD1D34D3F300286585 /* YuXinXmlParser.m */,
-			);
-			path = YuXinSDK;
-			sourceTree = "<group>";
-		};
-		F4141E011D34D58200286585 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F4141E021D34D58200286585 /* Assets.xcassets */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		F43AE96B1D3780560060020F /* Headers */ = {
@@ -353,24 +331,6 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
-		F43AE9D91D3B89740060020F /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				F43AE9EE1D3FB0E70060020F /* WSProgressHUD+DPExtension.h */,
-				F43AE9EF1D3FB0E70060020F /* WSProgressHUD+DPExtension.m */,
-				F43AE9DA1D3B8A410060020F /* NSString+DPExtension.h */,
-				F43AE9DB1D3B8A410060020F /* NSString+DPExtension.m */,
-			);
-			path = Category;
-			sourceTree = "<group>";
-		};
-		F43AE9EA1D3F90DE0060020F /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		F447F1831D56CD8C0079E39E /* Friend */ = {
 			isa = PBXGroup;
 			children = (
@@ -426,6 +386,38 @@
 				F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */,
 			);
 			path = AllPart;
+			sourceTree = "<group>";
+		};
+		F4EA422E1D64376D00D3C6D1 /* YuXinSDK */ = {
+			isa = PBXGroup;
+			children = (
+				F4EA422F1D64376D00D3C6D1 /* YuXinModel.h */,
+				F4EA42301D64376D00D3C6D1 /* YuXinModel.m */,
+				F4EA42311D64376D00D3C6D1 /* YuXinSDK.h */,
+				F4EA42321D64376D00D3C6D1 /* YuXinSDK.m */,
+				F4EA42331D64376D00D3C6D1 /* YuXinXmlParser.h */,
+				F4EA42341D64376D00D3C6D1 /* YuXinXmlParser.m */,
+			);
+			path = YuXinSDK;
+			sourceTree = "<group>";
+		};
+		F4EA42381D6437F400D3C6D1 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				F4EA42391D6437F400D3C6D1 /* NSString+DPExtension.h */,
+				F4EA423A1D6437F400D3C6D1 /* NSString+DPExtension.m */,
+				F4EA423B1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.h */,
+				F4EA423C1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		F4EA423D1D6437F400D3C6D1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4EA423E1D6437F400D3C6D1 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -535,7 +527,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F43AE9671D3773CA0060020F /* LaunchScreen.storyboard in Resources */,
-				F4141E031D34D58200286585 /* Assets.xcassets in Resources */,
+				F4EA42411D6437F400D3C6D1 /* Assets.xcassets in Resources */,
 				F4141DCE1D34889A00286585 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -609,33 +601,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4EA42361D64376D00D3C6D1 /* YuXinSDK.m in Sources */,
 				F4B7C47E1D446AFC00E2E92E /* DPProfileItem.m in Sources */,
 				F447F1891D56CE3F0079E39E /* DPFriendListCell.m in Sources */,
 				F43AE9A51D3872610060020F /* DPLoginViewController.m in Sources */,
 				F48EDBD21D62B4540077C731 /* DPPostArticleViewController.m in Sources */,
 				F4B7C5091D44822C00E2E92E /* DPTabBar.m in Sources */,
-				F4141DFF1D34D3F300286585 /* YuXinSDK.m in Sources */,
 				F43AE9B01D3884AA0060020F /* DPMainViewController.m in Sources */,
 				F4C62D9F1D439DD200538C03 /* DPAllPartLayout.m in Sources */,
-				F4141E001D34D3F300286585 /* YuXinXmlParser.m in Sources */,
 				F43AE9E71D3F61730060020F /* DPBoardCell.m in Sources */,
 				F4B7C47D1D446AFC00E2E92E /* DPProfileCell.m in Sources */,
 				F43AE9B41D38BA140060020F /* DPArticleTitleViewController.m in Sources */,
-				F4141DFE1D34D3F300286585 /* YuXinModel.m in Sources */,
 				F43AE9B71D38BA8C0060020F /* DPArticleTitleCell.m in Sources */,
 				F4141DC81D34889A00286585 /* AppDelegate.m in Sources */,
 				F43AE9D01D3A076E0060020F /* DPArticleDetailViewController.m in Sources */,
 				F4C62DA81D43C7F000538C03 /* DPAllPartCell.m in Sources */,
 				F43AE9AD1D3884490060020F /* DPLaunchViewController.m in Sources */,
 				F43AE96A1D377E1C0060020F /* UserHelper.m in Sources */,
-				F43AE9F01D3FB0E70060020F /* WSProgressHUD+DPExtension.m in Sources */,
 				F448F78E1D44953500BD1E5C /* DPTabBarItem.m in Sources */,
 				F4C62DA21D43A93000538C03 /* DPAllPartViewController.m in Sources */,
 				F43AE9E41D3F5B290060020F /* DPBoardViewController.m in Sources */,
+				F4EA42371D64376D00D3C6D1 /* YuXinXmlParser.m in Sources */,
 				F447F1861D56CE040079E39E /* DPFriendListViewController.m in Sources */,
-				F43AE9DC1D3B8A410060020F /* NSString+DPExtension.m in Sources */,
 				F43AE9D31D3A07990060020F /* DPArticleDetailCell.m in Sources */,
+				F4EA42401D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m in Sources */,
+				F4EA42351D64376D00D3C6D1 /* YuXinModel.m in Sources */,
 				F4B7C47F1D446AFC00E2E92E /* DPProfileViewController.m in Sources */,
+				F4EA423F1D6437F400D3C6D1 /* NSString+DPExtension.m in Sources */,
 				F4C62DA51D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m in Sources */,
 				F4141DC51D34889A00286585 /* main.m in Sources */,
 			);
