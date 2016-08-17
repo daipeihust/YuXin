@@ -100,6 +100,7 @@
         _collectionView.dataSource = self;
         _collectionView.delegate = self;
         [_collectionView registerClass:[DPAllPartCell class] forCellWithReuseIdentifier:DPAllPartCellReuseIdentifier];
+        _collectionView.alwaysBounceVertical = YES;
     }
     return _collectionView;
 }

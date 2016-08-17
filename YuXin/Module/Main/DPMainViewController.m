@@ -40,6 +40,7 @@
     [self initTabBar];
     [self initViewController];
     [self initAnimationView];
+    [self configNavigationBackButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -74,6 +75,11 @@
         make.edges.equalTo(self.contentView);
     }];
     self.selectedIndex = 0;
+}
+
+- (void)configNavigationBackButton {
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -64) forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)initTabBar {

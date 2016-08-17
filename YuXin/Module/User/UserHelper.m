@@ -29,7 +29,6 @@
 #pragma mark - Public Method
 
 - (void)start {
-    
     if (!self.openCount) {
         self.openCount = @(1);
         self.firstOpen = YES;
@@ -66,6 +65,7 @@
             [[NSUserDefaults standardUserDefaults] setObject:password forKey:DPPasswordKey];
             [weakSelf initFriendList];
             [weakSelf initUserInfo];
+            [weakSelf refreshFavourateBoardWithCompletion:nil];
         }else {
             handler(error);
         }
@@ -101,7 +101,7 @@
     }];
 }
 
-- (void)refreshFavourateBoard {
+- (void)refreshFavourateBoardWithCompletion:(FavouriteHandler)handler {
     __weak typeof(self) weakSelf = self;
     [[YuXinSDK sharedInstance] fetchFavourateBoardWithCompletion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
@@ -111,6 +111,9 @@
                 [tmpArray addObject:board.boardName];
             }
             weakSelf.favourateBoard = [tmpArray copy];
+            if (handler) {
+                handler(nil, tmpArray);
+            }
         }
     }];
 }
@@ -130,6 +133,7 @@
                 });
                 [weakSelf initFriendList];
                 [weakSelf initUserInfo];
+                [weakSelf refreshFavourateBoardWithCompletion:nil];
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{

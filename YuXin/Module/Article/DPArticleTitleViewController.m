@@ -12,8 +12,9 @@
 #import "DPArticleDetailViewController.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "WSProgressHUD+DPExtension.h"
+#import "DPPostArticleViewController.h"
 
-@interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleTitleCellDelegate>
+@interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleTitleCellDelegate, DPPostArticleViewControllerDelegate>
 
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSMutableArray *titleArray;
@@ -41,19 +42,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self configUI];
     [self initData];
+    [self ConfigNavigationItem];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
 }
 
 #pragma mark - ConfigViews
@@ -75,13 +74,33 @@
     }];
 }
 
+- (void)ConfigNavigationItem {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"image_board_post"] style:UIBarButtonItemStylePlain target:self action:@selector(postButtonClicked)];
+}
+
 #pragma mark - Privite Method
 
-- (void)firstRefresh {
-    [self.tableView.mj_header beginRefreshing];
+- (void)refreshTitle {
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchArticleTitleListWithBoard:self.boardName start:@(0) completion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            weakSelf.titleArray = [NSMutableArray arrayWithArray:responseModels];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+            });
+        }
+    }];
 }
 
 #pragma mark - Action Method
+
+- (void)postButtonClicked {
+    DPPostArticleViewController *viewController = [[DPPostArticleViewController alloc] initWithBoardName:self.boardName];
+    viewController.delegate = self;
+    viewController.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:viewController animated:YES completion:nil];
+}
 
 - (void)headerRefresh {
     __weak typeof(self) weakSelf = self;
@@ -147,6 +166,12 @@
             });
         }
     }];
+}
+
+#pragma mark - DPPostArticleViewControllerDelegate
+
+- (void)articleDidPost {
+    [self refreshTitle];
 }
 
 #pragma mark - DPArticleTitleCellDelegate

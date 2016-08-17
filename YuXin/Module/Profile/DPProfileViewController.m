@@ -56,7 +56,7 @@
 #pragma mark - ConfigView
 
 - (void)initView {
-    self.title = @"Me";
+    self.title = @"用户";
     [self.view setBackgroundColor:DPBackgroundColor];
     [self.tableView setBackgroundColor:DPBackgroundColor];
     [self.view addSubview:self.tableView];

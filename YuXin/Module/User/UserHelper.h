@@ -28,7 +28,7 @@ typedef void(^FavouriteHandler)(NSString *error, NSArray *models);
 - (void)start;
 - (void)loginWithUserName:(NSString *)userName password:(NSString *)password completion:(MessageHandler)handler;
 - (void)getFavourateBoardWithCompletion:(FavouriteHandler)handler;
-- (void)refreshFavourateBoard;
+- (void)refreshFavourateBoardWithCompletion:(FavouriteHandler)handler;
 - (void)logoutWithCompletion:(MessageHandler)handler;
 
 @end

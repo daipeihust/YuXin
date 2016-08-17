@@ -395,6 +395,7 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
     NSURL *url = [NSURL URLWithString:completeUrlStr];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:method];
+    [request setTimeoutInterval:5];
     [request setValue:@"Keep-Alive" forHTTPHeaderField:@"Connection"];
     if (cookie) {
         [request setValue:cookie forHTTPHeaderField:@"Cookie"];

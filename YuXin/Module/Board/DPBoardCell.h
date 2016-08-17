@@ -11,5 +11,6 @@
 @interface DPBoardCell : UITableViewCell
 
 - (void)fileDataWithModel:(YuXinBoard *)model;
+- (void)setLike:(BOOL)like;
 
 @end

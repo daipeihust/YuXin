@@ -40,4 +40,6 @@
 
 #define DPArticleDeleteButtonColor              UIColorFromRGB(90,90,90)
 
+#define DPBoardLikeTintColor                    UIColorFromRGB(255,4,73)
+
 #endif /* GlobalColors_h */

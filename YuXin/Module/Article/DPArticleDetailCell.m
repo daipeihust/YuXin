@@ -30,6 +30,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
 @property (nonatomic, strong) UIImageView *commentBtn;
 @property (nonatomic, strong) UIImageView *reprintBtn;
 @property (nonatomic, strong) UIButton *deleteBtn1;
+@property (nonatomic, strong) UIView *reprintTapArea;
 
 //comment part
 @property (nonatomic, strong) UILabel *commentTitle;
@@ -85,9 +86,9 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
     }
     else if (self.cellType == DPArticleDetailCellTypeComment) {
         self.commentTitle.text = model.author;
-        if (model.userIDAndName) {
-            self.commentTitle.text = model.userIDAndName;
-        }
+//        if (model.userIDAndName) {
+//            self.commentTitle.text = model.userIDAndName;
+//        }
         self.commentContent.text = model.realContent;
         if (model.displayContent) {
             self.commentContent.text = model.displayContent;
@@ -125,6 +126,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         [self.contentView addSubview:self.commentBtn];
         [self.contentView addSubview:self.reprintBtn];
         [self.contentView addSubview:self.deleteBtn1];
+        [self.contentView addSubview:self.reprintTapArea];
         
         [self.articleTitle mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView).with.offset(10);
@@ -147,14 +149,17 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
             make.bottom.equalTo(self.contentView).with.offset(-10);
             make.width.height.mas_equalTo(25);
         }];
+        [self.reprintTapArea mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView);
+            make.bottom.equalTo(self.contentView);
+            make.width.height.mas_equalTo(40);
+        }];
         [self.commentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.articleContent.mas_bottom).with.offset(10);
             make.right.equalTo(self.reprintBtn.mas_left).with.offset(-20);
             make.bottom.equalTo(self.contentView).with.offset(-10);
             make.width.height.mas_equalTo(25);
         }];
         [self.deleteBtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.articleContent.mas_bottom).with.offset(10);
             make.right.equalTo(self.commentBtn.mas_left).with.offset(-20);
             make.bottom.equalTo(self.contentView).with.offset(-10);
             make.width.height.mas_equalTo(25);
@@ -191,17 +196,13 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
             make.width.mas_equalTo(100);
         }];
         [self.commentContent mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.userImageView.mas_bottom).with.offset(20);
+            make.top.equalTo(self.userImageView.mas_bottom).with.offset(5);
             make.left.equalTo(self.contentView).with.offset(10);
             make.right.equalTo(self.contentView).with.offset(-10);
             make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-10);
         }];
     }
 }
-
-#pragma mark - Privite Method
-
-
 
 #pragma mark - Action Method
 
@@ -291,10 +292,19 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _reprintBtn = [[UIImageView alloc] init];
         _reprintBtn.backgroundColor = [UIColor clearColor];
         _reprintBtn.image = [UIImage imageNamed:@"image_article_reprint"];
-        _reprintBtn.userInteractionEnabled = YES;
-        [_reprintBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reprintButtonClicked)]];
+        _replyBtn.contentMode = UIViewContentModeCenter;
     }
     return _reprintBtn;
+}
+
+- (UIView *)reprintTapArea {
+    if (!_reprintTapArea) {
+        _reprintTapArea = [[UIView alloc] init];
+        _reprintTapArea.backgroundColor = [UIColor clearColor];
+        _reprintTapArea.userInteractionEnabled = YES;
+        [_reprintTapArea addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reprintButtonClicked)]];
+    }
+    return _reprintTapArea;
 }
 
 - (UIImageView *)commentBtn {
@@ -302,6 +312,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _commentBtn = [[UIImageView alloc] init];
         _commentBtn.backgroundColor = [UIColor clearColor];
         _commentBtn.image = [UIImage imageNamed:@"image_article_comment"];
+        _commentBtn.contentMode = UIViewContentModeCenter;
         _commentBtn.userInteractionEnabled = YES;
         [_commentBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(commentButtonClicked)]];
     }

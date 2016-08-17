@@ -19,7 +19,7 @@
 @property (nonatomic, strong) UITextField *commentTextField;
 @property (nonatomic, strong) UIButton *sendButton;
 @property (nonatomic, weak) id<DPCommentTextPlaceDelegate> delegate;
-@property (nonatomic, assign) NSUInteger replyArticleIndex;
+@property (nonatomic, assign) NSInteger replyArticleIndex;
 
 @end
 
@@ -102,7 +102,6 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 @property (nonatomic, strong) NSString *fileToBeDelete;
 @property (nonatomic, strong) NSString *fileToBeReprint;
 @property (nonatomic, strong) UIAlertView *deleteAlert;
-@property (nonatomic, strong) UIAlertView *reprintAlert;
 
 @end
 
@@ -163,9 +162,13 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 #pragma mark - UITextFieldDelegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    YuXinArticle *replyArticle = self.articleArray[self.commentTextPlace.replyArticleIndex];
-    NSString *author = replyArticle.author;
-    textField.placeholder = [NSString stringWithFormat:@"回复:%@", author];
+    if (self.commentTextPlace.replyArticleIndex == -1) {
+        textField.placeholder = [NSString stringWithFormat:@"转载到哪个板块？"];
+    }else {
+        YuXinArticle *replyArticle = self.articleArray[self.commentTextPlace.replyArticleIndex];
+        NSString *author = replyArticle.author;
+        textField.placeholder = [NSString stringWithFormat:@"回复:%@", author];
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
@@ -178,28 +181,42 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 
 - (void)sendButtonDidClicked:(UIButton *)sender {
     sender.enabled = NO;
-    YuXinArticle *mainArticle = self.articleArray[0];
-    YuXinArticle *currentArticle = self.articleArray[self.commentTextPlace.replyArticleIndex];
-    NSString *footer = [self createFooterWithArticleIndex:self.commentTextPlace.replyArticleIndex];
-    NSMutableString *content = [NSMutableString stringWithString:self.commentTextPlace.commentTextField.text];
-    [content appendString:footer];
-    [self.hud show];
-    [self.view setUserInteractionEnabled:NO];
-    __weak typeof(self) weakSelf = self;
-    [[YuXinSDK sharedInstance] commentArticle:mainArticle.title content:content board:self.boardName canReply:YES file:currentArticle.fileName completion:^(NSString *error, NSArray *responseModels) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.hud dismiss];
-            [weakSelf.view setUserInteractionEnabled:YES];
-            if (!error) {
-                [WSProgressHUD safeShowString:@"评论成功"];
-                weakSelf.commentTextPlace.commentTextField.text = @"";
-                [weakSelf headerRefresh];
-            }else {
-                [WSProgressHUD safeShowString:error];
-            }
-        });
-    }];
-    [weakSelf.commentTextPlace.commentTextField resignFirstResponder];
+    if (self.commentTextPlace.replyArticleIndex == -1) {
+        __weak typeof(self) weakSelf = self;
+        [[YuXinSDK sharedInstance] reprintArticleWithFile:self.fileToBeReprint from:self.boardName to:self.commentTextPlace.commentTextField.text completion:^(NSString *error, NSArray *responseModels) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!error) {
+                    [WSProgressHUD safeShowString:@"转载成功"];
+                    [weakSelf headerRefresh];
+                }else {
+                    [WSProgressHUD safeShowString:error];
+                }
+            });
+        }];
+    }else {
+        YuXinArticle *mainArticle = self.articleArray[0];
+        YuXinArticle *currentArticle = self.articleArray[self.commentTextPlace.replyArticleIndex];
+        NSString *footer = [self createFooterWithArticleIndex:self.commentTextPlace.replyArticleIndex];
+        NSMutableString *content = [NSMutableString stringWithString:self.commentTextPlace.commentTextField.text];
+        [content appendString:footer];
+        [self.hud show];
+        [self.view setUserInteractionEnabled:NO];
+        __weak typeof(self) weakSelf = self;
+        [[YuXinSDK sharedInstance] commentArticle:mainArticle.title content:content board:self.boardName canReply:YES file:currentArticle.fileName completion:^(NSString *error, NSArray *responseModels) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.hud dismiss];
+                [weakSelf.view setUserInteractionEnabled:YES];
+                if (!error) {
+                    [WSProgressHUD safeShowString:@"评论成功"];
+                    weakSelf.commentTextPlace.commentTextField.text = @"";
+                    [weakSelf headerRefresh];
+                }else {
+                    [WSProgressHUD safeShowString:error];
+                }
+            });
+        }];
+        [weakSelf.commentTextPlace.commentTextField resignFirstResponder];
+    }
 }
 
 #pragma mark - DPArticleDetailCellDelegate
@@ -210,7 +227,8 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 
 - (void)reprintButtonDidClick:(NSString *)fileName {
     self.fileToBeReprint = fileName;
-    [self.reprintAlert show];
+    self.commentTextPlace.replyArticleIndex = -1;
+    [self.commentTextPlace.commentTextField becomeFirstResponder];
 }
 
 - (void)commentButtonDidClick {
@@ -235,36 +253,18 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView == self.deleteAlert) {
-        if (buttonIndex == 1) {
-            __weak typeof(self) weakSelf = self;
-            [[YuXinSDK sharedInstance] deleteArticleWithBoard:self.boardName file:self.fileToBeDelete completion:^(NSString *error, NSArray *responseModels) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (!error) {
-                        [WSProgressHUD safeShowString:@"删除成功"];
-                        [weakSelf headerRefresh];
-                    }else {
-                        [WSProgressHUD safeShowString:error];
-                    }
-                });
-            }];
-        }
-    }
-    else if (alertView == self.reprintAlert) {
-        if (buttonIndex == 1) {
-            UITextField *tmpTF = [alertView textFieldAtIndex:0];
-            __weak typeof(self) weakSelf = self;
-            [[YuXinSDK sharedInstance] reprintArticleWithFile:self.fileToBeReprint from:self.boardName to:tmpTF.text completion:^(NSString *error, NSArray *responseModels) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (!error) {
-                        [WSProgressHUD safeShowString:@"转载成功"];
-                        [weakSelf headerRefresh];
-                    }else {
-                        [WSProgressHUD safeShowString:error];
-                    }
-                });
-            }];
-        }
+    if (buttonIndex == 1) {
+        __weak typeof(self) weakSelf = self;
+        [[YuXinSDK sharedInstance] deleteArticleWithBoard:self.boardName file:self.fileToBeDelete completion:^(NSString *error, NSArray *responseModels) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (!error) {
+                    [WSProgressHUD safeShowString:@"删除成功"];
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                }else {
+                    [WSProgressHUD safeShowString:error];
+                }
+            });
+        }];
     }
 }
 
@@ -507,14 +507,6 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         _deleteAlert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"是否删除？" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
     }
     return _deleteAlert;
-}
-
-- (UIAlertView *)reprintAlert {
-    if (!_reprintAlert) {
-        _reprintAlert = [[UIAlertView alloc] initWithTitle:@"转载" message:@"转载到：" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
-        [_reprintAlert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    }
-    return _reprintAlert;
 }
 
 @end

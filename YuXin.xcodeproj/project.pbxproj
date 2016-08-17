@@ -34,6 +34,7 @@
 		F447F1861D56CE040079E39E /* DPFriendListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F447F1851D56CE040079E39E /* DPFriendListViewController.m */; };
 		F447F1891D56CE3F0079E39E /* DPFriendListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F447F1881D56CE3F0079E39E /* DPFriendListCell.m */; };
 		F448F78E1D44953500BD1E5C /* DPTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F448F78D1D44953500BD1E5C /* DPTabBarItem.m */; };
+		F48EDBD21D62B4540077C731 /* DPPostArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F48EDBD11D62B4540077C731 /* DPPostArticleViewController.m */; };
 		F4B7C47D1D446AFC00E2E92E /* DPProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B7C4781D446AFC00E2E92E /* DPProfileCell.m */; };
 		F4B7C47E1D446AFC00E2E92E /* DPProfileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B7C47A1D446AFC00E2E92E /* DPProfileItem.m */; };
 		F4B7C47F1D446AFC00E2E92E /* DPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B7C47C1D446AFC00E2E92E /* DPProfileViewController.m */; };
@@ -121,6 +122,8 @@
 		F447F1881D56CE3F0079E39E /* DPFriendListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPFriendListCell.m; sourceTree = "<group>"; };
 		F448F78C1D44953500BD1E5C /* DPTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTabBarItem.h; sourceTree = "<group>"; };
 		F448F78D1D44953500BD1E5C /* DPTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTabBarItem.m; sourceTree = "<group>"; };
+		F48EDBD01D62B4540077C731 /* DPPostArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPPostArticleViewController.h; sourceTree = "<group>"; };
+		F48EDBD11D62B4540077C731 /* DPPostArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPPostArticleViewController.m; sourceTree = "<group>"; };
 		F4B7C4771D446AFC00E2E92E /* DPProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPProfileCell.h; sourceTree = "<group>"; };
 		F4B7C4781D446AFC00E2E92E /* DPProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPProfileCell.m; sourceTree = "<group>"; };
 		F4B7C4791D446AFC00E2E92E /* DPProfileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPProfileItem.h; sourceTree = "<group>"; };
@@ -302,6 +305,8 @@
 				F43AE9CF1D3A076E0060020F /* DPArticleDetailViewController.m */,
 				F43AE9D11D3A07990060020F /* DPArticleDetailCell.h */,
 				F43AE9D21D3A07990060020F /* DPArticleDetailCell.m */,
+				F48EDBD01D62B4540077C731 /* DPPostArticleViewController.h */,
+				F48EDBD11D62B4540077C731 /* DPPostArticleViewController.m */,
 			);
 			path = Article;
 			sourceTree = "<group>";
@@ -607,6 +612,7 @@
 				F4B7C47E1D446AFC00E2E92E /* DPProfileItem.m in Sources */,
 				F447F1891D56CE3F0079E39E /* DPFriendListCell.m in Sources */,
 				F43AE9A51D3872610060020F /* DPLoginViewController.m in Sources */,
+				F48EDBD21D62B4540077C731 /* DPPostArticleViewController.m in Sources */,
 				F4B7C5091D44822C00E2E92E /* DPTabBar.m in Sources */,
 				F4141DFF1D34D3F300286585 /* YuXinSDK.m in Sources */,
 				F43AE9B01D3884AA0060020F /* DPMainViewController.m in Sources */,
@@ -782,6 +788,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Pinssible.YuXin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -797,6 +804,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Pinssible.YuXin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

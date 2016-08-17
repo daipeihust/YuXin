@@ -52,7 +52,7 @@
         DPTabBarItem *item = self.tabBarItmes[i];
         item.frame = CGRectMake(i * self.itemWidth, 0, self.itemWidth, 44);
         item.tag = i;
-        [item addTarget:self action:@selector(itemDidSelected:) forControlEvents:UIControlEventTouchDown];
+        [item addTarget:self action:@selector(itemDidSelected:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:item];
     }
 }

@@ -202,6 +202,7 @@
 }
 
 - (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    DPBoardCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     __weak typeof(self) weakSelf = self;
     YuXinBoard *board = self.boardArray[indexPath.row];
     UITableViewRowAction *action;
@@ -214,7 +215,7 @@
                         [WSProgressHUD safeShowString:error];
                     });
                 }else {
-                    [[UserHelper sharedInstance] refreshFavourateBoard];
+                    [[UserHelper sharedInstance] refreshFavourateBoardWithCompletion:nil];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [WSProgressHUD safeShowString:@"取消订阅成功"];
                         [weakSelf.boardArray removeObjectAtIndex:indexPath.row];
@@ -233,11 +234,14 @@
                             [WSProgressHUD safeShowString:error];
                         });
                     }else {
-                        [[UserHelper sharedInstance] refreshFavourateBoard];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [WSProgressHUD safeShowString:@"取消订阅成功"];
-                            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                        });
+                        [[UserHelper sharedInstance] refreshFavourateBoardWithCompletion:^(NSString *error, NSArray *models) {
+                            if (!error) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [WSProgressHUD safeShowString:@"取消订阅成功"];
+                                    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                });
+                            }
+                        }];
                     }
                 }];
             }];
@@ -250,11 +254,14 @@
                             [WSProgressHUD safeShowString:error];
                         });
                     }else {
-                        [[UserHelper sharedInstance] refreshFavourateBoard];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [WSProgressHUD safeShowString:@"订阅成功"];
-                            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                        });
+                        [[UserHelper sharedInstance] refreshFavourateBoardWithCompletion:^(NSString *error, NSArray *models) {
+                            if (!error) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [WSProgressHUD safeShowString:@"订阅成功"];
+                                    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                                });
+                            }
+                        }];
                     }
                 }];
             }];
@@ -273,6 +280,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     DPBoardCell *cell = [tableView dequeueReusableCellWithIdentifier:DPBoardCellReuseIdentifier];
     [cell fileDataWithModel:self.boardArray[indexPath.row]];
+    YuXinBoard *board = self.boardArray[indexPath.row];
+    if (self.boardType == DPBoardTypeFavourate) {
+        [cell setLike:YES];
+    }else {
+        if ([[UserHelper sharedInstance].favourateBoard containsObject:board.boardName]) {
+            [cell setLike:YES];
+        }else {
+            [cell setLike:NO];
+        }
+    }
     return cell;
 }
 
