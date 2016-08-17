@@ -18,8 +18,9 @@
 #define DPProfileNormalCellReuseIdentifier          @"Profile_normal"
 #define DPProfileSwitchCellReuseIdentifier          @"Profile_switch"
 #define DPAllPartCellReuseIdentifier                @"all_part"
-#define DPFriendListReuseIdentifier                 @"friend_list"
-
+#define DPFriendListCellReuseIdentifier             @"friend_list"
+#define DPUserInfoNormalCellReuseIdentifier         @"user_info_normal"
+#define DPUserInfoImageCellReuseIdentifier          @"user_info_image"
 
 //color parameter
 #define DPTextColorParameterBlack                   @"30"
@@ -44,13 +45,12 @@
 #define DPProfileTableViewHeaderHeight              7.5
 #define DPProfileTableViewFooterHeight              7.5
 
-//Key
+//key
 #define DPAutoLoginKey                              @"auto_login"
 #define DPShowColorfulTextKey                       @"show_colorful_text"
 #define DPOpenCountKey                              @"open_count"
 #define DPUsernameKey                               @"username"
 #define DPPasswordKey                               @"password"
 #define DPLoginStateKey                             @"login_state"
-
 
 #endif /* Globals_h */

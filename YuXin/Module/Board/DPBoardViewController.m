@@ -202,7 +202,6 @@
 }
 
 - (nullable NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DPBoardCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     __weak typeof(self) weakSelf = self;
     YuXinBoard *board = self.boardArray[indexPath.row];
     UITableViewRowAction *action;

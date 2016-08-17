@@ -11,6 +11,7 @@
 #import "MJRefresh.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "WSProgressHUD+DPExtension.h"
+#import "DPUserInfoViewController.h"
 
 @protocol DPCommentTextPlaceDelegate;
 
@@ -222,7 +223,8 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 #pragma mark - DPArticleDetailCellDelegate
 
 - (void)userImageViewDidClick:(NSString *)userID {
-    NSLog(@"user image clicked: %@", userID);
+    DPUserInfoViewController *viewController = [[DPUserInfoViewController alloc] initWithUserID:userID];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)reprintButtonDidClick:(NSString *)fileName {

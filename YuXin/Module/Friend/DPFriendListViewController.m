@@ -8,6 +8,7 @@
 
 #import "DPFriendListViewController.h"
 #import "DPFriendListCell.h"
+#import "DPUserInfoViewController.h"
 
 @interface DPFriendListViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -51,6 +52,13 @@
     return 80.f;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    YuXinFriend *friend = self.friendArray[indexPath.row];
+    DPUserInfoViewController *viewController = [[DPUserInfoViewController alloc] initWithUserID:friend.userID];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -62,7 +70,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DPFriendListCell *cell = [tableView dequeueReusableCellWithIdentifier:DPFriendListReuseIdentifier forIndexPath:indexPath];
+    DPFriendListCell *cell = [tableView dequeueReusableCellWithIdentifier:DPFriendListCellReuseIdentifier forIndexPath:indexPath];
     [cell fillDataWithModel:self.friendArray[indexPath.row]];
     return cell;
 }
@@ -74,7 +82,7 @@
         _tableView = [[UITableView alloc] init];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        [_tableView registerClass:[DPFriendListCell class] forCellReuseIdentifier:DPFriendListReuseIdentifier];
+        [_tableView registerClass:[DPFriendListCell class] forCellReuseIdentifier:DPFriendListCellReuseIdentifier];
         UIView *view = [[UIView alloc] init];
         view.backgroundColor = [UIColor clearColor];
         [_tableView setTableFooterView:view];

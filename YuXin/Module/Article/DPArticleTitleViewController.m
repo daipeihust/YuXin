@@ -13,6 +13,7 @@
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "WSProgressHUD+DPExtension.h"
 #import "DPPostArticleViewController.h"
+#import "DPUserInfoViewController.h"
 
 @interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleTitleCellDelegate, DPPostArticleViewControllerDelegate>
 
@@ -177,7 +178,8 @@
 #pragma mark - DPArticleTitleCellDelegate
 
 - (void)userImageViewDidClick:(NSString *)userID {
-    NSLog(@"user image clicked: %@", userID);
+    DPUserInfoViewController *viewController = [[DPUserInfoViewController alloc] initWithUserID:userID];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark - UITableViewDelegate

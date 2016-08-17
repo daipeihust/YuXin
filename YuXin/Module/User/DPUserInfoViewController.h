@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class YuXinUserInfo;
 
 @interface DPUserInfoViewController : UIViewController
+
+- (instancetype)initWithUserID:(NSString *)userID;
 
 @end

@@ -44,6 +44,7 @@
 		F4EA42401D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA423C1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m */; };
 		F4EA42411D6437F400D3C6D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EA423E1D6437F400D3C6D1 /* Assets.xcassets */; };
 		F4EA42441D6438FA00D3C6D1 /* DPUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42431D6438FA00D3C6D1 /* DPUserInfoViewController.m */; };
+		F4EA42471D64418D00D3C6D1 /* DPUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42461D64418D00D3C6D1 /* DPUserInfoCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,8 @@
 		F4EA423E1D6437F400D3C6D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4EA42421D6438FA00D3C6D1 /* DPUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPUserInfoViewController.h; sourceTree = "<group>"; };
 		F4EA42431D6438FA00D3C6D1 /* DPUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPUserInfoViewController.m; sourceTree = "<group>"; };
+		F4EA42451D64418D00D3C6D1 /* DPUserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPUserInfoCell.h; sourceTree = "<group>"; };
+		F4EA42461D64418D00D3C6D1 /* DPUserInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPUserInfoCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -361,6 +364,8 @@
 				F43AE9691D377E1C0060020F /* UserHelper.m */,
 				F4EA42421D6438FA00D3C6D1 /* DPUserInfoViewController.h */,
 				F4EA42431D6438FA00D3C6D1 /* DPUserInfoViewController.m */,
+				F4EA42451D64418D00D3C6D1 /* DPUserInfoCell.h */,
+				F4EA42461D64418D00D3C6D1 /* DPUserInfoCell.m */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -624,6 +629,7 @@
 				F4EA42441D6438FA00D3C6D1 /* DPUserInfoViewController.m in Sources */,
 				F43AE9AD1D3884490060020F /* DPLaunchViewController.m in Sources */,
 				F43AE96A1D377E1C0060020F /* UserHelper.m in Sources */,
+				F4EA42471D64418D00D3C6D1 /* DPUserInfoCell.m in Sources */,
 				F448F78E1D44953500BD1E5C /* DPTabBarItem.m in Sources */,
 				F4C62DA21D43A93000538C03 /* DPAllPartViewController.m in Sources */,
 				F43AE9E41D3F5B290060020F /* DPBoardViewController.m in Sources */,

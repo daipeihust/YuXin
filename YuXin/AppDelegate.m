@@ -33,8 +33,8 @@
     [self.window makeKeyAndVisible];
     
     [[UserHelper sharedInstance] start];
-
-//    [self showLoginViewController];
+    
+    
     
     return YES;
 }
