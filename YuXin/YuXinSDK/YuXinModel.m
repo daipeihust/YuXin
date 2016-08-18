@@ -77,9 +77,29 @@
 
 
 
+@interface YuXinUserInfo ()
 
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
+
+@end
 
 @implementation YuXinUserInfo
+
+- (void)setLastLogin:(NSString *)lastLogin {
+    _lastLogin = lastLogin;
+    _readableLastLogin = [super compareCurrentTime:lastLogin withDateFormatter:self.dateFormatter];
+}
+
+#pragma mark - Getter
+
+- (NSDateFormatter *)dateFormatter {
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:@"EEE MMM d HH:mm:ss yyyy"];
+        [_dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+    }
+    return _dateFormatter;
+}
 
 @end
 

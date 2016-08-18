@@ -15,11 +15,11 @@ static NSString *URL_SUBBOARD               = @"http://dian.hust.edu.cn:81/bbsbo
 static NSString *URL_FAVOURITES             = @"http://dian.hust.edu.cn:81/bbsbrd";
 static NSString *URL_ADD_FAVOURITES_BOARD   = @"http://dian.hust.edu.cn:81/bbsbrdadd";
 static NSString *URL_DEL_FAVOURITES_BOARD   = @"http://dian.hust.edu.cn:81/bbsbrddel";
-static NSString *URL_Articles               = @"http://dian.hust.edu.cn:81/bbsnewtdoc";
-static NSString *URL_Article                = @"http://dian.hust.edu.cn:81/bbsnewtcon";
-static NSString *URL_Article_ONE            = @"http://dian.hust.edu.cn:81/bbscon";
-static NSString *URL_POST_article           = @"http://dian.hust.edu.cn:81/bbssnd";
-static NSString *URL_DEL_Article            = @"http://dian.hust.edu.cn:81/bbsdel";
+static NSString *URL_ARTICLES               = @"http://dian.hust.edu.cn:81/bbsnewtdoc";
+static NSString *URL_ARTICLE                = @"http://dian.hust.edu.cn:81/bbsnewtcon";
+static NSString *URL_ARTICLE_ONE            = @"http://dian.hust.edu.cn:81/bbscon";
+static NSString *URL_POST_ARTICLE           = @"http://dian.hust.edu.cn:81/bbssnd";
+static NSString *URL_DEL_ARTICLE            = @"http://dian.hust.edu.cn:81/bbsdel";
 static NSString *URL_USER_DETAIL            = @"http://dian.hust.edu.cn:81/bbsqry";
 static NSString *URL_MAILS                  = @"http://dian.hust.edu.cn:81/bbsmail";
 static NSString *URL_MAIL_DETAIL            = @"http://dian.hust.edu.cn:81/bbsmailcon";
@@ -181,7 +181,7 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
 - (void)fetchArticleTitleListWithBoard:(NSString *)boardName start:(NSNumber *)startNum completion:(CompletionHandler)handler {
     
     NSString *queryStr = [NSString stringWithFormat:@"?board=%@&xml=1&start=%@&summary=1", boardName, startNum];
-    NSMutableURLRequest *request = [self createRequestWithUrl:URL_Articles query:queryStr method:@"GET" cookie:self.cookies body:nil];
+    NSMutableURLRequest *request = [self createRequestWithUrl:URL_ARTICLES query:queryStr method:@"GET" cookie:self.cookies body:nil];
     
     NSURLSession *session = [NSURLSession sharedSession];
     __weak typeof(self) weakSelf = self;
@@ -267,7 +267,7 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
 
 - (void)fetchArticlesWithBoard:(NSString *)boardName file:(NSString *)fileName completion:(CompletionHandler)handler{
     NSString *queryStr = [NSString stringWithFormat:@"?board=%@&file=%@&xml=1", boardName, fileName];
-    NSMutableURLRequest *request = [self createRequestWithUrl:URL_Article query:queryStr method:@"GET" cookie:self.cookies body:nil];
+    NSMutableURLRequest *request = [self createRequestWithUrl:URL_ARTICLE query:queryStr method:@"GET" cookie:self.cookies body:nil];
     
     NSURLSession *session = [NSURLSession sharedSession];
     __weak typeof(self) weakSelf = self;
@@ -293,7 +293,7 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
     bodyStr = [NSString stringWithFormat:@"text=%@&title=%@&xml=1&board=%@&signature=1&nore=%@&userid=%@&", content, title, boardName, canReply? @"off" : @"on", userID];
     NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData *bodyData = [bodyStr dataUsingEncoding:gb2312];
-    NSMutableURLRequest *request = [self createRequestWithUrl:URL_POST_article query:nil method:@"POST" cookie:self.cookies body:bodyData];
+    NSMutableURLRequest *request = [self createRequestWithUrl:URL_POST_ARTICLE query:nil method:@"POST" cookie:self.cookies body:bodyData];
     
     NSURLSession *session = [NSURLSession sharedSession];
     __weak typeof(self) weakSelf = self;
@@ -318,7 +318,7 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
     NSString *bodyStr= [NSString stringWithFormat:@"text=%@&title=Re: %@&xml=1&board=%@&signature=1&nore=%@&file=%@&", content, articleName, boardName, canReply? @"off" : @"on", fileName];
     NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData *bodyData = [bodyStr dataUsingEncoding:gb2312];
-    NSMutableURLRequest *request = [self createRequestWithUrl:URL_POST_article query:nil method:@"POST" cookie:self.cookies body:bodyData];
+    NSMutableURLRequest *request = [self createRequestWithUrl:URL_POST_ARTICLE query:nil method:@"POST" cookie:self.cookies body:bodyData];
     
     NSURLSession *session = [NSURLSession sharedSession];
     __weak typeof(self) weakSelf = self;
@@ -341,7 +341,7 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
 
 - (void)deleteArticleWithBoard:(NSString *)boardName file:(NSString *)fileName completion:(CompletionHandler)handler{
     NSString *queryStr = [NSString stringWithFormat:@"?board=%@&file=%@&xml=1", boardName, fileName];
-    NSMutableURLRequest *request = [self createRequestWithUrl:URL_DEL_Article query:queryStr method:@"POST" cookie:self.cookies body:nil];
+    NSMutableURLRequest *request = [self createRequestWithUrl:URL_DEL_ARTICLE query:queryStr method:@"POST" cookie:self.cookies body:nil];
     
     NSURLSession *session = [NSURLSession sharedSession];
     __weak typeof(self) weakSelf = self;
@@ -412,7 +412,7 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
     NSLog(@"[YuXinSDK]: response1: %@", response);
 }
 
-- (NSData *)refineTheData:(NSData *)data {
+- (NSData *)refineTheData2:(NSData *)data {
     NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSString *rawStr = [[NSString alloc] initWithData:data encoding:gb2312];
     NSString *targetStr = @"\0\1\2\3\10\11\13\27\30\31\32\33\34\35\36\37";
@@ -422,14 +422,53 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
         tmpStr = [targetStr substringWithRange:NSMakeRange(i, 1)];
         refinedStr = [refinedStr stringByReplacingOccurrencesOfString:tmpStr withString:@""];
     }
-//    NSLog(@">>>>>>>>:%@", refinedStr);
+    NSLog(@">>>>>>>>:%@", refinedStr);
     
     return [refinedStr dataUsingEncoding:gb2312];
+}
+
+- (NSData *)refineTheData:(NSData *)data {
+    
+    NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+    NSString *rawStr = [[NSString alloc] initWithData:data encoding:gb2312];
+    NSString *targetStr = @"\0\1\2\3\10\11\13\27\30\31\32\33\34\35\36\37";
+    NSString *refinedStr = rawStr;
+    NSString *tmpStr;
+    for (int i = 0; i < targetStr.length; i++) {
+        tmpStr = [targetStr substringWithRange:NSMakeRange(i, 1)];
+        refinedStr = [refinedStr stringByReplacingOccurrencesOfString:tmpStr withString:@""];
+    }
+    refinedStr = [refinedStr stringByReplacingOccurrencesOfString:@"gb2312" withString:@"utf-8"];
+    
+//    NSLog(@">>>>>>>>:%@", refinedStr);
+    
+    return [refinedStr dataUsingEncoding:NSUTF8StringEncoding];
 }
 
 - (NSData *)cleanGB2312:(NSData *)data {
     
     iconv_t cd = iconv_open("gb2312", "gb2312");
+    int one = 1;
+    iconvctl(cd, ICONV_SET_DISCARD_ILSEQ, &one);
+    size_t inbytesleft, outbytesleft;
+    inbytesleft = outbytesleft = data.length;
+    char *inbuf  = (char *)data.bytes;
+    char *outbuf = malloc(sizeof(char) * data.length);
+    char *outptr = outbuf;
+    if (iconv(cd, &inbuf, &inbytesleft, &outptr, &outbytesleft)
+        == (size_t)-1) {
+        NSLog(@"this should not happen, seriously");
+        return nil;
+    }
+    NSData *result = [NSData dataWithBytes:outbuf length:data.length - outbytesleft];
+    iconv_close(cd);
+    free(outbuf);
+    return result;
+}
+
+- (NSData *)cleanUTF8:(NSData *)data {
+    
+    iconv_t cd = iconv_open("utf-8", "utf-8");
     int one = 1;
     iconvctl(cd, ICONV_SET_DISCARD_ILSEQ, &one);
     size_t inbytesleft, outbytesleft;

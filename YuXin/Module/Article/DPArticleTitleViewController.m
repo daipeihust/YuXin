@@ -60,7 +60,6 @@
 
 - (void)configUI {
     self.view.backgroundColor = DPBackgroundColor;
-    
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.retryButton];
     [self.view addSubview:self.hud];

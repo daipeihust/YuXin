@@ -246,6 +246,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         _userImageView.contentMode = UIViewContentModeScaleAspectFill;
         _userImageView.layer.borderWidth = 1.f;
         _userImageView.layer.borderColor = DPImageBorderColor.CGColor;
+        [_userImageView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userImageViewClicked)]];
     }
     return _userImageView;
 }

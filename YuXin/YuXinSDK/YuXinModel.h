@@ -41,6 +41,7 @@
 @property (nonatomic, strong) NSString *gender;
 @property (nonatomic, strong) NSString *horoscope;
 @property (nonatomic, strong) NSString *lastLogin;
+@property (nonatomic, strong) NSString *readableLastLogin;
 @property (nonatomic, strong) NSString *mailNum;
 @property (nonatomic, strong) NSString *postNum;
 @property (nonatomic, strong) NSString *netAge;

@@ -50,22 +50,13 @@ typedef NS_ENUM(NSInteger, DPUserInfoCellContent) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initView];
+    [self initData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.hud show];
-    [[YuXinSDK sharedInstance] queryUserInfoWithUserID:self.userID completion:^(NSString *error, NSArray *responseModels) {
-        if (!error) {
-            self.userInfo = [responseModels firstObject];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.hud dismiss];
-                [self.tableView reloadData];
-            });
-        }
-    }];
+    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -78,6 +69,7 @@ typedef NS_ENUM(NSInteger, DPUserInfoCellContent) {
     self.view.backgroundColor = DPBackgroundColor;
     self.tableView.backgroundColor = DPBackgroundColor;
     [self.view addSubview:self.tableView];
+    [self.view addSubview:self.hud];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -91,6 +83,10 @@ typedef NS_ENUM(NSInteger, DPUserInfoCellContent) {
     }else {
         return 44;
     }
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
 }
 
 #pragma mark - UITableViewDataSource
@@ -127,7 +123,7 @@ typedef NS_ENUM(NSInteger, DPUserInfoCellContent) {
             if ([gender isEqualToString:@"M"]) {
                 gender = @"汉子";
             }
-            else if ([gender isEqualToString:@"W"]) {
+            else if ([gender isEqualToString:@"F"]) {
                 gender = @"妹子";
             }
             else {
@@ -152,7 +148,7 @@ typedef NS_ENUM(NSInteger, DPUserInfoCellContent) {
             break;
         }
         case DPUserInfoCellContentLastLogin: {
-            NSString *lastLogin = self.userInfo.lastLogin;
+            NSString *lastLogin = self.userInfo.readableLastLogin;
             dic = @{@"上次登录":lastLogin? lastLogin : @""};
             break;
         }
@@ -183,6 +179,23 @@ typedef NS_ENUM(NSInteger, DPUserInfoCellContent) {
     return cell;
 }
 
+#pragma mark - Privite Method
+
+- (void)initData {
+    [self.hud show];
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] queryUserInfoWithUserID:self.userID completion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            self.userInfo = [responseModels firstObject];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView setHidden:NO];
+                [weakSelf.hud dismiss];
+                [weakSelf.tableView reloadData];
+            });
+        }
+    }];
+}
+
 #pragma mark - Getter
 
 - (UITableView *)tableView {
@@ -192,6 +205,7 @@ typedef NS_ENUM(NSInteger, DPUserInfoCellContent) {
         _tableView.dataSource = self;
         [_tableView registerClass:[DPUserInfoCell class] forCellReuseIdentifier:DPUserInfoNormalCellReuseIdentifier];
         [_tableView registerClass:[DPUserInfoCell class] forCellReuseIdentifier:DPUserInfoImageCellReuseIdentifier];
+        _tableView.hidden = YES;
     }
     return _tableView;
 }
