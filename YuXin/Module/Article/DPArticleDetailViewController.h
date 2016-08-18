@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol DPArticleDetailViewControllerDelegate;
+
 @interface DPArticleDetailViewController : UIViewController
 
-- (instancetype)initWithBoard:(NSString *)boardName file:(NSString *)fileName;
+@property (nonatomic, weak) id<DPArticleDetailViewControllerDelegate> delegate;
+
+- (instancetype)initWithBoard:(NSString *)boardName file:(NSString *)fileName index:(NSInteger)index;
+
+@end
+
+@protocol DPArticleDetailViewControllerDelegate <NSObject>
+
+- (void)deleteArticleAtIndex:(NSInteger)index;
 
 @end

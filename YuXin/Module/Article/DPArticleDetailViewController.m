@@ -103,6 +103,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 @property (nonatomic, strong) NSString *fileToBeDelete;
 @property (nonatomic, strong) NSString *fileToBeReprint;
 @property (nonatomic, strong) UIAlertView *deleteAlert;
+@property (nonatomic, assign) NSInteger index;
 
 @end
 
@@ -110,11 +111,12 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 
 #pragma mark - Init
 
-- (instancetype)initWithBoard:(NSString *)boardName file:(NSString *)fileName {
+- (instancetype)initWithBoard:(NSString *)boardName file:(NSString *)fileName index:(NSInteger)index {
     self = [super init];
     if (self) {
         self.boardName = boardName;
         self.fileName = fileName;
+        self.index = index;
         self.title = @"详情";
         self.articleArray = [NSMutableArray array];
     }
@@ -262,6 +264,9 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
                 if (!error) {
                     [WSProgressHUD safeShowString:@"删除成功"];
                     [weakSelf.navigationController popViewControllerAnimated:YES];
+                    if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(deleteArticleAtIndex:)]) {
+                        [weakSelf.delegate deleteArticleAtIndex:weakSelf.index];
+                    }
                 }else {
                     [WSProgressHUD safeShowString:error];
                 }

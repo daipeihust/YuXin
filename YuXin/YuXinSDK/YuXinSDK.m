@@ -501,7 +501,6 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             }else {
                 NSLog(@"[YuXinSDK]: fail to %@ with error: %@", info, error);
             }
-            
         }
     }
 }

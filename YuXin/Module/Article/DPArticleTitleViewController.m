@@ -15,13 +15,14 @@
 #import "DPPostArticleViewController.h"
 #import "DPUserInfoViewController.h"
 
-@interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleTitleCellDelegate, DPPostArticleViewControllerDelegate>
+@interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleTitleCellDelegate, DPPostArticleViewControllerDelegate, DPArticleDetailViewControllerDelegate>
 
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIButton *retryButton;
 @property (nonatomic, strong) WSProgressHUD *hud;
+@property (nonatomic, assign) NSUInteger articleStartNum;
 
 @end
 
@@ -35,6 +36,7 @@
         self.boardName = boardName;
         self.title = boardName;
         self.titleArray = [NSMutableArray array];
+        self.articleStartNum = 0;
     }
     return self;
 }
@@ -84,6 +86,7 @@
     __weak typeof(self) weakSelf = self;
     [[YuXinSDK sharedInstance] fetchArticleTitleListWithBoard:self.boardName start:@(0) completion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
+            weakSelf.articleStartNum = [responseModels count];
             weakSelf.titleArray = [NSMutableArray arrayWithArray:responseModels];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
@@ -106,6 +109,7 @@
     __weak typeof(self) weakSelf = self;
     [[YuXinSDK sharedInstance] fetchArticleTitleListWithBoard:self.boardName start:@(0) completion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
+            weakSelf.articleStartNum = [responseModels count];
             weakSelf.titleArray = [NSMutableArray arrayWithArray:responseModels];
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -122,8 +126,9 @@
 
 - (void)footerRefresh {
     __weak typeof(self) weakSelf = self;
-    [[YuXinSDK sharedInstance] fetchArticleTitleListWithBoard:self.boardName start:@(self.titleArray.count) completion:^(NSString *error, NSArray *responseModels) {
+    [[YuXinSDK sharedInstance] fetchArticleTitleListWithBoard:self.boardName start:@(self.articleStartNum) completion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
+            weakSelf.articleStartNum += [responseModels count];
             [weakSelf.titleArray addObjectsFromArray:responseModels];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.tableView reloadData];
@@ -153,6 +158,7 @@
             [weakSelf.view setUserInteractionEnabled:YES];
         });
         if (!error) {
+            weakSelf.articleStartNum = [responseModels count];
             weakSelf.titleArray = [NSMutableArray arrayWithArray:responseModels];
             dispatch_async(dispatch_get_main_queue(), ^{
                 weakSelf.tableView.hidden = NO;
@@ -166,6 +172,13 @@
             });
         }
     }];
+}
+
+#pragma mark - DPArticleDetailViewControllerDelegate
+
+- (void)deleteArticleAtIndex:(NSInteger)index {
+    [self.titleArray removeObjectAtIndex:index];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:YES];
 }
 
 #pragma mark - DPPostArticleViewControllerDelegate
@@ -194,7 +207,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     YuXinTitle *title = self.titleArray[indexPath.row];
-    DPArticleDetailViewController *viewController = [[DPArticleDetailViewController alloc] initWithBoard:self.boardName file:title.fileName];
+    DPArticleDetailViewController *viewController = [[DPArticleDetailViewController alloc] initWithBoard:self.boardName file:title.fileName index:indexPath.row];
+    viewController.delegate = self;
     [self.navigationController pushViewController:viewController animated:YES];
     
 }
