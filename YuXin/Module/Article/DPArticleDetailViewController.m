@@ -382,12 +382,12 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
             weakSelf.articleArray = [NSMutableArray arrayWithArray:responseModels];
             dispatch_async(dispatch_get_main_queue(), ^{
                 weakSelf.tableView.hidden = NO;
+                weakSelf.commentTextPlace.hidden = NO;
                 [weakSelf.tableView reloadData];
             });
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [WSProgressHUD showErrorWithStatus:error];
-                [WSProgressHUD autoDismiss];
+                [WSProgressHUD safeShowString:error];
                 weakSelf.retryButton.hidden = NO;
             });
         }
@@ -404,8 +404,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
             
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [WSProgressHUD showErrorWithStatus:error];
-                [WSProgressHUD autoDismiss];
+                [WSProgressHUD safeShowString:error];
             });
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -495,6 +494,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 - (DPCommentTextPlace *)commentTextPlace {
     if (!_commentTextPlace) {
         _commentTextPlace = [[DPCommentTextPlace alloc] init];
+        _commentTextPlace.hidden = YES;
         _commentTextPlace.delegate = self;
         _commentTextPlace.commentTextField.delegate = self;
     }

@@ -113,8 +113,7 @@
             weakSelf.titleArray = [NSMutableArray arrayWithArray:responseModels];
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [WSProgressHUD showErrorWithStatus:error];
-                [WSProgressHUD autoDismiss];
+                [WSProgressHUD safeShowString:error];
             });
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -136,8 +135,7 @@
             });
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [WSProgressHUD showErrorWithStatus:error];
-                [WSProgressHUD autoDismiss];
+                [WSProgressHUD safeShowString:error];
             });
         }
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -167,8 +165,7 @@
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 weakSelf.retryButton.hidden = NO;
-                [WSProgressHUD showErrorWithStatus:error];
-                [WSProgressHUD autoDismiss];
+                [WSProgressHUD safeShowString:error];
             });
         }
     }];
