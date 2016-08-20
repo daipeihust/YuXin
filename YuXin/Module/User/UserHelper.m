@@ -15,6 +15,7 @@
 @synthesize openCount = _openCount;
 @synthesize loginState = _loginState;
 @synthesize password = _password;
+@synthesize userName = _userName;
 
 + (instancetype)sharedInstance {
     static UserHelper *instance = nil;
@@ -51,8 +52,6 @@
 }
 
 - (void)loginWithUserName:(NSString *)userName password:(NSString *)password completion:(MessageHandler)handler {
-    self.userName = userName;
-    self.password = password;
     __weak typeof(self) weakSelf = self;
     [[YuXinSDK sharedInstance] loginWithUsername:userName password:password completion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
@@ -61,8 +60,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationLoginSuccess object:nil];
             });
-            [[NSUserDefaults standardUserDefaults] setObject:userName forKey:DPUsernameKey];
-            [[NSUserDefaults standardUserDefaults] setObject:password forKey:DPPasswordKey];
+            weakSelf.userName = userName;
+            weakSelf.password = password;
             [weakSelf initFriendList];
             [weakSelf initUserInfo];
             [weakSelf refreshFavourateBoardWithCompletion:nil];
@@ -121,8 +120,8 @@
 #pragma mark - Privite Method
 
 - (void)tryAutoLogin {
-    self.userName = [[NSUserDefaults standardUserDefaults] objectForKey:DPUsernameKey];
-    self.password = [[NSUserDefaults standardUserDefaults] objectForKey:DPPasswordKey];
+//    self.userName = [[NSUserDefaults standardUserDefaults] objectForKey:DPUsernameKey];
+//    self.password = [[NSUserDefaults standardUserDefaults] objectForKey:DPPasswordKey];
     __weak typeof(self) weakSelf = self;
     if (self.userName && self.password) {
         [[YuXinSDK sharedInstance] loginWithUsername:self.userName password:self.password completion:^(NSString *error, NSArray *responseModels) {
@@ -184,6 +183,11 @@
 - (void)setLoginState:(BOOL)loginState {
     [[NSUserDefaults standardUserDefaults] setBool:loginState forKey:DPLoginStateKey];
     _loginState = loginState;
+}
+
+- (void)setUserName:(NSString *)userName {
+    [[NSUserDefaults standardUserDefaults] setObject:userName forKey:DPUsernameKey];
+    _userName = userName;
 }
 
 - (void)setPassword:(NSString *)password {

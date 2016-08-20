@@ -14,16 +14,17 @@
 #import "DPArticleTitleViewController.h"
 #import "MJRefreshNormalHeader.h"
 #import "UserHelper.h"
+#import "DPTintView.h"
 
 
-@interface DPBoardViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface DPBoardViewController ()<UITableViewDelegate, UITableViewDataSource, DPTintViewDelegate>
 
 @property (nonatomic, assign) DPBoardType boardType;
 @property (nonatomic, strong) NSMutableArray *boardArray;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIButton *retryButton;
 @property (nonatomic, strong) WSProgressHUD *hud;
 @property (nonatomic, strong) NSArray *titleArray;
+@property (nonatomic, strong) DPTintView *tintView;
 
 @end
 
@@ -80,26 +81,19 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - ConfigViews
 
 - (void)initView {
     self.view.backgroundColor = DPBackgroundColor;
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.retryButton];
+    [self.view addSubview:self.tintView];
     [self.view addSubview:self.hud];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    [self.retryButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.view);
-        make.width.mas_equalTo(100);
-        make.height.mas_equalTo(50);
+    [self.tintView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
     }];
 }
 
@@ -142,7 +136,7 @@
 #pragma mark - Privite Method
 
 - (void)initData {
-    self.retryButton.hidden = YES;
+    self.tintView.hidden = YES;
     [self.hud show];
     [self.view setUserInteractionEnabled:NO];
     __weak typeof(self) weakSelf = self;
@@ -161,7 +155,8 @@
             }else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [WSProgressHUD safeShowString:error];
-                    weakSelf.retryButton.hidden = NO;
+                    [weakSelf.tintView setGuide:@"网络似乎有问题\n点击屏幕重新加载"];
+                    weakSelf.tintView.hidden = NO;
                 });
             }
         }];
@@ -181,11 +176,18 @@
             }else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [WSProgressHUD safeShowString:error];
-                    weakSelf.retryButton.hidden = NO;
+                    [weakSelf.tintView setGuide:@"网络似乎有问题\n点击屏幕重新加载"];
+                    weakSelf.tintView.hidden = NO;
                 });
             }
         }];
     }
+}
+
+#pragma mark - DPTintViewDelegate
+
+- (void)tintViewDidClick {
+    [self initData];
 }
 
 #pragma mark - UITableViewDelegate
@@ -318,16 +320,6 @@
     return _tableView;
 }
 
-- (UIButton *)retryButton {
-    if(!_retryButton) {
-        _retryButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        _retryButton.hidden = YES;
-        [_retryButton setTitle:@"retry" forState:UIControlStateNormal];
-        [_retryButton addTarget:self action:@selector(initData) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _retryButton;
-}
-
 - (WSProgressHUD *)hud {
     if (!_hud) {
         _hud = [[WSProgressHUD alloc] initWithView:self.view];
@@ -341,6 +333,15 @@
         _titleArray = @[@"喻信星空", @"电信风采", @"数字时代", @"学术学科", @"人文艺术", @"纯真时代", @"休闲娱乐", @"时事快递", @"订阅"];
     }
     return _titleArray;
+}
+
+- (DPTintView *)tintView {
+    if (!_tintView) {
+        _tintView = [[DPTintView alloc] init];
+        _tintView.delegate = self;
+        _tintView.hidden = YES;
+    }
+    return _tintView;
 }
 
 @end

@@ -37,6 +37,7 @@
 		F4C62DA21D43A93000538C03 /* DPAllPartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA11D43A93000538C03 /* DPAllPartViewController.m */; };
 		F4C62DA51D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA41D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m */; };
 		F4C62DA81D43C7F000538C03 /* DPAllPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */; };
+		F4D6D2F81D65CBA300453A17 /* DPTintView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D6D2F71D65CBA300453A17 /* DPTintView.m */; };
 		F4EA42351D64376D00D3C6D1 /* YuXinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42301D64376D00D3C6D1 /* YuXinModel.m */; };
 		F4EA42361D64376D00D3C6D1 /* YuXinSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42321D64376D00D3C6D1 /* YuXinSDK.m */; };
 		F4EA42371D64376D00D3C6D1 /* YuXinXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42341D64376D00D3C6D1 /* YuXinXmlParser.m */; };
@@ -131,6 +132,8 @@
 		F4C62DA41D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VVSpringCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		F4C62DA61D43C7F000538C03 /* DPAllPartCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAllPartCell.h; sourceTree = "<group>"; };
 		F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAllPartCell.m; sourceTree = "<group>"; };
+		F4D6D2F61D65CBA300453A17 /* DPTintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTintView.h; sourceTree = "<group>"; };
+		F4D6D2F71D65CBA300453A17 /* DPTintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTintView.m; sourceTree = "<group>"; };
 		F4EA422F1D64376D00D3C6D1 /* YuXinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinModel.h; sourceTree = "<group>"; };
 		F4EA42301D64376D00D3C6D1 /* YuXinModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinModel.m; sourceTree = "<group>"; };
 		F4EA42311D64376D00D3C6D1 /* YuXinSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinSDK.h; sourceTree = "<group>"; };
@@ -209,6 +212,7 @@
 		F4141DC21D34889A00286585 /* YuXin */ = {
 			isa = PBXGroup;
 			children = (
+				F4D6D2F51D65CB3A00453A17 /* Utils */,
 				F4EA42381D6437F400D3C6D1 /* Category */,
 				F4EA423D1D6437F400D3C6D1 /* Resources */,
 				F4EA422E1D64376D00D3C6D1 /* YuXinSDK */,
@@ -396,6 +400,15 @@
 				F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */,
 			);
 			path = AllPart;
+			sourceTree = "<group>";
+		};
+		F4D6D2F51D65CB3A00453A17 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				F4D6D2F61D65CBA300453A17 /* DPTintView.h */,
+				F4D6D2F71D65CBA300453A17 /* DPTintView.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		F4EA422E1D64376D00D3C6D1 /* YuXinSDK */ = {
@@ -624,6 +637,7 @@
 				F43AE9B41D38BA140060020F /* DPArticleTitleViewController.m in Sources */,
 				F43AE9B71D38BA8C0060020F /* DPArticleTitleCell.m in Sources */,
 				F4141DC81D34889A00286585 /* AppDelegate.m in Sources */,
+				F4D6D2F81D65CBA300453A17 /* DPTintView.m in Sources */,
 				F43AE9D01D3A076E0060020F /* DPArticleDetailViewController.m in Sources */,
 				F4C62DA81D43C7F000538C03 /* DPAllPartCell.m in Sources */,
 				F4EA42441D6438FA00D3C6D1 /* DPUserInfoViewController.m in Sources */,

@@ -12,6 +12,7 @@
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "WSProgressHUD+DPExtension.h"
 #import "DPUserInfoViewController.h"
+#import "DPTintView.h"
 
 @protocol DPCommentTextPlaceDelegate;
 
@@ -90,13 +91,13 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     DPArticleTypeComment = 1
 };
 
-@interface DPArticleDetailViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleDetailCellDelegate, DPCommentTextPlaceDelegate, UITextFieldDelegate>
+@interface DPArticleDetailViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleDetailCellDelegate, DPCommentTextPlaceDelegate, UITextFieldDelegate, DPTintViewDelegate>
 
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSString *fileName;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *articleArray;
-@property (nonatomic, strong) UIButton *retryButton;
+@property (nonatomic, strong) DPTintView *tintView;
 @property (nonatomic, strong) WSProgressHUD *hud;
 @property (nonatomic, strong) DPCommentTextPlace *commentTextPlace;
 @property (nonatomic, strong) UIView *contentView;
@@ -138,10 +139,9 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 - (void)ConfigViews {
     self.view.backgroundColor = DPBackgroundColor;
     [self.view addSubview:self.contentView];
-    [self.view addSubview:self.retryButton];
     [self.view addSubview:self.hud];
     [self.contentView addSubview:self.tableView];
-    [self.contentView addSubview:self.retryButton];
+    [self.contentView addSubview:self.tintView];
     [self.contentView addSubview:self.commentTextPlace];
     
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -151,15 +151,19 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         make.top.left.right.equalTo(self.contentView);
         make.bottom.equalTo(self.contentView).with.offset(-44);
     }];
-    [self.retryButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.view);
-        make.width.mas_equalTo(100);
-        make.height.mas_equalTo(50);
+    [self.tintView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.contentView);
     }];
     [self.commentTextPlace mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.equalTo(self.contentView);
         make.height.mas_equalTo(44);
     }];
+}
+
+#pragma mark - DPTintViewDelegate
+
+- (void)tintViewDidClick {
+    [self initData];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -369,7 +373,7 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 }
 
 - (void)initData {
-    self.retryButton.hidden = YES;
+    self.tintView.hidden = YES;
     [self.hud show];
     [self.view setUserInteractionEnabled:NO];
     __weak typeof(self) weakSelf = self;
@@ -388,7 +392,8 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [WSProgressHUD safeShowString:error];
-                weakSelf.retryButton.hidden = NO;
+                [weakSelf.tintView setGuide:@"网络似乎有问题\n点击屏幕重新加载"];
+                weakSelf.tintView.hidden = NO;
             });
         }
     }];
@@ -473,16 +478,6 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     return _tableView;
 }
 
-- (UIButton *)retryButton {
-    if(!_retryButton) {
-        _retryButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        _retryButton.hidden = YES;
-        [_retryButton setTitle:@"retry" forState:UIControlStateNormal];
-        [_retryButton addTarget:self action:@selector(initData) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _retryButton;
-}
-
 - (WSProgressHUD *)hud {
     if (!_hud) {
         _hud = [[WSProgressHUD alloc] initWithView:self.view];
@@ -514,6 +509,15 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         _deleteAlert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"是否删除？" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
     }
     return _deleteAlert;
+}
+
+- (DPTintView *)tintView {
+    if (!_tintView) {
+        _tintView = [[DPTintView alloc] init];
+        _tintView.delegate = self;
+        _tintView.hidden = YES;
+    }
+    return _tintView;
 }
 
 @end

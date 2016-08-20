@@ -14,15 +14,16 @@
 #import "WSProgressHUD+DPExtension.h"
 #import "DPPostArticleViewController.h"
 #import "DPUserInfoViewController.h"
+#import "DPTintView.h"
 
-@interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleTitleCellDelegate, DPPostArticleViewControllerDelegate, DPArticleDetailViewControllerDelegate>
+@interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleTitleCellDelegate, DPPostArticleViewControllerDelegate, DPArticleDetailViewControllerDelegate, DPTintViewDelegate>
 
 @property (nonatomic, strong) NSString *boardName;
 @property (nonatomic, strong) NSMutableArray *titleArray;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIButton *retryButton;
 @property (nonatomic, strong) WSProgressHUD *hud;
 @property (nonatomic, assign) NSUInteger articleStartNum;
+@property (nonatomic, strong) DPTintView *tintView;
 
 @end
 
@@ -63,16 +64,14 @@
 - (void)configUI {
     self.view.backgroundColor = DPBackgroundColor;
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.retryButton];
     [self.view addSubview:self.hud];
+    [self.view addSubview:self.tintView];
     
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
-    [self.retryButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.view);
-        make.width.mas_equalTo(100);
-        make.height.mas_equalTo(50);
+    [self.tintView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
     }];
 }
 
@@ -146,7 +145,7 @@
 }
 
 - (void)initData {
-    self.retryButton.hidden = YES;
+    self.tintView.hidden = YES;
     [self.hud show];
     [self.view setUserInteractionEnabled:NO];
     __weak typeof(self) weakSelf = self;
@@ -164,11 +163,18 @@
             });
         }else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                weakSelf.retryButton.hidden = NO;
+                [weakSelf.tintView setGuide:@"网络似乎有问题\n点击屏幕重新加载"];
+                weakSelf.tintView.hidden = NO;
                 [WSProgressHUD safeShowString:error];
             });
         }
     }];
+}
+
+#pragma mark - DPTintViewDelegate
+
+- (void)tintViewDidClick {
+    [self initData];
 }
 
 #pragma mark - DPArticleDetailViewControllerDelegate
@@ -256,22 +262,21 @@
     return _tableView;
 }
 
-- (UIButton *)retryButton {
-    if(!_retryButton) {
-        _retryButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        _retryButton.hidden = YES;
-        [_retryButton setTitle:@"retry" forState:UIControlStateNormal];
-        [_retryButton addTarget:self action:@selector(initData) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _retryButton;
-}
-
 - (WSProgressHUD *)hud {
     if (!_hud) {
         _hud = [[WSProgressHUD alloc] initWithView:self.view];
         [_hud setProgressHUDIndicatorStyle:WSProgressHUDIndicatorMMSpinner];
     }
     return _hud;
+}
+
+- (DPTintView *)tintView {
+    if (!_tintView) {
+        _tintView = [[DPTintView alloc] init];
+        _tintView.delegate = self;
+        _tintView.hidden = YES;
+    }
+    return _tintView;
 }
 
 @end

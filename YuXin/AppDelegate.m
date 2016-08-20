@@ -34,8 +34,6 @@
     
     [[UserHelper sharedInstance] start];
     
-    
-    
     return YES;
 }
 
