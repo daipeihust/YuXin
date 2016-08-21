@@ -163,6 +163,8 @@
 
 
 
+
+
 @interface YuXinArticle()
 
 @property (nonatomic, strong) NSString *timeRegEx1;
@@ -170,6 +172,7 @@
 @property (nonatomic, strong) NSString *nameRegEx;
 @property (nonatomic, strong) NSDateFormatter *dateFormatter;
 @property (nonatomic, strong) NSString *replyRegEx;
+@property (nonatomic, strong) NSString *replyUserIDAndNameRegEx;
 @property (nonatomic, strong) NSString *headerRegEx;
 @property (nonatomic, strong) NSString *footerRegEx;
 
@@ -182,6 +185,9 @@
     _readableDate = [self getReadableDateFrom:content];
     _userIDAndName = [self getUserIDAndNameFrom:content];
     _realContent = [self getRealContent:content];
+    _replyUserIDAndName = [self getUserIDAndNameFrom:_replyStr];
+    _replyUserID = [self getUserIDFromUserIDAndName:_replyUserIDAndName];
+    NSLog(@"reply user id %@", _replyUserID);
     _colorfulContent = [self getAttributedStringFrom:_realContent];
     _content = content;
 }
@@ -239,6 +245,15 @@
     NSRange range = [content rangeOfString:self.nameRegEx options:NSRegularExpressionSearch];
     if (range.location < content.length) {
         result = [content substringWithRange:range];
+    }
+    return result;
+}
+
+- (NSString *)getUserIDFromUserIDAndName:(NSString *)userIDAndName {
+    NSString *result = [userIDAndName copy];
+    NSRange range = [result rangeOfString:@"("];
+    if (range.location < userIDAndName.length) {
+        result = [result substringToIndex:range.location];
     }
     return result;
 }
@@ -333,6 +348,13 @@
         _replyRegEx = DPRegExReply;
     }
     return _replyRegEx;
+}
+
+- (NSString *)replyUserIDAndNameRegEx {
+    if (!_replyUserIDAndNameRegEx) {
+        _replyUserIDAndNameRegEx = DPRegExReplyUserIDAndName;
+    }
+    return _replyUserIDAndNameRegEx;
 }
 
 - (NSString *)headerRegEx {

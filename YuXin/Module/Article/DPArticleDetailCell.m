@@ -85,7 +85,13 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
         }
     }
     else if (self.cellType == DPArticleDetailCellTypeComment) {
-        self.commentTitle.text = model.author;
+        NSString *commentTitleStr;
+        if (model.replyUserID) {
+            commentTitleStr = [NSString stringWithFormat:@"%@回复%@", model.author, model.replyUserID];
+        }else {
+            commentTitleStr = model.author;
+        }
+        self.commentTitle.text = commentTitleStr;
         self.commentContent.text = model.realContent;
         if (model.displayContent) {
             self.commentContent.text = model.displayContent;
@@ -185,7 +191,7 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
             make.top.equalTo(self.contentView).with.offset(10);
             make.left.equalTo(self.userImageView.mas_right).with.offset(10);
             make.right.equalTo(self.deleteBtn2.mas_left);
-            make.height.mas_equalTo(20);
+//            make.height.mas_equalTo(20);
         }];
         [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.commentTitle.mas_bottom).with.offset(5);
@@ -344,7 +350,8 @@ typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
     if (!_commentTitle) {
         _commentTitle = [[UILabel alloc] init];
         _commentTitle.textColor = DPFirstLevelTitleColor;
-        _commentTitle.numberOfLines = 1;
+        _commentTitle.numberOfLines = 0;
+        _commentTitle.lineBreakMode = NSLineBreakByCharWrapping;
         _commentTitle.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
         _commentTitle.textAlignment = NSTextAlignmentLeft;
     }

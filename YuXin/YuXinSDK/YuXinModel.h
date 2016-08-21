@@ -91,6 +91,8 @@
 @property (nonatomic, strong) NSString *displayContent;
 @property (nonatomic, strong) NSAttributedString *colorfulContent;
 @property (nonatomic, strong) NSString *replyStr;
+@property (nonatomic, strong) NSString *replyUserIDAndName;
+@property (nonatomic, strong) NSString *replyUserID;
 
 @end
 
