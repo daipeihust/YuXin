@@ -77,14 +77,20 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
                 if (!error) {
                     YuXinLoginInfo *loginInfo = models[0];
                     weakSelf.cookies = [NSString stringWithFormat:@"utmpkey=%@;contdays=%@;utmpuserid=%@;utmpnum=%@;invisible=%@;version=1", loginInfo.utmpKey, loginInfo.contdays, loginInfo.utmpUserID, loginInfo.utmpNum, loginInfo.invisible];
-                    handler(nil, [models copy]);
+                    if (handler) {
+                        handler(nil, [models copy]);
+                    }
                 }else {
-                    handler(error, nil);
+                    if (handler) {
+                        handler(error, nil);
+                    }
                 }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"login"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [loginTask resume];
@@ -99,9 +105,13 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
         [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"logout"];
         if (!error) {
             weakSelf.cookies = nil;
-            handler(nil, nil);
+            if (handler) {
+                handler(nil, nil);
+            }
         }else {
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [logoutTask resume];
@@ -121,11 +131,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 
                 [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"favourate board"];
-                handler(error, [models copy]);
+                if (handler) {
+                    handler(error, [models copy]);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"favourate board"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [fetchTask resume];
@@ -146,11 +160,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 
                 [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"user info"];
-                handler(error, [models copy]);
+                if (handler) {
+                    handler(error, [models copy]);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"user info"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [queryTask resume];
@@ -168,11 +186,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeFriends parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"friends info"];
-                handler(error, [models copy]);
+                if (handler) {
+                    handler(error, [models copy]);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"friend info"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [fetchTask resume];
@@ -193,11 +215,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeArticles parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"article titles"];
-                handler(error, [models copy]);
+                if (handler) {
+                    handler(error, [models copy]);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"article titles"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     
@@ -218,11 +244,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeSubboard parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"subboard"];
-                handler(error, [models copy]);
+                if (handler) {
+                    handler(error, [models copy]);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"subboard"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     
@@ -242,11 +272,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeAddFavouritesBoard parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 [weakSelf makeLogWithError:error modelsCount:0 requestInfo:[NSString stringWithFormat:@"add %@ board", boardName]];
-                handler(error, models);
+                if (handler) {
+                    handler(error, models);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:[NSString stringWithFormat:@"add %@ board", boardName]];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [addTask resume];
@@ -260,7 +294,9 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
     __weak typeof(self) weakSelf = self;
     NSURLSessionDataTask *delTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:[NSString stringWithFormat:@"delete %@ board", boardName]];
-        handler(error.localizedDescription, nil);
+        if (handler) {
+            handler(error.localizedDescription, nil);
+        }
     }];
     [delTask resume];
 }
@@ -278,11 +314,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeArticle parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"articles"];
-                handler(error, models);
+                if (handler) {
+                    handler(error, models);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"articles"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [fetchTask resume];
@@ -304,11 +344,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypePostArticle parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"post a article"];
-                handler(error, models);
+                if (handler) {
+                    handler(error, models);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"post a article"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [postTask resume];
@@ -329,11 +373,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypePostArticle parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"comment"];
-                handler(error, models);
+                if (handler) {
+                    handler(error, models);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"comment"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [commentTask resume];
@@ -352,11 +400,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeDelArticle parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"delete article"];
-                handler(error, models);
+                if (handler) {
+                    handler(error, models);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"delete article"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [deleteTask resume];
@@ -375,11 +427,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeDelArticle parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"reprint"];
-                handler(error, models);
+                if (handler) {
+                    handler(error, models);
+                }
             }];
         }else {
             [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"reprint"];
-            handler(error.localizedDescription, nil);
+            if (handler) {
+                handler(error.localizedDescription, nil);
+            }
         }
     }];
     [reprintTask resume];
