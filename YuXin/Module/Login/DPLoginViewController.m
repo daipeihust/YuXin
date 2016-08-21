@@ -117,7 +117,6 @@
     [self registerForKeyboardNotifications];
     [self addGesture];
     [self initView];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -154,7 +153,6 @@
         make.bottom.equalTo(self.textField.mas_top).with.offset(-50);
         make.height.mas_equalTo(60);
     }];
-    
     [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.textField.mas_bottom).with.offset(10);
         make.height.mas_equalTo(50 * widthRateForFit);

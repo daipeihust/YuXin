@@ -20,6 +20,7 @@
 
 @property (nonatomic, strong) UITextField *commentTextField;
 @property (nonatomic, strong) UIButton *sendButton;
+@property (nonatomic, strong) UIView *separationLine;
 @property (nonatomic, weak) id<DPCommentTextPlaceDelegate> delegate;
 @property (nonatomic, assign) NSInteger replyArticleIndex;
 
@@ -37,6 +38,7 @@
     self = [super init];
     if (self) {
         self.replyArticleIndex = 0;
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
@@ -45,6 +47,7 @@
     [super layoutSubviews];
     [self addSubview:self.commentTextField];
     [self addSubview:self.sendButton];
+    [self addSubview:self.separationLine];
     
     [self.commentTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self).with.insets(UIEdgeInsetsMake(2, 5, 2, 60));
@@ -54,6 +57,10 @@
         make.top.equalTo(self).with.offset(2);
         make.bottom.equalTo(self).with.offset(-2);
         make.left.equalTo(self.commentTextField.mas_right).with.offset(5);
+    }];
+    [self.separationLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self);
+        make.height.mas_equalTo(0.5);
     }];
 }
 
@@ -82,6 +89,14 @@
         [_sendButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _sendButton;
+}
+
+- (UIView *)separationLine {
+    if (!_separationLine) {
+        _separationLine = [[UIView alloc] init];
+        _separationLine.backgroundColor = DPTabBarTopLineColor;
+    }
+    return _separationLine;
 }
 
 @end

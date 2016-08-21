@@ -120,8 +120,6 @@
 #pragma mark - Privite Method
 
 - (void)tryAutoLogin {
-//    self.userName = [[NSUserDefaults standardUserDefaults] objectForKey:DPUsernameKey];
-//    self.password = [[NSUserDefaults standardUserDefaults] objectForKey:DPPasswordKey];
     __weak typeof(self) weakSelf = self;
     if (self.userName && self.password) {
         [[YuXinSDK sharedInstance] loginWithUsername:self.userName password:self.password completion:^(NSString *error, NSArray *responseModels) {

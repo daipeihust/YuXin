@@ -38,6 +38,7 @@
 		F4C62DA51D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA41D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m */; };
 		F4C62DA81D43C7F000538C03 /* DPAllPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */; };
 		F4D6D2F81D65CBA300453A17 /* DPTintView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D6D2F71D65CBA300453A17 /* DPTintView.m */; };
+		F4DB91791D68A6C500A718C8 /* UIViewController+MailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB91781D68A6C500A718C8 /* UIViewController+MailComposer.m */; };
 		F4EA42351D64376D00D3C6D1 /* YuXinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42301D64376D00D3C6D1 /* YuXinModel.m */; };
 		F4EA42361D64376D00D3C6D1 /* YuXinSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42321D64376D00D3C6D1 /* YuXinSDK.m */; };
 		F4EA42371D64376D00D3C6D1 /* YuXinXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42341D64376D00D3C6D1 /* YuXinXmlParser.m */; };
@@ -134,6 +135,8 @@
 		F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAllPartCell.m; sourceTree = "<group>"; };
 		F4D6D2F61D65CBA300453A17 /* DPTintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTintView.h; sourceTree = "<group>"; };
 		F4D6D2F71D65CBA300453A17 /* DPTintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTintView.m; sourceTree = "<group>"; };
+		F4DB91771D68A6C500A718C8 /* UIViewController+MailComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MailComposer.h"; sourceTree = "<group>"; };
+		F4DB91781D68A6C500A718C8 /* UIViewController+MailComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MailComposer.m"; sourceTree = "<group>"; };
 		F4EA422F1D64376D00D3C6D1 /* YuXinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinModel.h; sourceTree = "<group>"; };
 		F4EA42301D64376D00D3C6D1 /* YuXinModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinModel.m; sourceTree = "<group>"; };
 		F4EA42311D64376D00D3C6D1 /* YuXinSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinSDK.h; sourceTree = "<group>"; };
@@ -427,6 +430,8 @@
 		F4EA42381D6437F400D3C6D1 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				F4DB91771D68A6C500A718C8 /* UIViewController+MailComposer.h */,
+				F4DB91781D68A6C500A718C8 /* UIViewController+MailComposer.m */,
 				F4EA42391D6437F400D3C6D1 /* NSString+DPExtension.h */,
 				F4EA423A1D6437F400D3C6D1 /* NSString+DPExtension.m */,
 				F4EA423B1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.h */,
@@ -656,6 +661,7 @@
 				F4EA423F1D6437F400D3C6D1 /* NSString+DPExtension.m in Sources */,
 				F4C62DA51D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m in Sources */,
 				F4141DC51D34889A00286585 /* main.m in Sources */,
+				F4DB91791D68A6C500A718C8 /* UIViewController+MailComposer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

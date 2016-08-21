@@ -13,6 +13,7 @@
 #import "WSProgressHUD+DPExtension.h"
 #import "DPFriendListViewController.h"
 #import "DPUserInfoViewController.h"
+#import "UIViewController+MailComposer.h"
 
 @interface DPProfileViewController () <UITableViewDelegate, UITableViewDataSource, DPProfileCellDelegate>
 
@@ -116,6 +117,16 @@
         case 1: {
             DPFriendListViewController *vc = [[DPFriendListViewController alloc] initWithFriends:[[UserHelper sharedInstance] friendList]];
             [self.navigationController pushViewController:vc animated:YES];
+            break;
+        }
+        case 3: {
+            if (indexPath.row == 0) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"关于" message:@"本应用开源项目地址:https://github.com/948080952/YuXin\n如有bug或意见请点击下方反馈按钮或直接与代培联系，qq:948080952" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+                [alert show];
+            }
+            else if (indexPath.row == 1) {
+                [self sendContactMessageWithSubject:@"喻信意见反馈"];
+            }
             break;
         }
         case 4:
