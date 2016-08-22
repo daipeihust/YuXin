@@ -32,15 +32,6 @@
 #define DPTextColorParameterLightBlue               @"36"
 #define DPTextColorParameterWhite                   @"37"
 
-//regular express
-#define DPRegExColor                                @"\\[{1}[0-9]{0,2}[;[0-9]{1,2}]*m"
-#define DPRegExTime1                                @"[0-9]{4}年[0-9]{2}月[0-9]{2}日[0-9]{2}:[0-9]{2}:[0-9]{2}"
-#define DPRegExTime2                                @"\\w{3}\\s{1,2}\\d{1,2} \\d{2}:\\d{2}:\\d{2} \\d{4}"
-#define DPRegExName                                 @"[A-Za-z0-9_]+ [(]{1}.+[)]{1}"
-#define DPRegExReplyUserIDAndName                   @"[A-Za-z0-9_]+ [(]{1}.+[)]{1}"
-#define DPRegExReply                                @"【 在 .+"
-#define DPRegExHeader                               @"发信站:"
-#define DPRegExFooter                               @"※ "
 
 //const value
 #define DPProfileTableViewHeaderHeight              7.5
