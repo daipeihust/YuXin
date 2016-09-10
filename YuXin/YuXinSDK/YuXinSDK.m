@@ -121,32 +121,6 @@ static const NSTimeInterval requestTimeOut = 5;
 }
 
 - (void)fetchFavourateBoardWithCompletion:(CompletionHandler)handler {
-//    NSString *queryStr = @"?xml=1";
-//    NSMutableURLRequest *request = [self createRequestWithUrl:URL_FAVOURITES query:queryStr method:@"GET" cookie:self.cookies body:nil];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    __weak typeof(self) weakSelf = self;
-//    NSURLSessionDataTask *fetchTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if (!error) {
-//            NSData *convertedData = [weakSelf cleanGB2312:data];
-//            NSData *refinedData = [weakSelf refineTheData:convertedData];
-//            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeFavourites parserData:refinedData];
-//            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-//                
-//                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"favourate board"];
-//                if (handler) {
-//                    handler(error, [models copy]);
-//                }
-//            }];
-//        }else {
-//            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"favourate board"];
-//            if (handler) {
-//                handler(error.localizedDescription, nil);
-//            }
-//        }
-//    }];
-//    [fetchTask resume];
-    
     [self fetchFavourateBoardWithRequestCount:1 completion:handler];
     
 }
@@ -180,120 +154,18 @@ static const NSTimeInterval requestTimeOut = 5;
 }
 
 - (void)fetchFriendListWithCompletion:(CompletionHandler)handler {
-//    NSMutableURLRequest *request = [self createRequestWithUrl:URL_FRIENDS query:@"?xml=1" method:@"GET" cookie:self.cookies body:nil];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    __weak typeof(self) weakSelf = self;
-//    NSURLSessionDataTask *fetchTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if (!error) {
-//            NSData *convertedData = [weakSelf cleanGB2312:data];
-//            NSData *refinedData = [weakSelf refineTheData:convertedData];
-//            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeFriends parserData:refinedData];
-//            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-//                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"friends info"];
-//                if (handler) {
-//                    handler(error, [models copy]);
-//                }
-//            }];
-//        }else {
-//            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"friend info"];
-//            if (handler) {
-//                handler(error.localizedDescription, nil);
-//            }
-//        }
-//    }];
-//    [fetchTask resume];
     [self fetchFriendListWithRequestCount:1 completion:handler];
 }
 
 - (void)fetchArticleTitleListWithBoard:(NSString *)boardName start:(NSNumber *)startNum completion:(CompletionHandler)handler {
-    
-//    NSString *queryStr = [NSString stringWithFormat:@"?board=%@&xml=1&start=%@&summary=1", boardName, startNum];
-//    NSMutableURLRequest *request = [self createRequestWithUrl:URL_ARTICLES query:queryStr method:@"GET" cookie:self.cookies body:nil];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    __weak typeof(self) weakSelf = self;
-//    NSURLSessionDataTask *fetchTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        
-//        if (!error) {
-//            NSData *convertedData = [weakSelf cleanGB2312:data];
-//            NSData *refinedData = [weakSelf refineTheData:convertedData];
-//            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeArticles parserData:refinedData];
-//            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-//                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"article titles"];
-//                if (handler) {
-//                    handler(error, [models copy]);
-//                }
-//            }];
-//        }else {
-//            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"article titles"];
-//            if (handler) {
-//                handler(error.localizedDescription, nil);
-//            }
-//        }
-//    }];
-//    
-//    [fetchTask resume];
-    
     [self fetchArticleTitleListWithBoard:boardName start:startNum requestCount:1 completion:handler];
 }
 
 - (void)fetchSubboard:(YuXinBoardType)boardType completion:(CompletionHandler)handler {
-//    NSString *queryStr = [NSString stringWithFormat:@"?%ld=1&xml=1", (long)boardType];
-//    
-//    NSMutableURLRequest *request = [self createRequestWithUrl:URL_SUBBOARD query:queryStr method:@"GET" cookie:self.cookies body:nil];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    __weak typeof(self) weakSelf = self;
-//    NSURLSessionDataTask *fetchTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if (!error) {
-//            NSData *convertedData = [weakSelf cleanGB2312:data];
-//            NSData *refinedData = [weakSelf refineTheData:convertedData];
-//            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeSubboard parserData:refinedData];
-//            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-//                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"subboard"];
-//                if (handler) {
-//                    handler(error, [models copy]);
-//                }
-//            }];
-//        }else {
-//            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"subboard"];
-//            if (handler) {
-//                handler(error.localizedDescription, nil);
-//            }
-//        }
-//    }];
-//    
-//    [fetchTask resume];
-    
     [self fetchSubboard:boardType requestCount:1 completion:handler];
 }
 
 - (void)addFavourateBoard:(NSString *)boardName completion:(CompletionHandler)handler {
-//    NSString *queryStr = [NSString stringWithFormat:@"?board=%@&xml=1", boardName];
-//    NSMutableURLRequest *request = [self createRequestWithUrl:URL_ADD_FAVOURITES_BOARD query:queryStr method:@"GET" cookie:self.cookies body:nil];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    __weak typeof(self) weakSelf = self;
-//    NSURLSessionDataTask *addTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if (!error) {
-//            NSData *convertedData = [weakSelf cleanGB2312:data];
-//            NSData *refinedData = [weakSelf refineTheData:convertedData];
-//            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeAddFavouritesBoard parserData:refinedData];
-//            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-//                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:[NSString stringWithFormat:@"add %@ board", boardName]];
-//                if (handler) {
-//                    handler(error, models);
-//                }
-//            }];
-//        }else {
-//            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:[NSString stringWithFormat:@"add %@ board", boardName]];
-//            if (handler) {
-//                handler(error.localizedDescription, nil);
-//            }
-//        }
-//    }];
-//    [addTask resume];
     [self addFavourateBoard:boardName requestCount:1 completion:handler];
 }
 
@@ -313,148 +185,22 @@ static const NSTimeInterval requestTimeOut = 5;
 }
 
 - (void)fetchArticlesWithBoard:(NSString *)boardName file:(NSString *)fileName completion:(CompletionHandler)handler{
-//    NSString *queryStr = [NSString stringWithFormat:@"?board=%@&file=%@&xml=1", boardName, fileName];
-//    NSMutableURLRequest *request = [self createRequestWithUrl:URL_ARTICLE query:queryStr method:@"GET" cookie:self.cookies body:nil];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    __weak typeof(self) weakSelf = self;
-//    NSURLSessionDataTask *fetchTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if (!error) {
-//            NSData *convertedData = [weakSelf cleanGB2312:data];
-//            NSData *refinedData = [weakSelf refineTheData:convertedData];
-//            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeArticle parserData:refinedData];
-//            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-//                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"articles"];
-//                if (handler) {
-//                    handler(error, models);
-//                }
-//            }];
-//        }else {
-//            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"articles"];
-//            if (handler) {
-//                handler(error.localizedDescription, nil);
-//            }
-//        }
-//    }];
-//    [fetchTask resume];
     [self fetchArticlesWithBoard:boardName file:fileName requestCount:1 completion:handler];
 }
 
 - (void)postArticleWithContent:(NSString *)content title:(NSString *)title board:(NSString *)boardName canReply:(BOOL)canReply userID:(NSString *)userID completion:(CompletionHandler)handler {
-//    NSString *bodyStr;
-//    bodyStr = [NSString stringWithFormat:@"text=%@&title=%@&xml=1&board=%@&signature=1&nore=%@&userid=%@&", content, title, boardName, canReply? @"off" : @"on", userID];
-//    NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-//    NSData *bodyData = [bodyStr dataUsingEncoding:gb2312];
-//    NSMutableURLRequest *request = [self createRequestWithUrl:URL_POST_ARTICLE query:nil method:@"POST" cookie:self.cookies body:bodyData];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    __weak typeof(self) weakSelf = self;
-//    NSURLSessionDataTask *postTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if (!error) {
-//            NSData *convertedData = [weakSelf cleanGB2312:data];
-//            NSData *refinedData = [weakSelf refineTheData:convertedData];
-//            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypePostArticle parserData:refinedData];
-//            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-//                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"post a article"];
-//                if (handler) {
-//                    handler(error, models);
-//                }
-//            }];
-//        }else {
-//            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"post a article"];
-//            if (handler) {
-//                handler(error.localizedDescription, nil);
-//            }
-//        }
-//    }];
-//    [postTask resume];
-    
     [self postArticleWithContent:content title:title board:boardName canReply:canReply userID:userID requestCount:1 completion:handler];
 }
 
 - (void)commentArticle:(NSString *)articleName content:(NSString *)content board:(NSString *)boardName canReply:(BOOL)canReply file:(NSString *)fileName completion:(CompletionHandler)handler {
-//    NSString *bodyStr= [NSString stringWithFormat:@"text=%@&title=Re: %@&xml=1&board=%@&signature=1&nore=%@&file=%@&", content, articleName, boardName, canReply? @"off" : @"on", fileName];
-//    NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-//    NSData *bodyData = [bodyStr dataUsingEncoding:gb2312];
-//    NSMutableURLRequest *request = [self createRequestWithUrl:URL_POST_ARTICLE query:nil method:@"POST" cookie:self.cookies body:bodyData];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    __weak typeof(self) weakSelf = self;
-//    NSURLSessionDataTask *commentTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if (!error) {
-//            NSData *convertedData = [weakSelf cleanGB2312:data];
-//            NSData *refinedData = [weakSelf refineTheData:convertedData];
-//            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypePostArticle parserData:refinedData];
-//            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-//                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"comment"];
-//                if (handler) {
-//                    handler(error, models);
-//                }
-//            }];
-//        }else {
-//            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"comment"];
-//            if (handler) {
-//                handler(error.localizedDescription, nil);
-//            }
-//        }
-//    }];
-//    [commentTask resume];
     [self commentArticle:articleName content:content board:boardName canReply:canReply file:fileName requestCount:1 completion:handler];
 }
 
 - (void)deleteArticleWithBoard:(NSString *)boardName file:(NSString *)fileName completion:(CompletionHandler)handler{
-//    NSString *queryStr = [NSString stringWithFormat:@"?board=%@&file=%@&xml=1", boardName, fileName];
-//    NSMutableURLRequest *request = [self createRequestWithUrl:URL_DEL_ARTICLE query:queryStr method:@"POST" cookie:self.cookies body:nil];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    __weak typeof(self) weakSelf = self;
-//    NSURLSessionDataTask *deleteTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if (!error) {
-//            NSData *convertedData = [weakSelf cleanGB2312:data];
-//            NSData *refinedData = [weakSelf refineTheData:convertedData];
-//            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeDelArticle parserData:refinedData];
-//            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-//                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"delete article"];
-//                if (handler) {
-//                    handler(error, models);
-//                }
-//            }];
-//        }else {
-//            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"delete article"];
-//            if (handler) {
-//                handler(error.localizedDescription, nil);
-//            }
-//        }
-//    }];
-//    [deleteTask resume];
     [self deleteArticleWithBoard:boardName file:fileName requestCount:1 completion:handler];
 }
 
 - (void)reprintArticleWithFile:(NSString *)fileName from:(NSString *)originBoard to:(NSString *)targetBoard completion:(CompletionHandler)handler {
-//    NSString *queryStr = [NSString stringWithFormat:@"?board=%@&file=%@&target=%@&xml=1", originBoard, fileName, targetBoard];
-//    NSMutableURLRequest *request = [self createRequestWithUrl:URL_REPRINT query:queryStr method:@"GET" cookie:self.cookies body:nil];
-//    
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    __weak typeof(self) weakSelf = self;
-//    NSURLSessionDataTask *reprintTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if (!error) {
-//            NSData *convertedData = [weakSelf cleanGB2312:data];
-//            NSData *refinedData = [weakSelf refineTheData:convertedData];
-//            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeDelArticle parserData:refinedData];
-//            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-//                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"reprint"];
-//                if (handler) {
-//                    handler(error, models);
-//                }
-//            }];
-//        }else {
-//            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"reprint"];
-//            if (handler) {
-//                handler(error.localizedDescription, nil);
-//            }
-//        }
-//    }];
-//    [reprintTask resume];
     [self reprintArticleWithFile:fileName from:originBoard to:targetBoard requestCount:1 completion:handler];
 }
 

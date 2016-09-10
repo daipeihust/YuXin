@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F4141DBF1D34889A00286585"
-               BuildableName = "YuXin.app"
+               BuildableName = "&#x55bb;&#x4fe1;&#x661f;&#x7a7a;.app"
                BlueprintName = "YuXin"
                ReferencedContainer = "container:YuXin.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F4141DBF1D34889A00286585"
-            BuildableName = "YuXin.app"
+            BuildableName = "&#x55bb;&#x4fe1;&#x661f;&#x7a7a;.app"
             BlueprintName = "YuXin"
             ReferencedContainer = "container:YuXin.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F4141DBF1D34889A00286585"
-            BuildableName = "YuXin.app"
+            BuildableName = "&#x55bb;&#x4fe1;&#x661f;&#x7a7a;.app"
             BlueprintName = "YuXin"
             ReferencedContainer = "container:YuXin.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F4141DBF1D34889A00286585"
-            BuildableName = "YuXin.app"
+            BuildableName = "&#x55bb;&#x4fe1;&#x661f;&#x7a7a;.app"
             BlueprintName = "YuXin"
             ReferencedContainer = "container:YuXin.xcodeproj">
          </BuildableReference>

@@ -126,7 +126,9 @@ static NSString *const articleElementTitle = @"article";
     if ([parser parse]) {
         if (!self.parseCompleted) {
             NSLog(@"[YuXinXmlParser]: parse %@ finish", self.elementTitle);
-            completionHandler(self.modelArray, nil);
+            if (completionHandler) {
+                completionHandler(self.modelArray, nil);
+            }
         }
     }else {
         if (!self.parseCompleted) {
@@ -134,12 +136,15 @@ static NSString *const articleElementTitle = @"article";
                 self.parserType == YuXinXmlParserTypePostArticle ||
                 self.parserType == YuXinXmlParserTypeDelArticle ||
                 self.parserType == YuXinXmlParserTypeReprint) {
-                
-                completionHandler(nil, nil);
+                if (completionHandler) {
+                    completionHandler(nil, nil);
+                }
                 return ;
             }
             NSLog(@"[YuXinXmlParser]: error: %@", parser.parserError);
-            completionHandler(nil, @"parse failed");
+            if (completionHandler) {
+                completionHandler(nil, @"parse failed");
+            }
         }
     }
 }
@@ -237,7 +242,9 @@ static NSString *const articleElementTitle = @"article";
         NSLog(@"[YuXinXmlParser]: %@: %@", elementName, trimmedString);
     }
     if ([elementName isEqualToString:@"error"]) {
-        self.completionHandler(nil, [trimmedString copy]);
+        if (self.completionHandler) {
+            self.completionHandler(nil, [trimmedString copy]);
+        }
         self.parseCompleted = YES;
     }
     switch (self.parserType) {

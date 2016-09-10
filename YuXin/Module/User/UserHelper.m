@@ -56,7 +56,9 @@
     [[YuXinSDK sharedInstance] loginWithUsername:userName password:password completion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
             weakSelf.loginState = YES;
-            handler(@"Login Success");
+            if (handler) {
+                handler(@"Login Success");
+            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationLoginSuccess object:nil];
             });
@@ -66,7 +68,9 @@
             [weakSelf initUserInfo];
             [weakSelf refreshFavourateBoardWithCompletion:nil];
         }else {
-            handler(error);
+            if (handler) {
+                handler(error);
+            }
         }
     }];
 }
@@ -75,12 +79,16 @@
     [[YuXinSDK sharedInstance] logoutWithCompletion:^(NSString *error, NSArray *responseModels) {
         if (!error) {
             self.loginState = NO;
-            handler(@"Logout Success");
+            if (handler) {
+                handler(@"Logout Success");
+            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationLogoutSuccess object:nil];
             });
         }else {
-            handler(error);
+            if (handler) {
+                handler(error);
+            }
         }
     }];
 }
