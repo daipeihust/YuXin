@@ -33,6 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"好友";
     self.view.backgroundColor = DPBackgroundColor;
     self.tableView.backgroundColor = DPBackgroundColor;
     [self.view addSubview:self.tableView];

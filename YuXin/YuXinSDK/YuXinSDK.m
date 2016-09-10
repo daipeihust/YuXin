@@ -129,10 +129,15 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
             NSData *refinedData = [weakSelf refineTheData:convertedData];
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeFavourites parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-                
-                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"favourate board"];
-                if (handler) {
-                    handler(error, [models copy]);
+                if (error) {
+                    [weakSelf priviteLoginWithUsername:weakSelf.username password:weakSelf.password completion:^(NSString *error, NSArray *responseModels) {
+                        
+                    }];
+                }else {
+                    [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"favourate board"];
+                    if (handler) {
+                        handler(error, [models copy]);
+                    }
                 }
             }];
         }else {
@@ -442,6 +447,39 @@ static NSString *URL_REPRINT                = @"http://dian.hust.edu.cn:81/bbscc
 }
 
 #pragma mark - Privite Method
+
+- (void)priviteLoginWithUsername:(NSString *)username password:(NSString *)password completion:(CompletionHandler)handler {
+    
+    NSString *bodyStr = [NSString stringWithFormat:@"xml=1&pw=%@&id=%@", password, username];
+    NSData *bodyData = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [self createRequestWithUrl:[URL_LOGIN copy] query:nil method:@"POST" cookie:nil body:bodyData];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    __weak typeof(self) weakSelf = self;
+    NSURLSessionDataTask *loginTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (!error) {
+            NSData *convertedData = [weakSelf cleanGB2312:data];
+            NSData *refinedData = [weakSelf refineTheData:convertedData];
+            YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeLogin parserData:refinedData];
+            [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
+                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:[NSString stringWithFormat:@"login"]];
+                if (!error) {
+                    YuXinLoginInfo *loginInfo = models[0];
+                    weakSelf.cookies = [NSString stringWithFormat:@"utmpkey=%@;contdays=%@;utmpuserid=%@;utmpnum=%@;invisible=%@;version=1", loginInfo.utmpKey, loginInfo.contdays, loginInfo.utmpUserID, loginInfo.utmpNum, loginInfo.invisible];
+                    if (handler) {
+                        handler(nil, [models copy]);
+                    }
+                }else {
+                    if (handler) {
+                        handler(error, nil);
+                    }
+                }
+            }];
+        }
+    }];
+    [loginTask resume];
+}
 
 - (NSMutableURLRequest *)createRequestWithUrl:(NSString *)urlStr query:(NSString *)queryStr method:(NSString *)method cookie:(NSString *)cookie body:(NSData *)body {
     NSMutableString *completeUrlStr = [NSMutableString stringWithString:urlStr];

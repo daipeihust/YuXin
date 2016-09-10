@@ -487,7 +487,6 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
         [_tableView setTableFooterView:view];
         MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
         header.automaticallyChangeAlpha = YES;
-        [header setTitle:@"玩命加载中..." forState:MJRefreshStateRefreshing];
         _tableView.mj_header = header;
     }
     return _tableView;

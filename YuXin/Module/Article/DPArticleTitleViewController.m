@@ -252,11 +252,9 @@
         [_tableView registerClass:[DPArticleTitleCell class] forCellReuseIdentifier:DPArticleTitleCellReuseIdentifier];
         MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
         header.automaticallyChangeAlpha = YES;
-        [header setTitle:@"玩命加载中..." forState:MJRefreshStateRefreshing];
         _tableView.mj_header = header;
         MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(footerRefresh)];
         footer.automaticallyChangeAlpha = YES;
-        [footer setTitle:@"玩命加载中..." forState:MJRefreshStateRefreshing];
         _tableView.mj_footer = footer;
     }
     return _tableView;

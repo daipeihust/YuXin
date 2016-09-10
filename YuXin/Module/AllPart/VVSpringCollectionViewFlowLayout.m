@@ -76,7 +76,7 @@
     
     for (UIAttachmentBehavior *spring in _animator.behaviors) {
         CGPoint anchorPoint = spring.anchorPoint;
-        CGFloat distanceFromTouch = fabsf(touchLocation.y - anchorPoint.y);
+        CGFloat distanceFromTouch = fabs(touchLocation.y - anchorPoint.y);
         CGFloat scrollResistance = distanceFromTouch / self.resistanceFactor;
         
         UICollectionViewLayoutAttributes *item = (UICollectionViewLayoutAttributes *)[spring.items firstObject];
