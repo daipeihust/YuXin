@@ -201,7 +201,7 @@
         case 1:
             cell = [tableView dequeueReusableCellWithIdentifier:DPProfileNormalCellReuseIdentifier];
             item.title1 = @"好友";
-            item.title2 = [NSString stringWithFormat:@"%lul", (unsigned long)[UserHelper sharedInstance].friendList.count];
+            item.title2 = [NSString stringWithFormat:@"%lu", (unsigned long)[UserHelper sharedInstance].friendList.count];
             break;
         case 2:
             cell = [tableView dequeueReusableCellWithIdentifier:DPProfileSwitchCellReuseIdentifier];
