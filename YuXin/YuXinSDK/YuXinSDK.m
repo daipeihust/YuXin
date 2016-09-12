@@ -61,7 +61,8 @@ static const NSTimeInterval requestTimeOut = 5;
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(CompletionHandler)handler {
     
-    NSString *bodyStr = [NSString stringWithFormat:@"xml=1&pw=%@&id=%@", password, username];
+    NSString *legalPassword = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)password, NULL, (CFStringRef) @"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
+    NSString *bodyStr = [NSString stringWithFormat:@"xml=1&pw=%@&id=%@", legalPassword, username];
     NSData *bodyData = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableURLRequest *request = [self createRequestWithUrl:[URL_LOGIN copy] query:nil method:@"POST" cookie:nil body:bodyData];
     
