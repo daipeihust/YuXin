@@ -252,7 +252,7 @@ static const NSTimeInterval requestTimeOut = 5;
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 if (error && requestCount < maxRequestCount && weakSelf.username && weakSelf.password) {
                     [weakSelf loginAgainWithCompletion:^(NSString *error, NSArray *responseModels) {
-                        [weakSelf fetchFavourateBoardWithRequestCount:requestCount + 1 completion:handler];
+                        [weakSelf fetchFriendListWithRequestCount:requestCount + 1 completion:handler];
                     }];
                     return ;
                 }
@@ -286,7 +286,7 @@ static const NSTimeInterval requestTimeOut = 5;
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 if (error && requestCount < maxRequestCount && weakSelf.username && weakSelf.password) {
                     [weakSelf loginAgainWithCompletion:^(NSString *error, NSArray *responseModels) {
-                        [weakSelf fetchFriendListWithRequestCount:requestCount + 1 completion:handler];
+                        [weakSelf fetchArticleTitleListWithBoard:boardName start:startNum requestCount:requestCount + 1 completion:handler];
                     }];
                     return ;
                 }
