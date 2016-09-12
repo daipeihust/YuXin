@@ -61,8 +61,7 @@ static const NSTimeInterval requestTimeOut = 5;
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(CompletionHandler)handler {
     
-    NSString *legalPassword = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)password, NULL, (CFStringRef) @"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
-    NSString *bodyStr = [NSString stringWithFormat:@"xml=1&pw=%@&id=%@", legalPassword, username];
+    NSString *bodyStr = [NSString stringWithFormat:@"xml=1&pw=%@&id=%@", [self legalUrlString:password], username];
     NSData *bodyData = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableURLRequest *request = [self createRequestWithUrl:[URL_LOGIN copy] query:nil method:@"POST" cookie:nil body:bodyData];
     
@@ -410,7 +409,7 @@ static const NSTimeInterval requestTimeOut = 5;
 
 - (void)postArticleWithContent:(NSString *)content title:(NSString *)title board:(NSString *)boardName canReply:(BOOL)canReply userID:(NSString *)userID requestCount:(NSUInteger)requestCount completion:(CompletionHandler)handler {
     NSString *bodyStr;
-    bodyStr = [NSString stringWithFormat:@"text=%@&title=%@&xml=1&board=%@&signature=1&nore=%@&userid=%@&", content, title, boardName, canReply? @"off" : @"on", userID];
+    bodyStr = [NSString stringWithFormat:@"text=%@&title=%@&xml=1&board=%@&signature=1&nore=%@&userid=%@&", [self legalUrlString:content encoding:kCFStringEncodingGB_18030_2000], [self legalUrlString:title encoding:kCFStringEncodingGB_18030_2000], boardName, canReply? @"off" : @"on", userID];
     NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData *bodyData = [bodyStr dataUsingEncoding:gb2312];
     NSMutableURLRequest *request = [self createRequestWithUrl:URL_POST_ARTICLE query:nil method:@"POST" cookie:self.cookies body:bodyData];
@@ -445,7 +444,7 @@ static const NSTimeInterval requestTimeOut = 5;
 }
 
 - (void)commentArticle:(NSString *)articleName content:(NSString *)content board:(NSString *)boardName canReply:(BOOL)canReply file:(NSString *)fileName requestCount:(NSUInteger)requestCount completion:(CompletionHandler)handler {
-    NSString *bodyStr= [NSString stringWithFormat:@"text=%@&title=Re: %@&xml=1&board=%@&signature=1&nore=%@&file=%@&", content, articleName, boardName, canReply? @"off" : @"on", fileName];
+    NSString *bodyStr= [NSString stringWithFormat:@"text=%@&title=Re: %@&xml=1&board=%@&signature=1&nore=%@&file=%@&", [self legalUrlString:content encoding:kCFStringEncodingGB_18030_2000], [self legalUrlString:articleName encoding:kCFStringEncodingGB_18030_2000], boardName, canReply? @"off" : @"on", fileName];
     NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData *bodyData = [bodyStr dataUsingEncoding:gb2312];
     NSMutableURLRequest *request = [self createRequestWithUrl:URL_POST_ARTICLE query:nil method:@"POST" cookie:self.cookies body:bodyData];
@@ -566,6 +565,14 @@ static const NSTimeInterval requestTimeOut = 5;
         [request setHTTPBody:body];
     }
     return request;
+}
+
+- (NSString *)legalUrlString:(NSString *)string {
+    return [self legalUrlString:string encoding:kCFStringEncodingUTF8];
+}
+
+- (NSString *)legalUrlString:(NSString *)string encoding:(CFStringEncoding)encoding {
+    return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)string, NULL, (CFStringRef) @"!*'();:@&=+$,/?%#[]", encoding);
 }
 
 - (void)logTheResponse:(NSData *)data {

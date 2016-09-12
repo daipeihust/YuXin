@@ -13,4 +13,6 @@
 - (NSUInteger)indexOfLine:(NSUInteger)line;
 - (NSUInteger)indexOfLastLine:(NSUInteger)line;
 
+- (NSString *)legalUrlString;
+
 @end
