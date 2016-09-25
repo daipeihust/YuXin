@@ -23,9 +23,15 @@ typedef NS_ENUM(NSInteger, YuXinBoardType) {
     YuXinBoardTypeShiShiKuaiDi
 };
 
+typedef NS_ENUM(NSUInteger, DPLogLevel) {
+    DPLogLevelNone = 0,
+    DPLogLevelSimple = 1,
+    DPLogLevelAll = 2
+};
+
 @interface YuXinSDK : NSObject
 
-@property (nonatomic, assign) BOOL shouldLog; //default is YES
+@property (nonatomic, assign) DPLogLevel logLevel;
 
 + (instancetype)sharedInstance;
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(CompletionHandler)handler;

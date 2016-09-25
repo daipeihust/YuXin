@@ -27,9 +27,7 @@
 @implementation YuXinModel
 
 - (NSString *)compareCurrentTime:(NSString *)str withDateFormatter:(NSDateFormatter *)formatter{
-    NSLog(@">>>>>>>>>>>%@", str);
     NSDate *timeDate = [formatter dateFromString:str];
-    NSLog(@">>>>>>>>>>>%@", timeDate);
     
     NSTimeInterval  timeInterval = [timeDate timeIntervalSinceNow];
     timeInterval = -timeInterval;
@@ -196,7 +194,6 @@
     _realContent = [self getRealContent:content];
     _replyUserIDAndName = [self getUserIDAndNameFrom:_replyStr];
     _replyUserID = [self getUserIDFromUserIDAndName:_replyUserIDAndName];
-    NSLog(@"reply user id %@", _replyUserID);
     _colorfulContent = [self getAttributedStringFrom:_realContent];
     _content = content;
 }

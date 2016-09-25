@@ -52,7 +52,7 @@ static const NSTimeInterval requestTimeOut = 5;
     static dispatch_once_t onceTocken;
     dispatch_once(&onceTocken, ^{
         instance = [[YuXinSDK alloc] init];
-        instance.shouldLog = YES;
+        instance.logLevel = DPLogLevelSimple;
     });
     return instance;
 }
@@ -61,7 +61,7 @@ static const NSTimeInterval requestTimeOut = 5;
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(CompletionHandler)handler {
     
-    NSString *bodyStr = [NSString stringWithFormat:@"xml=1&pw=%@&id=%@", [self legalUrlString:password], username];
+    NSString *bodyStr = [NSString stringWithFormat:@"xml=1&pw=%@&id=%@", [self percentEscapesString:password], username];
     NSData *bodyData = [bodyStr dataUsingEncoding:NSUTF8StringEncoding];
     NSMutableURLRequest *request = [self createRequestWithUrl:[URL_LOGIN copy] query:nil method:@"POST" cookie:nil body:bodyData];
     
@@ -76,7 +76,7 @@ static const NSTimeInterval requestTimeOut = 5;
             NSData *refinedData = [weakSelf refineTheData:convertedData];
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeLogin parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
-                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:[NSString stringWithFormat:@"login"]];
+                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:[NSString stringWithFormat:@"login"] logLevel:DPLogLevelSimple];
                 if (!error) {
                     YuXinLoginInfo *loginInfo = models[0];
                     weakSelf.cookies = [NSString stringWithFormat:@"utmpkey=%@;contdays=%@;utmpuserid=%@;utmpnum=%@;invisible=%@;version=1", loginInfo.utmpKey, loginInfo.contdays, loginInfo.utmpUserID, loginInfo.utmpNum, loginInfo.invisible];
@@ -90,7 +90,7 @@ static const NSTimeInterval requestTimeOut = 5;
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"login"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"login" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -105,7 +105,7 @@ static const NSTimeInterval requestTimeOut = 5;
     NSURLSession *session = [NSURLSession sharedSession];
     __weak typeof(self) weakSelf = self;
     NSURLSessionDataTask *logoutTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"logout"];
+        [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"logout" logLevel:DPLogLevelSimple];
         if (!error) {
             weakSelf.cookies = nil;
             if (handler) {
@@ -138,13 +138,13 @@ static const NSTimeInterval requestTimeOut = 5;
             YuXinXmlParser *parser = [[YuXinXmlParser alloc] initWithParserType:YuXinXmlParserTypeUserDetail parserData:refinedData];
             [parser startParserWithCompletion:^(NSArray *models, NSString *error) {
                 
-                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"user info"];
+                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"user info" logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, [models copy]);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"user info"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"user info" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -176,7 +176,7 @@ static const NSTimeInterval requestTimeOut = 5;
     NSURLSession *session = [NSURLSession sharedSession];
     __weak typeof(self) weakSelf = self;
     NSURLSessionDataTask *delTask = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:[NSString stringWithFormat:@"delete %@ board", boardName]];
+        [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:[NSString stringWithFormat:@"delete %@ board", boardName] logLevel:DPLogLevelSimple];
         if (handler) {
             handler(error.localizedDescription, nil);
         }
@@ -224,13 +224,13 @@ static const NSTimeInterval requestTimeOut = 5;
                     }];
                     return ;
                 }
-                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"favourate board"];
+                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"favourate board" logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, [models copy]);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"favourate board"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"favourate board" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -256,13 +256,13 @@ static const NSTimeInterval requestTimeOut = 5;
                     }];
                     return ;
                 }
-                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"friends info"];
+                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"friends info" logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, [models copy]);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"friend info"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"friend info" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -290,13 +290,13 @@ static const NSTimeInterval requestTimeOut = 5;
                     }];
                     return ;
                 }
-                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"article titles"];
+                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"article titles" logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, [models copy]);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"article titles"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"article titles" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -325,13 +325,13 @@ static const NSTimeInterval requestTimeOut = 5;
                     }];
                     return ;
                 }
-                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"subboard"];
+                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"subboard" logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, [models copy]);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"subboard"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"subboard" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -359,13 +359,13 @@ static const NSTimeInterval requestTimeOut = 5;
                     }];
                     return ;
                 }
-                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:[NSString stringWithFormat:@"add %@ board", boardName]];
+                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:[NSString stringWithFormat:@"add %@ board", boardName] logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, models);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:[NSString stringWithFormat:@"add %@ board", boardName]];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:[NSString stringWithFormat:@"add %@ board", boardName] logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -392,13 +392,13 @@ static const NSTimeInterval requestTimeOut = 5;
                     }];
                     return ;
                 }
-                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"articles"];
+                [weakSelf makeLogWithError:error modelsCount:[models count] requestInfo:@"articles" logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, models);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"articles"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:1 requestInfo:@"articles" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -409,7 +409,7 @@ static const NSTimeInterval requestTimeOut = 5;
 
 - (void)postArticleWithContent:(NSString *)content title:(NSString *)title board:(NSString *)boardName canReply:(BOOL)canReply userID:(NSString *)userID requestCount:(NSUInteger)requestCount completion:(CompletionHandler)handler {
     NSString *bodyStr;
-    bodyStr = [NSString stringWithFormat:@"text=%@&title=%@&xml=1&board=%@&signature=1&nore=%@&userid=%@&", [self legalUrlString:content encoding:kCFStringEncodingGB_18030_2000], [self legalUrlString:title encoding:kCFStringEncodingGB_18030_2000], boardName, canReply? @"off" : @"on", userID];
+    bodyStr = [NSString stringWithFormat:@"text=%@&title=%@&xml=1&board=%@&signature=1&nore=%@&userid=%@&", [self percentEscapesString:content encoding:kCFStringEncodingGB_18030_2000], [self percentEscapesString:title encoding:kCFStringEncodingGB_18030_2000], boardName, canReply? @"off" : @"on", userID];
     NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData *bodyData = [bodyStr dataUsingEncoding:gb2312];
     NSMutableURLRequest *request = [self createRequestWithUrl:URL_POST_ARTICLE query:nil method:@"POST" cookie:self.cookies body:bodyData];
@@ -428,13 +428,13 @@ static const NSTimeInterval requestTimeOut = 5;
                     }];
                     return ;
                 }
-                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"post a article"];
+                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"post a article" logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, models);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"post a article"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"post a article" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -444,7 +444,7 @@ static const NSTimeInterval requestTimeOut = 5;
 }
 
 - (void)commentArticle:(NSString *)articleName content:(NSString *)content board:(NSString *)boardName canReply:(BOOL)canReply file:(NSString *)fileName requestCount:(NSUInteger)requestCount completion:(CompletionHandler)handler {
-    NSString *bodyStr= [NSString stringWithFormat:@"text=%@&title=Re: %@&xml=1&board=%@&signature=1&nore=%@&file=%@&", [self legalUrlString:content encoding:kCFStringEncodingGB_18030_2000], [self legalUrlString:articleName encoding:kCFStringEncodingGB_18030_2000], boardName, canReply? @"off" : @"on", fileName];
+    NSString *bodyStr= [NSString stringWithFormat:@"text=%@&title=Re: %@&xml=1&board=%@&signature=1&nore=%@&file=%@&", [self percentEscapesString:content encoding:kCFStringEncodingGB_18030_2000], [self percentEscapesString:articleName encoding:kCFStringEncodingGB_18030_2000], boardName, canReply? @"off" : @"on", fileName];
     NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSData *bodyData = [bodyStr dataUsingEncoding:gb2312];
     NSMutableURLRequest *request = [self createRequestWithUrl:URL_POST_ARTICLE query:nil method:@"POST" cookie:self.cookies body:bodyData];
@@ -463,13 +463,13 @@ static const NSTimeInterval requestTimeOut = 5;
                     }];
                     return ;
                 }
-                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"comment"];
+                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"comment" logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, models);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"comment"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"comment" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -496,13 +496,13 @@ static const NSTimeInterval requestTimeOut = 5;
                     }];
                     return ;
                 }
-                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"delete article"];
+                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"delete article" logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, models);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"delete article"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"delete article" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -529,13 +529,13 @@ static const NSTimeInterval requestTimeOut = 5;
                     }];
                     return ;
                 }
-                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"reprint"];
+                [weakSelf makeLogWithError:error modelsCount:0 requestInfo:@"reprint" logLevel:DPLogLevelSimple];
                 if (handler) {
                     handler(error, models);
                 }
             }];
         }else {
-            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"reprint"];
+            [weakSelf makeLogWithError:error.localizedDescription modelsCount:0 requestInfo:@"reprint" logLevel:DPLogLevelSimple];
             if (handler) {
                 handler(error.localizedDescription, nil);
             }
@@ -567,41 +567,28 @@ static const NSTimeInterval requestTimeOut = 5;
     return request;
 }
 
-- (NSString *)legalUrlString:(NSString *)string {
-    return [self legalUrlString:string encoding:kCFStringEncodingUTF8];
+- (NSString *)percentEscapesString:(NSString *)string {
+    return [self percentEscapesString:string encoding:kCFStringEncodingUTF8];
 }
 
-- (NSString *)legalUrlString:(NSString *)string encoding:(CFStringEncoding)encoding {
+- (NSString *)percentEscapesString:(NSString *)string encoding:(CFStringEncoding)encoding {
     return (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)string, NULL, (CFStringRef) @"!*'();:@&=+$,/?%#[]", encoding);
 }
 
 - (void)logTheResponse:(NSData *)data {
-    NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-    NSString *response = [[NSString alloc] initWithData:data encoding:gb2312];
-    NSLog(@"[YuXinSDK]: response1: %@", response);
-}
-
-- (NSData *)refineTheData2:(NSData *)data {
-    NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
-    NSString *rawStr = [[NSString alloc] initWithData:data encoding:gb2312];
-    NSString *targetStr = @"\0\1\2\3\10\11\13\27\30\31\32\33\34\35\36\37";
-    NSString *refinedStr = rawStr;
-    NSString *tmpStr;
-    for (int i = 0; i < targetStr.length; i++) {
-        tmpStr = [targetStr substringWithRange:NSMakeRange(i, 1)];
-        refinedStr = [refinedStr stringByReplacingOccurrencesOfString:tmpStr withString:@""];
+    if (self.logLevel == DPLogLevelAll) {
+        NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
+        NSString *response = [[NSString alloc] initWithData:data encoding:gb2312];
+        NSLog(@"[YuXinSDK]: response1: %@", response);
     }
-    NSLog(@">>>>>>>>:%@", refinedStr);
-    
-    return [refinedStr dataUsingEncoding:gb2312];
 }
 
 - (NSData *)refineTheData:(NSData *)data {
     
     NSStringEncoding gb2312 = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
     NSString *rawStr = [[NSString alloc] initWithData:data encoding:gb2312];
-    NSString *targetStr = @"\0\1\2\3\10\11\13\27\30\31\32\33\34\35\36\37";
     NSString *refinedStr = rawStr;
+    NSString *targetStr = @"\0\1\2\3\10\11\13\27\30\31\32\33\34\35\36\37";
     NSString *tmpStr;
     for (int i = 0; i < targetStr.length; i++) {
         tmpStr = [targetStr substringWithRange:NSMakeRange(i, 1)];
@@ -609,7 +596,6 @@ static const NSTimeInterval requestTimeOut = 5;
     }
     refinedStr = [refinedStr stringByReplacingOccurrencesOfString:@"gb2312" withString:@"utf-8"];
     
-//    NSLog(@">>>>>>>>:%@", refinedStr);
     
     return [refinedStr dataUsingEncoding:NSUTF8StringEncoding];
 }
@@ -626,7 +612,9 @@ static const NSTimeInterval requestTimeOut = 5;
     char *outptr = outbuf;
     if (iconv(cd, &inbuf, &inbytesleft, &outptr, &outbytesleft)
         == (size_t)-1) {
-        NSLog(@"this should not happen, seriously");
+        if (self.logLevel >= DPLogLevelSimple) {
+            NSLog(@"[YuXinSDK]: this should not happen, seriously");
+        }
         return nil;
     }
     NSData *result = [NSData dataWithBytes:outbuf length:data.length - outbytesleft];
@@ -647,7 +635,9 @@ static const NSTimeInterval requestTimeOut = 5;
     char *outptr = outbuf;
     if (iconv(cd, &inbuf, &inbytesleft, &outptr, &outbytesleft)
         == (size_t)-1) {
-        NSLog(@"this should not happen, seriously");
+        if (self.logLevel >= DPLogLevelSimple) {
+            NSLog(@"[YuXinSDK]: this should not happen, seriously");
+        }
         return nil;
     }
     NSData *result = [NSData dataWithBytes:outbuf length:data.length - outbytesleft];
@@ -656,8 +646,8 @@ static const NSTimeInterval requestTimeOut = 5;
     return result;
 }
 
-- (void)makeLogWithError:(NSString *)error modelsCount:(NSInteger)count requestInfo:(NSString *)info {
-    if (self.shouldLog) {
+- (void)makeLogWithError:(NSString *)error modelsCount:(NSInteger)count requestInfo:(NSString *)info logLevel:(DPLogLevel)level {
+    if (self.logLevel >= level) {
         if (!error) {
             if (count) {
                 NSLog(@"[YuXinSDK]: success to get %zi %@", count, info);

@@ -125,7 +125,7 @@ static NSString *const articleElementTitle = @"article";
     
     if ([parser parse]) {
         if (!self.parseCompleted) {
-            NSLog(@"[YuXinXmlParser]: parse %@ finish", self.elementTitle);
+//            NSLog(@"[YuXinXmlParser]: parse %@ finish", self.elementTitle);
             if (completionHandler) {
                 completionHandler(self.modelArray, nil);
             }
@@ -141,7 +141,7 @@ static NSString *const articleElementTitle = @"article";
                 }
                 return ;
             }
-            NSLog(@"[YuXinXmlParser]: error: %@", parser.parserError);
+//            NSLog(@"[YuXinXmlParser]: error: %@", parser.parserError);
             if (completionHandler) {
                 completionHandler(nil, @"parse failed");
             }
@@ -152,7 +152,7 @@ static NSString *const articleElementTitle = @"article";
 #pragma mark - NSXMLParserDelegate
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
-    NSLog(@"[YuXinXmlParser]: parse %@ start", self.elementTitle);
+//    NSLog(@"[YuXinXmlParser]: parse %@ start", self.elementTitle);
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(nullable NSString *)namespaceURI qualifiedName:(nullable NSString *)qName attributes:(NSDictionary<NSString *, NSString *> *)attributeDict {
@@ -239,7 +239,7 @@ static NSString *const articleElementTitle = @"article";
     self.currentElementValue = nil;
     
     if (self.storingFlag) {
-        NSLog(@"[YuXinXmlParser]: %@: %@", elementName, trimmedString);
+//        NSLog(@"[YuXinXmlParser]: %@: %@", elementName, trimmedString);
     }
     if ([elementName isEqualToString:@"error"]) {
         if (self.completionHandler) {
