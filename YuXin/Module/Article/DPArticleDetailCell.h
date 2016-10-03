@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
+    DPArticleDetailCellTypeArticle,
+    DPArticleDetailCellTypeComment
+};
+
 @protocol DPArticleDetailCellDelegate;
 
 @interface DPArticleDetailCell : UITableViewCell
 
+@property (nonatomic, assign) DPArticleDetailCellType cellType;
 @property (nonatomic, weak) id<DPArticleDetailCellDelegate> delegate;
 @property (nonatomic, assign) NSUInteger index;
 

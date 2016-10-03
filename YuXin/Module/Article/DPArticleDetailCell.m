@@ -9,14 +9,9 @@
 #import "DPArticleDetailCell.h"
 #import "UserHelper.h"
 
-typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
-    DPArticleDetailCellTypeArticle,
-    DPArticleDetailCellTypeComment
-};
 
 @interface DPArticleDetailCell()
 
-@property (nonatomic, assign) DPArticleDetailCellType cellType;
 @property (nonatomic, strong) YuXinArticle *model;
 
 //common

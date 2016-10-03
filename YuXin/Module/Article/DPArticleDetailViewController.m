@@ -286,9 +286,11 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (!error) {
                     [WSProgressHUD safeShowString:@"删除成功"];
-                    [weakSelf.navigationController popViewControllerAnimated:YES];
-                    if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(deleteArticleAtIndex:)]) {
-                        [weakSelf.delegate deleteArticleAtIndex:weakSelf.index];
+                    if ([self.fileToBeDelete isEqualToString:self.fileName]) {
+                        [weakSelf.navigationController popViewControllerAnimated:YES];
+                        if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(deleteArticleAtIndex:)]) {
+                            [weakSelf.delegate deleteArticleAtIndex:weakSelf.index];
+                        }
                     }
                 }else {
                     [WSProgressHUD safeShowString:error];
