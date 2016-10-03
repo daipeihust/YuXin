@@ -12,6 +12,7 @@
 @implementation UserHelper
 @synthesize autoLogin = _autoLogin;
 @synthesize showColorfulText = _showColorfulText;
+@synthesize flexibleHome = _flexibleHome;
 @synthesize openCount = _openCount;
 @synthesize loginState = _loginState;
 @synthesize password = _password;
@@ -42,6 +43,7 @@
         self.loginState = YES;
         self.autoLogin = YES;
         self.showColorfulText = YES;
+        self.flexibleHome = YES;
     }else {
         if (self.autoLogin && self.loginState) {
             [self tryAutoLogin];
@@ -181,6 +183,11 @@
     _showColorfulText = showColorfulText;
 }
 
+- (void)setFlexibleHome:(BOOL)flexibleHome {
+    [[NSUserDefaults standardUserDefaults] setBool:flexibleHome forKey:DPFlexibleHomeKey];
+    _flexibleHome = flexibleHome;
+}
+
 - (void)setOpenCount:(NSNumber *)openCount {
     [[NSUserDefaults standardUserDefaults] setObject:openCount forKey:DPOpenCountKey];
     _openCount = openCount;
@@ -209,6 +216,10 @@
 
 - (BOOL)autoLogin {
     return [[NSUserDefaults standardUserDefaults] boolForKey:DPAutoLoginKey];
+}
+
+- (BOOL)flexibleHome {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:DPFlexibleHomeKey];
 }
 
 - (BOOL)loginState {

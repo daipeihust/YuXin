@@ -15,6 +15,7 @@
 #import "DPUserInfoViewController.h"
 #import "UIViewController+MailComposer.h"
 
+
 @interface DPProfileViewController () <UITableViewDelegate, UITableViewDataSource, DPProfileCellDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -52,7 +53,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - ConfigView
@@ -71,26 +71,23 @@
 
 #pragma mark - Action Method
 
-- (void)logout {
-    [self.view setUserInteractionEnabled:NO];
-    [self.hud show];
-    [[UserHelper sharedInstance] logoutWithCompletion:^(NSString *message) {
-        [self.view setUserInteractionEnabled:YES];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.hud dismiss];
-            [WSProgressHUD safeShowString:message];
-        });
-    }];
-}
+
 
 #pragma mark - DPProfileCellDelegate
 
 - (void)switchChangeTo:(BOOL)state atIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item == 0) {
-        [UserHelper sharedInstance].autoLogin = state;
-    }
-    else {
-        [UserHelper sharedInstance].showColorfulText = state;
+    switch (indexPath.item) {
+        case 0:
+            [UserHelper sharedInstance].autoLogin = state;
+            break;
+        case 1:
+            [UserHelper sharedInstance].showColorfulText = state;
+            break;
+        case 2:
+            [UserHelper sharedInstance].flexibleHome = state;
+            break;
+        default:
+            break;
     }
 }
 
@@ -108,34 +105,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    switch (indexPath.section) {
-        case 0: {
-            DPUserInfoViewController *viewController = [[DPUserInfoViewController alloc] initWithUserID:[UserHelper sharedInstance].userName];
-            [self.navigationController pushViewController:viewController animated:YES];
-            break;
-        }
-        case 1: {
-            DPFriendListViewController *vc = [[DPFriendListViewController alloc] initWithFriends:[[UserHelper sharedInstance] friendList]];
-            [self.navigationController pushViewController:vc animated:YES];
-            break;
-        }
-        case 3: {
-            if (indexPath.row == 0) {
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"关于" message:@"本应用开源项目地址:https://github.com/948080952/YuXin\n如有bug或意见请点击下方反馈按钮或直接与代培联系，qq:948080952" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-                [alert show];
-            }
-            else if (indexPath.row == 1) {
-                [self sendContactMessageWithSubject:@"喻信意见反馈"];
-            }
-            break;
-        }
-        case 4:
-            [self logout];
-            break;
-            
-        default:
-            break;
-    }
+    [self handleSelect:[self itemTypeWithIndexPath:indexPath]];
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -190,44 +160,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    DPProfileCell *cell;
-    DPProfileItem *item = [[DPProfileItem alloc] init];
-    switch (indexPath.section) {
-        case 0:
-            cell = [tableView dequeueReusableCellWithIdentifier:DPProfileUserCellReuseIdentifier];
-            item.title1 = [UserHelper sharedInstance].userName;
-            item.title2 = [UserHelper sharedInstance].userInfo.experienceDescription;
-            break;
-        case 1:
-            cell = [tableView dequeueReusableCellWithIdentifier:DPProfileNormalCellReuseIdentifier];
-            item.title1 = @"好友";
-            item.title2 = [NSString stringWithFormat:@"%lu", (unsigned long)[UserHelper sharedInstance].friendList.count];
-            break;
-        case 2:
-            cell = [tableView dequeueReusableCellWithIdentifier:DPProfileSwitchCellReuseIdentifier];
-            if (indexPath.row == 0) {
-                item.title1 = @"自动登录";
-                item.title2 = [UserHelper sharedInstance].autoLogin? @"On" : @"Off";
-            }else {
-                item.title1 = @"显示彩色文字";
-                item.title2 = [UserHelper sharedInstance].showColorfulText? @"On" : @"Off";
-            }
-            break;
-        case 3:
-            cell = [tableView dequeueReusableCellWithIdentifier:DPProfileNormalCellReuseIdentifier];
-            if (indexPath.row == 0) {
-                item.title1 = @"关于";
-            }else {
-                item.title1 = @"反馈";
-            }
-            break;
-        case 4:
-            cell = [tableView dequeueReusableCellWithIdentifier:DPProfileNormalCellReuseIdentifier];
-            item.title1 = @"Logout";
-            break;
-        default:
-            break;
-    }
+    DPProfileCell *cell = [tableView dequeueReusableCellWithIdentifier:[self reuseIdentifierWithIndexPath:indexPath]];
+    DPProfileItem *item = [DPProfileItem itemWithType:[self itemTypeWithIndexPath:indexPath]];
     [cell fillDataWith:item indexPath:indexPath];
     cell.delegate = self;
     return cell;
@@ -242,7 +176,7 @@
             return 1;
             break;
         case 2:
-            return 2;
+            return 3;
             break;
         case 3:
             return 2;
@@ -254,6 +188,123 @@
             break;
     }
     return 0;
+}
+
+#pragma mark - Privite Method
+
+- (DPProfileItemType)itemTypeWithIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0:
+            return DPProfileItemTypeUserInfo;
+            break;
+        case 1:
+            return DPProfileItemTypeFriend;
+            break;
+        case 2:
+            switch (indexPath.row) {
+                case 0:
+                    return DPProfileItemTypeAutoLogin;
+                    break;
+                case 1:
+                    return DPProfileItemTypeColorfulText;
+                    break;
+                case 2:
+                    return DPProfileItemTypeFlexibleHome;
+                    break;
+            }
+            break;
+        case 3:
+            switch (indexPath.row) {
+                case 0:
+                    return DPProfileItemTypeAboutUs;
+                    break;
+                case 1:
+                    return DPProfileItemTypeFeedback;
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 4:
+            return DPProfileItemTypeLogout;
+            break;
+    }
+    return DPProfileItemNumber;
+}
+
+- (void)handleSelect:(DPProfileItemType)type {
+    switch (type) {
+        case DPProfileItemTypeUserInfo:
+            [self showUserInfo];
+            break;
+        case DPProfileItemTypeFriend:
+            [self showFriendVC];
+            break;
+        case DPProfileItemTypeAboutUs:
+            [self aboutUs];
+            break;
+        case DPProfileItemTypeFeedback:
+            [self feedback];
+            break;
+        case DPProfileItemTypeLogout:
+            [self logout];
+            break;
+        default:
+            break;
+    }
+}
+
+- (NSString *)reuseIdentifierWithIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0:
+            return DPProfileUserCellReuseIdentifier;
+            break;
+        case 1:
+        case 3:
+        case 4:
+            return DPProfileNormalCellReuseIdentifier;
+            break;
+        case 2:
+            return DPProfileSwitchCellReuseIdentifier;
+            break;
+            
+        default:
+            return DPProfileNormalCellReuseIdentifier;
+            break;
+    }
+}
+
+#pragma mark - item handler
+
+- (void)showUserInfo {
+    DPUserInfoViewController *viewController = [[DPUserInfoViewController alloc] initWithUserID:[UserHelper sharedInstance].userName];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)showFriendVC {
+    DPFriendListViewController *vc = [[DPFriendListViewController alloc] initWithFriends:[[UserHelper sharedInstance] friendList]];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aboutUs {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"关于" message:@"本应用开源项目地址:https://github.com/948080952/YuXin\n如有bug或意见请点击下方反馈按钮或直接与代培联系，qq:948080952" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alert show];
+}
+
+- (void)feedback {
+    [self sendContactMessageWithSubject:@"喻信意见反馈"];
+}
+
+- (void)logout {
+    [self.view setUserInteractionEnabled:NO];
+    [self.hud show];
+    [[UserHelper sharedInstance] logoutWithCompletion:^(NSString *message) {
+        [self.view setUserInteractionEnabled:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.hud dismiss];
+            [WSProgressHUD safeShowString:message];
+        });
+    }];
 }
 
 #pragma mark - Getter

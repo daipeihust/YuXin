@@ -126,17 +126,20 @@ typedef NS_ENUM(NSUInteger, DPProfileCellType) {
 
 - (void)fillDataWith:(DPProfileItem *)item indexPath:(NSIndexPath *)indexPath{
     switch (self.type) {
-        case DPProfileCellTypeUser:
+        case DPProfileCellTypeUser: {
+            if (item.userImage) {
+                self.userImageView.image = item.userImage;
+            }
             self.title1.text = item.title1;
             self.title2.text = item.title2;
             break;
+        }
         case DPProfileCellTypeNormal:
             self.title1.text = item.title1;
             self.title2.text = item.title2;
             break;
         case DPProfileCellTypeSwitch:
             self.title1.text = item.title1;
-            
             if ([item.title2 isEqualToString:@"On"]) {
                 [self.mSwitch setOn:YES];
             }else {

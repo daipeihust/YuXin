@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2669D56DD0714358F83FC980 /* libPods-YuXin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D88FEAC9FB8826027229EC8 /* libPods-YuXin.a */; };
+		F404EF0E1DA200D1004109E9 /* UIViewController+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F404EF0D1DA200D1004109E9 /* UIViewController+DPExtension.m */; };
 		F4141DC51D34889A00286585 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DC41D34889A00286585 /* main.m */; };
 		F4141DC81D34889A00286585 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DC71D34889A00286585 /* AppDelegate.m */; };
 		F4141DCE1D34889A00286585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4141DCC1D34889A00286585 /* Main.storyboard */; };
@@ -70,6 +71,8 @@
 		0D88FEAC9FB8826027229EC8 /* libPods-YuXin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YuXin.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23AE5F2DA7D8C9AFEDE1C349 /* Pods-YuXin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuXin.release.xcconfig"; path = "Pods/Target Support Files/Pods-YuXin/Pods-YuXin.release.xcconfig"; sourceTree = "<group>"; };
 		A48EDBFA22772AC1E15AF072 /* Pods-YuXin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuXin.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YuXin/Pods-YuXin.debug.xcconfig"; sourceTree = "<group>"; };
+		F404EF0C1DA200D1004109E9 /* UIViewController+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+DPExtension.h"; sourceTree = "<group>"; };
+		F404EF0D1DA200D1004109E9 /* UIViewController+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DPExtension.m"; sourceTree = "<group>"; };
 		F4141DC01D34889A00286585 /* 喻信星空.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "喻信星空.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4141DC41D34889A00286585 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F4141DC61D34889A00286585 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -436,6 +439,8 @@
 				F4EA423A1D6437F400D3C6D1 /* NSString+DPExtension.m */,
 				F4EA423B1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.h */,
 				F4EA423C1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m */,
+				F404EF0C1DA200D1004109E9 /* UIViewController+DPExtension.h */,
+				F404EF0D1DA200D1004109E9 /* UIViewController+DPExtension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -656,6 +661,7 @@
 				F4EA42371D64376D00D3C6D1 /* YuXinXmlParser.m in Sources */,
 				F447F1861D56CE040079E39E /* DPFriendListViewController.m in Sources */,
 				F43AE9D31D3A07990060020F /* DPArticleDetailCell.m in Sources */,
+				F404EF0E1DA200D1004109E9 /* UIViewController+DPExtension.m in Sources */,
 				F4EA42401D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m in Sources */,
 				F4EA42351D64376D00D3C6D1 /* YuXinModel.m in Sources */,
 				F4B7C47F1D446AFC00E2E92E /* DPProfileViewController.m in Sources */,
