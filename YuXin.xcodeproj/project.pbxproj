@@ -34,7 +34,6 @@
 		F4B7C47E1D446AFC00E2E92E /* DPProfileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B7C47A1D446AFC00E2E92E /* DPProfileItem.m */; };
 		F4B7C47F1D446AFC00E2E92E /* DPProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B7C47C1D446AFC00E2E92E /* DPProfileViewController.m */; };
 		F4B7C5091D44822C00E2E92E /* DPTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = F4B7C5081D44822C00E2E92E /* DPTabBar.m */; };
-		F4C62D9F1D439DD200538C03 /* DPAllPartLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62D9E1D439DD200538C03 /* DPAllPartLayout.m */; };
 		F4C62DA21D43A93000538C03 /* DPAllPartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA11D43A93000538C03 /* DPAllPartViewController.m */; };
 		F4C62DA51D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA41D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m */; };
 		F4C62DA81D43C7F000538C03 /* DPAllPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */; };
@@ -128,8 +127,6 @@
 		F4B7C47C1D446AFC00E2E92E /* DPProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPProfileViewController.m; sourceTree = "<group>"; };
 		F4B7C5071D44822C00E2E92E /* DPTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTabBar.h; sourceTree = "<group>"; };
 		F4B7C5081D44822C00E2E92E /* DPTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTabBar.m; sourceTree = "<group>"; };
-		F4C62D9D1D439DD200538C03 /* DPAllPartLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAllPartLayout.h; sourceTree = "<group>"; };
-		F4C62D9E1D439DD200538C03 /* DPAllPartLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAllPartLayout.m; sourceTree = "<group>"; };
 		F4C62DA01D43A93000538C03 /* DPAllPartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAllPartViewController.h; sourceTree = "<group>"; };
 		F4C62DA11D43A93000538C03 /* DPAllPartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPAllPartViewController.m; sourceTree = "<group>"; };
 		F4C62DA31D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VVSpringCollectionViewFlowLayout.h; sourceTree = "<group>"; };
@@ -398,8 +395,6 @@
 			children = (
 				F4C62DA31D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.h */,
 				F4C62DA41D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m */,
-				F4C62D9D1D439DD200538C03 /* DPAllPartLayout.h */,
-				F4C62D9E1D439DD200538C03 /* DPAllPartLayout.m */,
 				F4C62DA01D43A93000538C03 /* DPAllPartViewController.h */,
 				F4C62DA11D43A93000538C03 /* DPAllPartViewController.m */,
 				F4C62DA61D43C7F000538C03 /* DPAllPartCell.h */,
@@ -642,7 +637,6 @@
 				F48EDBD21D62B4540077C731 /* DPPostArticleViewController.m in Sources */,
 				F4B7C5091D44822C00E2E92E /* DPTabBar.m in Sources */,
 				F43AE9B01D3884AA0060020F /* DPMainViewController.m in Sources */,
-				F4C62D9F1D439DD200538C03 /* DPAllPartLayout.m in Sources */,
 				F43AE9E71D3F61730060020F /* DPBoardCell.m in Sources */,
 				F4B7C47D1D446AFC00E2E92E /* DPProfileCell.m in Sources */,
 				F43AE9B41D38BA140060020F /* DPArticleTitleViewController.m in Sources */,
