@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, DPProfileItemType) {
     DPProfileItemTypeAutoLogin,
     DPProfileItemTypeColorfulText,
     DPProfileItemTypeFlexibleHome,
+    DPProfileItemTypeShowSignature,
     DPProfileItemTypeAboutUs,
     DPProfileItemTypeFeedback,
     DPProfileItemTypeLogout,

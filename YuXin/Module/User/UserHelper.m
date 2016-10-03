@@ -10,11 +10,7 @@
 #import "YuXinSDK.h"
 
 @implementation UserHelper
-@synthesize autoLogin = _autoLogin;
-@synthesize showColorfulText = _showColorfulText;
-@synthesize flexibleHome = _flexibleHome;
-@synthesize openCount = _openCount;
-@synthesize loginState = _loginState;
+
 @synthesize password = _password;
 @synthesize userName = _userName;
 
@@ -44,6 +40,7 @@
         self.autoLogin = YES;
         self.showColorfulText = YES;
         self.flexibleHome = YES;
+        self.showSignature = YES;
     }else {
         if (self.autoLogin && self.loginState) {
             [self tryAutoLogin];
@@ -175,27 +172,26 @@
 
 - (void)setAutoLogin:(BOOL)autoLogin {
     [[NSUserDefaults standardUserDefaults] setBool:autoLogin forKey:DPAutoLoginKey];
-    _autoLogin = autoLogin;
 }
 
 - (void)setShowColorfulText:(BOOL)showColorfulText {
     [[NSUserDefaults standardUserDefaults] setBool:showColorfulText forKey:DPShowColorfulTextKey];
-    _showColorfulText = showColorfulText;
 }
 
 - (void)setFlexibleHome:(BOOL)flexibleHome {
     [[NSUserDefaults standardUserDefaults] setBool:flexibleHome forKey:DPFlexibleHomeKey];
-    _flexibleHome = flexibleHome;
+}
+
+- (void)setShowSignature:(BOOL)showSignature {
+    [[NSUserDefaults standardUserDefaults] setBool:showSignature forKey:DPShowSignatureKey];
 }
 
 - (void)setOpenCount:(NSNumber *)openCount {
     [[NSUserDefaults standardUserDefaults] setObject:openCount forKey:DPOpenCountKey];
-    _openCount = openCount;
 }
 
 - (void)setLoginState:(BOOL)loginState {
     [[NSUserDefaults standardUserDefaults] setBool:loginState forKey:DPLoginStateKey];
-    _loginState = loginState;
 }
 
 - (void)setUserName:(NSString *)userName {
@@ -220,6 +216,10 @@
 
 - (BOOL)flexibleHome {
     return [[NSUserDefaults standardUserDefaults] boolForKey:DPFlexibleHomeKey];
+}
+
+- (BOOL)showSignature {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:DPShowSignatureKey];
 }
 
 - (BOOL)loginState {

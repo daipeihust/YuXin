@@ -28,6 +28,9 @@
         case DPProfileItemTypeFlexibleHome:
             return [self flexibleHomeItem];
             break;
+        case DPProfileItemTypeShowSignature:
+            return [self showSignature];
+            break;
         case DPProfileItemTypeAboutUs:
             return [self aboutUsItem];
             break;
@@ -66,7 +69,7 @@
 
 + (DPProfileItem *)colorfulTextItem {
     DPProfileItem *item = [[DPProfileItem alloc] init];
-    item.title1 = @"显示彩色文字";
+    item.title1 = @"彩色帖文";
     item.title2 = [UserHelper sharedInstance].showColorfulText? @"On" : @"Off";
     return item;
 }
@@ -75,6 +78,13 @@
     DPProfileItem *item = [[DPProfileItem alloc] init];
     item.title1 = @"灵动主页";
     item.title2 = [UserHelper sharedInstance].flexibleHome? @"On" : @"Off";
+    return item;
+}
+
++ (DPProfileItem *)showSignature {
+    DPProfileItem *item = [[DPProfileItem alloc] init];
+    item.title1 = @"发帖签名";
+    item.title2 = [UserHelper sharedInstance].showSignature? @"On" : @"Off";
     return item;
 }
 

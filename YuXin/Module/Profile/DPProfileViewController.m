@@ -87,6 +87,9 @@
             [UserHelper sharedInstance].flexibleHome = state;
             [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationFlexibleHome object:nil];
             break;
+        case 3:
+            [UserHelper sharedInstance].showSignature = state;
+            break;
         default:
             break;
     }
@@ -177,7 +180,7 @@
             return 1;
             break;
         case 2:
-            return 3;
+            return 4;
             break;
         case 3:
             return 2;
@@ -211,6 +214,9 @@
                     break;
                 case 2:
                     return DPProfileItemTypeFlexibleHome;
+                    break;
+                case 3:
+                    return DPProfileItemTypeShowSignature;
                     break;
             }
             break;

@@ -9,6 +9,7 @@
 #import "DPPostArticleViewController.h"
 #import "UserHelper.h"
 #import "WSProgressHUD+DPExtension.h"
+#import "UIDevice+DPExtension.h"
 
 typedef NS_ENUM(NSInteger, DPPostArticleButtonType) {
     DPPostArticleButtonTypePost,
@@ -141,7 +142,12 @@ typedef NS_ENUM(NSInteger, DPPostArticleButtonType) {
     switch (sender.tag) {
         case DPPostArticleButtonTypePost: {
             __weak typeof(self) weakSelf = self;
-            [[YuXinSDK sharedInstance] postArticleWithContent:self.contentTV.text title:self.titleTV.text board:self.boardName canReply:YES userID:[[UserHelper sharedInstance] userName] completion:^(NSString *error, NSArray *responseModels) {
+            NSMutableString *postContent = [NSMutableString stringWithString:self.contentTV.text];
+            if ([[UserHelper sharedInstance] showSignature]) {
+                NSString *detailModelName = [[UIDevice currentDevice] realModelName];
+                [postContent appendString:[NSString stringWithFormat:@"\n\n来自：%@", detailModelName]];
+            }
+            [[YuXinSDK sharedInstance] postArticleWithContent:postContent title:self.titleTV.text board:self.boardName canReply:YES userID:[[UserHelper sharedInstance] userName] completion:^(NSString *error, NSArray *responseModels) {
                 if (!error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(articleDidPost)]) {

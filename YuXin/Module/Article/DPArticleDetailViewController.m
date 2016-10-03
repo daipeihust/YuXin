@@ -13,6 +13,8 @@
 #import "WSProgressHUD+DPExtension.h"
 #import "DPUserInfoViewController.h"
 #import "DPTintView.h"
+#import "UserHelper.h"
+#import "UIDevice+DPExtension.h"
 
 @protocol DPCommentTextPlaceDelegate;
 
@@ -207,12 +209,13 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
 
 - (void)sendButtonDidClicked:(UIButton *)sender {
     sender.enabled = NO;
+    __weak typeof(self) weakSelf = self;
     if (self.commentTextPlace.replyArticleIndex == -1) {
-        __weak typeof(self) weakSelf = self;
         [[YuXinSDK sharedInstance] reprintArticleWithFile:self.fileToBeReprint from:self.boardName to:self.commentTextPlace.commentTextField.text completion:^(NSString *error, NSArray *responseModels) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (!error) {
                     [WSProgressHUD safeShowString:@"转载成功"];
+                    weakSelf.commentTextPlace.commentTextField.text = @"";
                     [weakSelf headerRefresh];
                 }else {
                     [WSProgressHUD safeShowString:error];
@@ -222,12 +225,16 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     }else {
         YuXinArticle *mainArticle = self.articleArray[0];
         YuXinArticle *currentArticle = self.articleArray[self.commentTextPlace.replyArticleIndex];
-        NSString *footer = [self createFooterWithArticleIndex:self.commentTextPlace.replyArticleIndex];
         NSMutableString *content = [NSMutableString stringWithString:self.commentTextPlace.commentTextField.text];
+        if ([UserHelper sharedInstance].showSignature) {
+            NSString *detailModelName = [[UIDevice currentDevice] realModelName];
+            [content appendString:[NSString stringWithFormat:@"\n\n来自：%@", detailModelName]];
+        }
+        NSString *footer = [self createFooterWithArticleIndex:self.commentTextPlace.replyArticleIndex];
         [content appendString:footer];
         [self.hud show];
         [self.view setUserInteractionEnabled:NO];
-        __weak typeof(self) weakSelf = self;
+        
         [[YuXinSDK sharedInstance] commentArticle:mainArticle.title content:content board:self.boardName canReply:YES file:currentArticle.fileName completion:^(NSString *error, NSArray *responseModels) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [weakSelf.hud dismiss];
@@ -241,8 +248,8 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
                 }
             });
         }];
-        [weakSelf.commentTextPlace.commentTextField resignFirstResponder];
     }
+    [self.commentTextPlace.commentTextField resignFirstResponder];
 }
 
 #pragma mark - DPArticleDetailCellDelegate
@@ -292,7 +299,11 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
                             [weakSelf.delegate deleteArticleAtIndex:weakSelf.index];
                         }
                     }
-                }else {
+                    else {
+                        [weakSelf refreshData];
+                    }
+                }
+                else {
                     [WSProgressHUD safeShowString:error];
                 }
             });
@@ -437,6 +448,18 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
             [weakSelf.tableView reloadData];
             [weakSelf.tableView.mj_header endRefreshing];
         });
+    }];
+}
+
+- (void)refreshData {
+    __weak typeof(self) weakSelf = self;
+    [[YuXinSDK sharedInstance] fetchArticlesWithBoard:self.boardName file:self.fileName completion:^(NSString *error, NSArray *responseModels) {
+        if (!error) {
+            weakSelf.articleArray = [NSMutableArray arrayWithArray:responseModels];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+            });
+        }
     }];
 }
 

@@ -40,7 +40,8 @@
 //key
 #define DPAutoLoginKey                              @"auto_login"
 #define DPShowColorfulTextKey                       @"show_colorful_text"
-#define DPFlexibleHomeKey                          @"flexible_index"
+#define DPFlexibleHomeKey                           @"flexible_index"
+#define DPShowSignatureKey                          @"show_signature"
 #define DPOpenCountKey                              @"open_count"
 #define DPUsernameKey                               @"username"
 #define DPPasswordKey                               @"password"
