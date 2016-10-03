@@ -25,14 +25,6 @@
 #define DPSecondLevelTitleColor                 [UIColor grayColor]
 #define DPBodyTextColor                         [UIColor blackColor]
 
-#define DPTextColorBlack                        UIColorFromRGB(36,36,36)
-#define DPTextColorRed                          [UIColor redColor]
-#define DPTextColorGreen                        [UIColor greenColor]
-#define DPTextColorYellow                       [UIColor yellowColor]
-#define DPTextColorDarkBlue                     [UIColor blueColor]
-#define DPTextColorPink                         [UIColor magentaColor]
-#define DPTextColorLightBlue                    [UIColor cyanColor]
-#define DPTextColorWhite                        [UIColor lightGrayColor]
 
 #define DPSeparationLineColor                   UIColorFromRGBA(216,216,216,1.0f)
 

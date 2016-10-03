@@ -15,6 +15,24 @@
 #define DPRegExHeader                               @"发信站:"
 #define DPRegExFooter                               @"※ "
 
+#define DPTextColorParameterBlack                   @"30"
+#define DPTextColorParameterRed                     @"31"
+#define DPTextColorParameterGreen                   @"32"
+#define DPTextColorParameterYellow                  @"33"
+#define DPTextColorParameterDarkBlue                @"34"
+#define DPTextColorParameterPink                    @"35"
+#define DPTextColorParameterLightBlue               @"36"
+#define DPTextColorParameterWhite                   @"37"
+
+#define DPTextColorBlack                        [UIColor blackColor]
+#define DPTextColorRed                          [UIColor redColor]
+#define DPTextColorGreen                        [UIColor greenColor]
+#define DPTextColorYellow                       [UIColor yellowColor]
+#define DPTextColorDarkBlue                     [UIColor blueColor]
+#define DPTextColorPink                         [UIColor magentaColor]
+#define DPTextColorLightBlue                    [UIColor cyanColor]
+#define DPTextColorWhite                        [UIColor lightGrayColor]
+
 #import "YuXinModel.h"
 #import "NSString+DPExtension.h"
 

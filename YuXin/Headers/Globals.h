@@ -22,16 +22,6 @@
 #define DPUserInfoNormalCellReuseIdentifier         @"user_info_normal"
 #define DPUserInfoImageCellReuseIdentifier          @"user_info_image"
 
-//color parameter
-#define DPTextColorParameterBlack                   @"30"
-#define DPTextColorParameterRed                     @"31"
-#define DPTextColorParameterGreen                   @"32"
-#define DPTextColorParameterYellow                  @"33"
-#define DPTextColorParameterDarkBlue                @"34"
-#define DPTextColorParameterPink                    @"35"
-#define DPTextColorParameterLightBlue               @"36"
-#define DPTextColorParameterWhite                   @"37"
-
 
 //const value
 #define DPProfileTableViewHeaderHeight              7.5
