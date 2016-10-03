@@ -85,6 +85,7 @@
             break;
         case 2:
             [UserHelper sharedInstance].flexibleHome = state;
+            [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationFlexibleHome object:nil];
             break;
         default:
             break;

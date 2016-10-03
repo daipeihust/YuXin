@@ -149,6 +149,10 @@ typedef NS_ENUM(NSUInteger, DPArticleType) {
     [self registerTextFieldNotifications];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - ConfigUI
 
 - (void)ConfigViews {

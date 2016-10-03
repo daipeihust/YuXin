@@ -49,6 +49,11 @@ typedef NS_ENUM(NSInteger, DPPostArticleButtonType) {
     
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - ConfigViews
 
 - (void)initView {

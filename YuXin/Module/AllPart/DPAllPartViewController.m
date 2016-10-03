@@ -10,6 +10,7 @@
 #import "VVSpringCollectionViewFlowLayout.h"
 #import "DPAllPartCell.h"
 #import "DPBoardViewController.h"
+#import "UserHelper.h"
 
 @interface DPAllPartViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -25,7 +26,7 @@
     [super viewDidLoad];
     [self initView];
     self.title = @"全部版面";
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshUI) name:DPNotificationFlexibleHome object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -49,6 +50,11 @@
     }
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - ConfigView
 
 - (void)initView {
@@ -60,6 +66,18 @@
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
+}
+
+- (void)refreshUI {
+    UICollectionViewFlowLayout *layout;
+    if ([UserHelper sharedInstance].flexibleHome) {
+        layout = [[VVSpringCollectionViewFlowLayout alloc] init];
+    }
+    else {
+        layout = [[UICollectionViewFlowLayout alloc] init];
+    }
+    layout.itemSize = CGSizeMake(screenWidth, 60);
+    [self.collectionView setCollectionViewLayout:layout];
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -93,7 +111,13 @@
 
 - (UICollectionView *)collectionView {
     if (!_collectionView) {
-        VVSpringCollectionViewFlowLayout *layout = [[VVSpringCollectionViewFlowLayout alloc] init];
+        UICollectionViewFlowLayout *layout;
+        if ([UserHelper sharedInstance].flexibleHome) {
+            layout = [[VVSpringCollectionViewFlowLayout alloc] init];
+        }
+        else {
+            layout = [[UICollectionViewFlowLayout alloc] init];
+        }
         layout.itemSize = CGSizeMake(screenWidth, 60);
         _collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
         _collectionView.dataSource = self;

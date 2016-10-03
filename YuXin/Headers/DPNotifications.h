@@ -13,7 +13,7 @@
 #define DPNotificationLogoutSuccess             @"notification_logout_success"
 #define DPNotificationShowLoginVC               @"notification_show_login_vc"
 #define DPNotificationShowMainVC                @"notification_show_main_vc"
-
+#define DPNotificationFlexibleHome              @"notification_flexible_home"
 
 
 #endif /* DPNotifications_h */

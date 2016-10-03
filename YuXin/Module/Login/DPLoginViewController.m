@@ -124,6 +124,10 @@
     [self showViewWithAnimation];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - ConfigView
 
 - (void)initView {
