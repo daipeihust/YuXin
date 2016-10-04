@@ -16,7 +16,7 @@
 @property (nonatomic, weak) id<DPTabBarDelegate> delegate;
 @property (nonatomic, assign) NSUInteger selectedIndex;
 
-- (instancetype)initWithTabBarItems:(NSArray *)items;
+- (instancetype)initWithTabBarItems:(NSArray<DPTabBarItem *> *)items;
 
 
 @end
