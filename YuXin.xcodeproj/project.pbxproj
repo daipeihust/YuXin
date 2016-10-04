@@ -10,6 +10,7 @@
 		2669D56DD0714358F83FC980 /* libPods-YuXin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D88FEAC9FB8826027229EC8 /* libPods-YuXin.a */; };
 		F404EF0E1DA200D1004109E9 /* UIViewController+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F404EF0D1DA200D1004109E9 /* UIViewController+DPExtension.m */; };
 		F404EF111DA26683004109E9 /* UIDevice+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F404EF101DA26683004109E9 /* UIDevice+DPExtension.m */; };
+		F404EF841DA35917004109E9 /* YuXinSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F404EF831DA35917004109E9 /* YuXinSDK.framework */; };
 		F4141DC51D34889A00286585 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DC41D34889A00286585 /* main.m */; };
 		F4141DC81D34889A00286585 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DC71D34889A00286585 /* AppDelegate.m */; };
 		F4141DCE1D34889A00286585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4141DCC1D34889A00286585 /* Main.storyboard */; };
@@ -40,9 +41,6 @@
 		F4C62DA81D43C7F000538C03 /* DPAllPartCell.m in Sources */ = {isa = PBXBuildFile; fileRef = F4C62DA71D43C7F000538C03 /* DPAllPartCell.m */; };
 		F4D6D2F81D65CBA300453A17 /* DPTintView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D6D2F71D65CBA300453A17 /* DPTintView.m */; };
 		F4DB91791D68A6C500A718C8 /* UIViewController+MailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = F4DB91781D68A6C500A718C8 /* UIViewController+MailComposer.m */; };
-		F4EA42351D64376D00D3C6D1 /* YuXinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42301D64376D00D3C6D1 /* YuXinModel.m */; };
-		F4EA42361D64376D00D3C6D1 /* YuXinSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42321D64376D00D3C6D1 /* YuXinSDK.m */; };
-		F4EA42371D64376D00D3C6D1 /* YuXinXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA42341D64376D00D3C6D1 /* YuXinXmlParser.m */; };
 		F4EA423F1D6437F400D3C6D1 /* NSString+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA423A1D6437F400D3C6D1 /* NSString+DPExtension.m */; };
 		F4EA42401D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F4EA423C1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m */; };
 		F4EA42411D6437F400D3C6D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4EA423E1D6437F400D3C6D1 /* Assets.xcassets */; };
@@ -75,6 +73,7 @@
 		F404EF0D1DA200D1004109E9 /* UIViewController+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DPExtension.m"; sourceTree = "<group>"; };
 		F404EF0F1DA26683004109E9 /* UIDevice+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+DPExtension.h"; sourceTree = "<group>"; };
 		F404EF101DA26683004109E9 /* UIDevice+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+DPExtension.m"; sourceTree = "<group>"; };
+		F404EF831DA35917004109E9 /* YuXinSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YuXinSDK.framework; sourceTree = "<group>"; };
 		F4141DC01D34889A00286585 /* 喻信星空.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "喻信星空.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4141DC41D34889A00286585 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F4141DC61D34889A00286585 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -140,12 +139,6 @@
 		F4D6D2F71D65CBA300453A17 /* DPTintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTintView.m; sourceTree = "<group>"; };
 		F4DB91771D68A6C500A718C8 /* UIViewController+MailComposer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MailComposer.h"; sourceTree = "<group>"; };
 		F4DB91781D68A6C500A718C8 /* UIViewController+MailComposer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MailComposer.m"; sourceTree = "<group>"; };
-		F4EA422F1D64376D00D3C6D1 /* YuXinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinModel.h; sourceTree = "<group>"; };
-		F4EA42301D64376D00D3C6D1 /* YuXinModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinModel.m; sourceTree = "<group>"; };
-		F4EA42311D64376D00D3C6D1 /* YuXinSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinSDK.h; sourceTree = "<group>"; };
-		F4EA42321D64376D00D3C6D1 /* YuXinSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinSDK.m; sourceTree = "<group>"; };
-		F4EA42331D64376D00D3C6D1 /* YuXinXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YuXinXmlParser.h; sourceTree = "<group>"; };
-		F4EA42341D64376D00D3C6D1 /* YuXinXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YuXinXmlParser.m; sourceTree = "<group>"; };
 		F4EA42391D6437F400D3C6D1 /* NSString+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DPExtension.h"; sourceTree = "<group>"; };
 		F4EA423A1D6437F400D3C6D1 /* NSString+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DPExtension.m"; sourceTree = "<group>"; };
 		F4EA423B1D6437F400D3C6D1 /* WSProgressHUD+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WSProgressHUD+DPExtension.h"; sourceTree = "<group>"; };
@@ -162,6 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F404EF841DA35917004109E9 /* YuXinSDK.framework in Frameworks */,
 				F43AE9601D3769380060020F /* libiconv.2.tbd in Frameworks */,
 				2669D56DD0714358F83FC980 /* libPods-YuXin.a in Frameworks */,
 			);
@@ -218,10 +212,10 @@
 		F4141DC21D34889A00286585 /* YuXin */ = {
 			isa = PBXGroup;
 			children = (
+				F404EF831DA35917004109E9 /* YuXinSDK.framework */,
 				F4D6D2F51D65CB3A00453A17 /* Utils */,
 				F4EA42381D6437F400D3C6D1 /* Category */,
 				F4EA423D1D6437F400D3C6D1 /* Resources */,
-				F4EA422E1D64376D00D3C6D1 /* YuXinSDK */,
 				F43AE96B1D3780560060020F /* Headers */,
 				F4141DF61D3499D600286585 /* Module */,
 				F4141DC61D34889A00286585 /* AppDelegate.h */,
@@ -413,19 +407,6 @@
 				F4D6D2F71D65CBA300453A17 /* DPTintView.m */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		F4EA422E1D64376D00D3C6D1 /* YuXinSDK */ = {
-			isa = PBXGroup;
-			children = (
-				F4EA422F1D64376D00D3C6D1 /* YuXinModel.h */,
-				F4EA42301D64376D00D3C6D1 /* YuXinModel.m */,
-				F4EA42311D64376D00D3C6D1 /* YuXinSDK.h */,
-				F4EA42321D64376D00D3C6D1 /* YuXinSDK.m */,
-				F4EA42331D64376D00D3C6D1 /* YuXinXmlParser.h */,
-				F4EA42341D64376D00D3C6D1 /* YuXinXmlParser.m */,
-			);
-			path = YuXinSDK;
 			sourceTree = "<group>";
 		};
 		F4EA42381D6437F400D3C6D1 /* Category */ = {
@@ -635,7 +616,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4EA42361D64376D00D3C6D1 /* YuXinSDK.m in Sources */,
 				F4B7C47E1D446AFC00E2E92E /* DPProfileItem.m in Sources */,
 				F447F1891D56CE3F0079E39E /* DPFriendListCell.m in Sources */,
 				F43AE9A51D3872610060020F /* DPLoginViewController.m in Sources */,
@@ -658,12 +638,10 @@
 				F448F78E1D44953500BD1E5C /* DPTabBarItem.m in Sources */,
 				F4C62DA21D43A93000538C03 /* DPAllPartViewController.m in Sources */,
 				F43AE9E41D3F5B290060020F /* DPBoardViewController.m in Sources */,
-				F4EA42371D64376D00D3C6D1 /* YuXinXmlParser.m in Sources */,
 				F447F1861D56CE040079E39E /* DPFriendListViewController.m in Sources */,
 				F43AE9D31D3A07990060020F /* DPArticleDetailCell.m in Sources */,
 				F404EF0E1DA200D1004109E9 /* UIViewController+DPExtension.m in Sources */,
 				F4EA42401D6437F400D3C6D1 /* WSProgressHUD+DPExtension.m in Sources */,
-				F4EA42351D64376D00D3C6D1 /* YuXinModel.m in Sources */,
 				F4B7C47F1D446AFC00E2E92E /* DPProfileViewController.m in Sources */,
 				F4EA423F1D6437F400D3C6D1 /* NSString+DPExtension.m in Sources */,
 				F4C62DA51D43C25E00538C03 /* VVSpringCollectionViewFlowLayout.m in Sources */,
@@ -815,8 +793,23 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3K65359Z5D;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/YuXin",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = YuXin/Headers/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/Shimmer\"",
+					"\"${PODS_ROOT}/Headers/Public/UITableView+FDTemplateLayoutCell\"",
+					"\"${PODS_ROOT}/Headers/Public/WSProgressHUD\"",
+					"\"$(SRCROOT)/YuXin/YuXinSDK.framework/Headers\"",
+				);
 				INFOPLIST_FILE = YuXin/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -835,8 +828,23 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3K65359Z5D;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/YuXin",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = YuXin/Headers/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/Shimmer\"",
+					"\"${PODS_ROOT}/Headers/Public/UITableView+FDTemplateLayoutCell\"",
+					"\"${PODS_ROOT}/Headers/Public/WSProgressHUD\"",
+					"\"$(SRCROOT)/YuXin/YuXinSDK.framework/Headers\"",
+				);
 				INFOPLIST_FILE = YuXin/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

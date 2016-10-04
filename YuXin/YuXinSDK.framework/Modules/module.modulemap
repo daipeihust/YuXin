@@ -1,0 +1,6 @@
+framework module YuXinSDK {
+  umbrella header "YuXinSDK.h"
+
+  export *
+  module * { export * }
+}

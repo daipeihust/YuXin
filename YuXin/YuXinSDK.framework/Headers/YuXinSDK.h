@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "YuXinXmlParser.h"
 #import "YuXinModel.h"
 
 typedef void(^CompletionHandler)(NSString *error, NSArray *responseModels);
