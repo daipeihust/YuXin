@@ -13,11 +13,10 @@
 
 @interface DPTabBar : UIView
 
-@property (nonatomic, weak) id<DPTabBarDelegate> delegate;
-@property (nonatomic, assign) NSUInteger selectedIndex;
+@property (nonatomic, readwrite, weak) id<DPTabBarDelegate> delegate;
+@property (nonatomic, readwrite, assign) NSUInteger selectedIndex;
 
 - (instancetype)initWithTabBarItems:(NSArray<DPTabBarItem *> *)items;
-
 
 @end
 
