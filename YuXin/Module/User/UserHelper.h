@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+@class YuXinFriend;
+@class YuXinUserInfo;
+
 typedef void(^MessageHandler)(NSString *message);
 typedef void(^FavouriteHandler)(NSString *error, NSArray *models);
 

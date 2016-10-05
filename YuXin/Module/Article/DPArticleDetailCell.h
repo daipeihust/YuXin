@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class YuXinArticle;
+
 typedef NS_ENUM(NSUInteger, DPArticleDetailCellType) {
     DPArticleDetailCellTypeArticle,
     DPArticleDetailCellTypeComment

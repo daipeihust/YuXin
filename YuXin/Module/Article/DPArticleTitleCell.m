@@ -7,6 +7,7 @@
 //
 
 #import "DPArticleTitleCell.h"
+#import "YuXinModel.h"
 
 @interface DPArticleTitleCell()
 

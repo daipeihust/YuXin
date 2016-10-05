@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class YuXinBoard;
+
 @interface DPBoardCell : UITableViewCell
 
 - (void)fileDataWithModel:(YuXinBoard *)model;

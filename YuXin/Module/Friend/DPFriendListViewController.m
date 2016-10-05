@@ -9,6 +9,7 @@
 #import "DPFriendListViewController.h"
 #import "DPFriendListCell.h"
 #import "DPUserInfoViewController.h"
+#import "YuXinSDK.h"
 
 @interface DPFriendListViewController () <UITableViewDelegate, UITableViewDataSource>
 

@@ -15,6 +15,7 @@
 #import "DPTintView.h"
 #import "UserHelper.h"
 #import "UIDevice+DPExtension.h"
+#import "YuXinSDK.h"
 
 @protocol DPCommentTextPlaceDelegate;
 

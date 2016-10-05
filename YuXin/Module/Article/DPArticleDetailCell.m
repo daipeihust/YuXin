@@ -8,7 +8,7 @@
 
 #import "DPArticleDetailCell.h"
 #import "UserHelper.h"
-
+#import "YuXinSDK.h"
 
 @interface DPArticleDetailCell()
 

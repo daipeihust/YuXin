@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class YuXinFriend;
+
 @interface DPFriendListCell : UITableViewCell
 
 - (void)fillDataWithModel:(YuXinFriend *)model;

@@ -15,6 +15,7 @@
 #import "DPPostArticleViewController.h"
 #import "DPUserInfoViewController.h"
 #import "DPTintView.h"
+#import "YuXinSDK.h"
 
 @interface DPArticleTitleViewController() <UITableViewDelegate, UITableViewDataSource, DPArticleTitleCellDelegate, DPPostArticleViewControllerDelegate, DPArticleDetailViewControllerDelegate, DPTintViewDelegate>
 

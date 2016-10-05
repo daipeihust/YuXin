@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class YuXinTitle;
+
 @protocol DPArticleTitleCellDelegate;
 
 @interface DPArticleTitleCell : UITableViewCell

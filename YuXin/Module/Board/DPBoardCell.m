@@ -7,6 +7,9 @@
 //
 
 #import "DPBoardCell.h"
+#import "YuXinModel.h"
+
+@class YuXinBoard;
 
 @interface DPBoardCell()
 

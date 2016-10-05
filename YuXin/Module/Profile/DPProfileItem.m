@@ -8,6 +8,7 @@
 
 #import "DPProfileItem.h"
 #import "UserHelper.h"
+#import "YuXinModel.h"
 
 @implementation DPProfileItem
 

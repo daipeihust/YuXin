@@ -10,6 +10,7 @@
 #import "UserHelper.h"
 #import "WSProgressHUD+DPExtension.h"
 #import "UIDevice+DPExtension.h"
+#import "YuXinSDK.h"
 
 typedef NS_ENUM(NSInteger, DPPostArticleButtonType) {
     DPPostArticleButtonTypePost,
