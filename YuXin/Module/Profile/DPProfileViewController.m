@@ -15,6 +15,28 @@
 #import "DPUserInfoViewController.h"
 #import "UIViewController+MailComposer.h"
 
+typedef NS_ENUM(NSUInteger, DPProfileSection) {
+    DPProfileSectionOne     = 0,
+    DPProfileSectionTwo     = 1,
+    DPProfileSectionThree   = 2,
+    DPProfileSectionFour    = 3,
+    DPProfileSectionFive    = 4
+};
+
+typedef NS_ENUM(NSUInteger, DPProfileRow) {
+    DPProfileRowOne     = 0,
+    DPProfileRowTwo     = 1,
+    DPProfileRowThree   = 2,
+    DPProfileRowFour    = 3
+};
+
+static const NSUInteger rowNumOfSectionOne = 1;
+static const NSUInteger rowNumOfSectionTwo = 1;
+static const NSUInteger rowNumOfSectionThree = 4;
+static const NSUInteger rowNumOfSectionFour = 2;
+static const NSUInteger rowNumOfSectionFive = 1;
+
+static const NSUInteger numOfSection = 5;
 
 @interface DPProfileViewController () <UITableViewDelegate, UITableViewDataSource, DPProfileCellDelegate>
 
@@ -69,25 +91,21 @@
     }];
 }
 
-#pragma mark - Action Method
-
-
-
 #pragma mark - DPProfileCellDelegate
 
 - (void)switchChangeTo:(BOOL)state atIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.item) {
-        case 0:
+        case DPProfileRowOne:
             [UserHelper sharedInstance].autoLogin = state;
             break;
-        case 1:
+        case DPProfileRowTwo:
             [UserHelper sharedInstance].showColorfulText = state;
             break;
-        case 2:
+        case DPProfileRowThree:
             [UserHelper sharedInstance].flexibleHome = state;
             [[NSNotificationCenter defaultCenter] postNotificationName:DPNotificationFlexibleHome object:nil];
             break;
-        case 3:
+        case DPProfileRowFour:
             [UserHelper sharedInstance].showSignature = state;
             break;
         default:
@@ -99,7 +117,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGFloat rowHeight;
-    if (indexPath.section == 0) {
+    if (indexPath.section == DPProfileSectionOne) {
         rowHeight = 80.f;
     }else {
         rowHeight = 44.f;
@@ -113,7 +131,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 2) {
+    if (indexPath.section == DPProfileSectionThree) {
         return NO;
     }else {
         return YES;
@@ -121,7 +139,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
+    if (section == DPProfileSectionOne) {
         return DPProfileTableViewHeaderHeight * 2;
     }
     return DPProfileTableViewHeaderHeight;
@@ -160,7 +178,7 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 5;
+    return numOfSection;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -173,20 +191,20 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case 0:
-            return 1;
+        case DPProfileSectionOne:
+            return rowNumOfSectionOne;
             break;
-        case 1:
-            return 1;
+        case DPProfileSectionTwo:
+            return rowNumOfSectionTwo;
             break;
-        case 2:
-            return 4;
+        case DPProfileSectionThree:
+            return rowNumOfSectionThree;
             break;
-        case 3:
-            return 2;
+        case DPProfileSectionFour:
+            return rowNumOfSectionFour;
             break;
-        case 4:
-            return 1;
+        case DPProfileSectionFive:
+            return rowNumOfSectionFive;
             break;
         default:
             break;
@@ -198,41 +216,41 @@
 
 - (DPProfileItemType)itemTypeWithIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case 0:
+        case DPProfileSectionOne:
             return DPProfileItemTypeUserInfo;
             break;
-        case 1:
+        case DPProfileSectionTwo:
             return DPProfileItemTypeFriend;
             break;
-        case 2:
+        case DPProfileSectionThree:
             switch (indexPath.row) {
-                case 0:
+                case DPProfileRowOne:
                     return DPProfileItemTypeAutoLogin;
                     break;
-                case 1:
+                case DPProfileRowTwo:
                     return DPProfileItemTypeColorfulText;
                     break;
-                case 2:
+                case DPProfileRowThree:
                     return DPProfileItemTypeFlexibleHome;
                     break;
-                case 3:
+                case DPProfileRowFour:
                     return DPProfileItemTypeShowSignature;
                     break;
             }
             break;
-        case 3:
+        case DPProfileSectionFour:
             switch (indexPath.row) {
-                case 0:
+                case DPProfileRowOne:
                     return DPProfileItemTypeAboutUs;
                     break;
-                case 1:
+                case DPProfileRowTwo:
                     return DPProfileItemTypeFeedback;
                     break;
                 default:
                     break;
             }
             break;
-        case 4:
+        case DPProfileSectionFive:
             return DPProfileItemTypeLogout;
             break;
     }
@@ -263,18 +281,17 @@
 
 - (NSString *)reuseIdentifierWithIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case 0:
+        case DPProfileSectionOne:
             return DPProfileUserCellReuseIdentifier;
             break;
-        case 1:
-        case 3:
-        case 4:
+        case DPProfileSectionTwo:
+        case DPProfileSectionFour:
+        case DPProfileSectionFive:
             return DPProfileNormalCellReuseIdentifier;
             break;
-        case 2:
+        case DPProfileSectionThree:
             return DPProfileSwitchCellReuseIdentifier;
             break;
-            
         default:
             return DPProfileNormalCellReuseIdentifier;
             break;
