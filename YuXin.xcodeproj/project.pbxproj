@@ -10,9 +10,9 @@
 		2669D56DD0714358F83FC980 /* libPods-YuXin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D88FEAC9FB8826027229EC8 /* libPods-YuXin.a */; };
 		F404EF0E1DA200D1004109E9 /* UIViewController+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F404EF0D1DA200D1004109E9 /* UIViewController+DPExtension.m */; };
 		F404EF111DA26683004109E9 /* UIDevice+DPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = F404EF101DA26683004109E9 /* UIDevice+DPExtension.m */; };
-		F404EF841DA35917004109E9 /* YuXinSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F404EF831DA35917004109E9 /* YuXinSDK.framework */; };
 		F404EF941DA525CA004109E9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F404EF931DA525CA004109E9 /* UIKit.framework */; };
 		F404EF961DA525D6004109E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F404EF951DA525D6004109E9 /* Foundation.framework */; };
+		F404EFA21DA75697004109E9 /* YuXinSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F404EFA11DA75697004109E9 /* YuXinSDK.framework */; };
 		F4141DC51D34889A00286585 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DC41D34889A00286585 /* main.m */; };
 		F4141DC81D34889A00286585 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F4141DC71D34889A00286585 /* AppDelegate.m */; };
 		F4141DCE1D34889A00286585 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4141DCC1D34889A00286585 /* Main.storyboard */; };
@@ -75,9 +75,9 @@
 		F404EF0D1DA200D1004109E9 /* UIViewController+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DPExtension.m"; sourceTree = "<group>"; };
 		F404EF0F1DA26683004109E9 /* UIDevice+DPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+DPExtension.h"; sourceTree = "<group>"; };
 		F404EF101DA26683004109E9 /* UIDevice+DPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+DPExtension.m"; sourceTree = "<group>"; };
-		F404EF831DA35917004109E9 /* YuXinSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YuXinSDK.framework; sourceTree = "<group>"; };
 		F404EF931DA525CA004109E9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F404EF951DA525D6004109E9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F404EFA11DA75697004109E9 /* YuXinSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YuXinSDK.framework; sourceTree = "<group>"; };
 		F4141DC01D34889A00286585 /* 喻信星空.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "喻信星空.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4141DC41D34889A00286585 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F4141DC61D34889A00286585 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -159,9 +159,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F404EFA21DA75697004109E9 /* YuXinSDK.framework in Frameworks */,
 				F404EF961DA525D6004109E9 /* Foundation.framework in Frameworks */,
 				F404EF941DA525CA004109E9 /* UIKit.framework in Frameworks */,
-				F404EF841DA35917004109E9 /* YuXinSDK.framework in Frameworks */,
 				F43AE9601D3769380060020F /* libiconv.2.tbd in Frameworks */,
 				2669D56DD0714358F83FC980 /* libPods-YuXin.a in Frameworks */,
 			);
@@ -218,7 +218,7 @@
 		F4141DC21D34889A00286585 /* YuXin */ = {
 			isa = PBXGroup;
 			children = (
-				F404EF831DA35917004109E9 /* YuXinSDK.framework */,
+				F404EFA11DA75697004109E9 /* YuXinSDK.framework */,
 				F4D6D2F51D65CB3A00453A17 /* Utils */,
 				F4EA42381D6437F400D3C6D1 /* Category */,
 				F4EA423D1D6437F400D3C6D1 /* Resources */,
